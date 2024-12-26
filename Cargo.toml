@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 yew = { version = "0.21.0", features = ["csr"] }
+yew-router = "0.18.0"
 
 [workspace.lints.rust]
 warnings = "warn"
