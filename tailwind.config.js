@@ -6,9 +6,18 @@ module.exports = {
     },
     plugins: [
         require('daisyui'),
+        require('@tailwindcss/forms')({
+            strategy: 'base',
+            strategy: 'class',
+        }),
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/container-queries'),
+        require('tailwindcss-animate'),
+        require('tailwindcss-opentype'),
     ],
+
     daisyui: {
-        themes: ["forest", "fantasy"],
+        themes: true,
         darkTheme: "dark",
         base: true,
         styled: true,
