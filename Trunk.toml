@@ -1,5 +1,11 @@
 [build]
 target = "index.html"
+release = false
+dist = "dist"
+public_url = "/"
+filehash = true
+inject_scripts = true
+
 
 [serve]
 addresses = ["127.0.0.1"]
