@@ -1,0 +1,28 @@
+[package]
+name = "portfolio-web-app"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+yew = { version = "0.21.0", features = ["csr"] }
+
+[workspace.lints.rust]
+warnings = "warn"
+deprecated-safe = "warn"
+future-incompatible = "warn"
+keyword-idents = "warn"
+let-underscore = "warn"
+nonstandard-style = "warn"
+refining-impl-trait = "warn"
+rust-2024-compatibility = "warn"
+unused = "warn"
+
+[workspace.lints.clippy]
+correctness = "warn"
+suspicious = "warn"
+complexity = "warn"
+perf = "warn"
+style = "warn"
+pedantic = "warn"
+restriction = "warn"
+cargo = "warn"

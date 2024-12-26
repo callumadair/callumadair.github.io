@@ -1,1 +1,5 @@
-./.idea
+/target
+/node_modules
+/.idea
+/output.css
+/dist
