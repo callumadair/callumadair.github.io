@@ -1,0 +1,6 @@
+services:
+  dev-server:
+    build: .
+    command: trunk serve
+    ports:
+      - "12000:12000"
