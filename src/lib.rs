@@ -1,10 +1,16 @@
-use crate::error::pages::{
-    Forbidden, IAmTeapot, NotFound, Unauthorized, UnavailableForLegalReasons, UnsupportedMediaType,
+use crate::{
+    error::pages::{
+        Forbidden, IAmTeapot, NotFound, Unauthorized, UnavailableForLegalReasons,
+        UnsupportedMediaType,
+    },
+    pages::reading::ReadingBase,
 };
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+mod components;
 mod error;
+mod pages;
 
 #[derive(Clone, Routable, PartialEq)]
 enum Route {
@@ -23,6 +29,8 @@ enum Route {
     UnsupportedMediaType,
     #[at("/451")]
     UnavailableForLegalReasons,
+    #[at("/reading")]
+    Reading,
 }
 
 #[function_component(App)]
@@ -43,16 +51,17 @@ fn switch(routes: Route) -> Html {
         Route::ImATeapot => html! { <IAmTeapot/> },
         Route::UnsupportedMediaType => html! { <UnsupportedMediaType/> },
         Route::UnavailableForLegalReasons => html! { <UnavailableForLegalReasons/> },
+        Route::Reading => html! { <ReadingBase/> },
     }
 }
 
 #[function_component(Home)]
 pub fn home() -> Html {
     html! {
-        <>
-            <h1 class="text-primary">
+        <div class="h-screen flex justify-center items-center">
+            <h1 class="text-info text-4xl">
                 {"Hello, world!"}
             </h1>
-        </>
+        </div>
     }
 }
