@@ -17,7 +17,7 @@ module.exports = {
     ],
 
     daisyui: {
-        themes: ["emerald", "business"],
+        themes: ["corporate", "business"],
         darkTheme: "business",
         base: true,
         styled: true,

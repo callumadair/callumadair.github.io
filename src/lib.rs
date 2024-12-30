@@ -1,3 +1,5 @@
+use crate::navigation::Navbar;
+use crate::pages::projects::ProjectBase;
 use crate::{
     error::pages::{
         Forbidden, IAmTeapot, NotFound, Unauthorized, UnavailableForLegalReasons,
@@ -10,6 +12,7 @@ use yew_router::prelude::*;
 
 mod components;
 mod error;
+mod navigation;
 mod pages;
 
 #[derive(Clone, Routable, PartialEq)]
@@ -30,13 +33,16 @@ enum Route {
     #[at("/451")]
     UnavailableForLegalReasons,
     #[at("/reading")]
-    Reading,
+    ReadingList,
+    #[at("/projects")]
+    Projects,
 }
 
 #[function_component(App)]
 pub fn app() -> Html {
     html! {
         <BrowserRouter>
+            <Navbar/>
             <Switch<Route> render={switch} />
         </BrowserRouter>
     }
@@ -51,7 +57,8 @@ fn switch(routes: Route) -> Html {
         Route::ImATeapot => html! { <IAmTeapot/> },
         Route::UnsupportedMediaType => html! { <UnsupportedMediaType/> },
         Route::UnavailableForLegalReasons => html! { <UnavailableForLegalReasons/> },
-        Route::Reading => html! { <ReadingBase/> },
+        Route::ReadingList => html! { <ReadingBase/> },
+        Route::Projects => html! { <ProjectBase/>},
     }
 }
 
