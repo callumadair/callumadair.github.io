@@ -1,6 +1,19 @@
 use yew::prelude::*;
 
 #[function_component(ProjectBase)]
-pub fn project_base() -> Html {
-    html! {}
+pub fn base() -> Html {
+    html! {
+        <div class="h-screen flex items-center justify-center text-center">
+            <CurrentProjects/>
+        </div>
+    }
+}
+
+#[function_component(CurrentProjects)]
+fn current() -> Html {
+    html! {
+        <caption class="text-2xl text-primary text-nowrap">
+            { "Current Projects" }
+        </caption>
+    }
 }
