@@ -1,22 +1,104 @@
-use crate::navigation::Navbar;
-use crate::pages::projects::ProjectBase;
-use crate::{
-    error::pages::{
-        Forbidden, IAmTeapot, NotFound, Unauthorized, UnavailableForLegalReasons,
-        UnsupportedMediaType,
+use std::rc::Rc;
+
+use gloo::{
+    storage::{
+        LocalStorage,
+        Storage,
     },
-    pages::reading::ReadingBase,
+    utils::document,
+};
+use serde::{
+    Deserialize,
+    Serialize,
+};
+use strum::{
+    AsRefStr,
+    Display,
+    EnumIter,
 };
 use yew::prelude::*;
 use yew_router::prelude::*;
+
+use crate::{
+    error::pages::{
+        Forbidden,
+        IAmTeapot,
+        NotFound,
+        Unauthorized,
+        UnavailableForLegalReasons,
+        UnsupportedMediaType,
+    },
+    navigation::Navbar,
+    pages::{
+        projects::ProjectBase,
+        reading::ReadingBase,
+    },
+};
 
 mod components;
 mod error;
 mod navigation;
 mod pages;
 
+const THEME_ATTRIBUTE_NAME: &str = "data-theme";
+const THEME_STORAGE_KEY: &str = "current-theme-name";
+
+#[derive(
+    Default, PartialEq, Eq, Clone, Copy, Display, AsRefStr, EnumIter, Serialize, Deserialize,
+)]
+#[strum(serialize_all = "lowercase")]
+pub(crate) enum Theme
+{
+    #[default]
+    Dark,
+    Light,
+    Cupcake,
+    Bumblebee,
+    Emerald,
+    Corporate,
+    Synthwave,
+    Retro,
+    Cyberpunk,
+    Valentine,
+    Halloween,
+    Garden,
+    Forest,
+    Aqua,
+    Lofi,
+    Pastel,
+    Fantasy,
+    Wireframe,
+    Black,
+    Luxury,
+    Dracula,
+    Cmyk,
+    Autumn,
+    Business,
+    Acid,
+    Lemonade,
+    Night,
+    Coffee,
+    Winter,
+    Dim,
+    Nord,
+    Sunset,
+}
+
+impl Reducible for Theme
+{
+    type Action = Self;
+
+    fn reduce(
+        self: Rc<Self>,
+        action: Self::Action,
+    ) -> Rc<Self>
+    {
+        Rc::from(action)
+    }
+}
 #[derive(Clone, Routable, PartialEq)]
-enum Route {
+enum Route
+{
     #[at("/")]
     Home,
     #[at("/401")]
@@ -39,17 +121,31 @@ enum Route {
 }
 
 #[function_component(App)]
-pub fn app() -> Html {
+pub fn app() -> Html
+{
+    let theme = LocalStorage::get::<Theme>(THEME_STORAGE_KEY).unwrap_or(Theme::default());
+    let theme = use_state_eq(|| theme);
+
+    document()
+        .document_element()
+        .expect("Failed getting root document as element.")
+        .set_attribute(THEME_ATTRIBUTE_NAME, (*theme).as_ref())
+        .expect("Failed setting the theme value.");
+
     html! {
-        <BrowserRouter>
-            <Navbar/>
-            <Switch<Route> render={switch} />
-        </BrowserRouter>
+        <ContextProvider<UseStateHandle<Theme>> context={theme}>
+            <BrowserRouter>
+                <Navbar/>
+                <Switch<Route> render={switch} />
+            </BrowserRouter>
+        </ContextProvider<UseStateHandle<Theme>>>
     }
 }
 
-fn switch(routes: Route) -> Html {
-    match routes {
+fn switch(routes: Route) -> Html
+{
+    match routes
+    {
         Route::Home => html! { <Home/> },
         Route::Unauthorized => html! { <Unauthorized/> },
         Route::Forbidden => html! { <Forbidden/> },
@@ -63,7 +159,8 @@ fn switch(routes: Route) -> Html {
 }
 
 #[function_component(Home)]
-pub fn home() -> Html {
+pub fn home() -> Html
+{
     html! {
         <div class="h-screen flex justify-center items-center">
             <h1 class="text-info text-4xl">
