@@ -30,6 +30,7 @@ use crate::{
     pages::{
         projects::ProjectBase,
         reading::ReadingBase,
+        software::SoftwareBase,
     },
 };
 
@@ -104,6 +105,8 @@ enum Route
     ReadingList,
     #[at("/projects")]
     Projects,
+    #[at("/software")]
+    Software,
 }
 
 #[function_component(App)]
@@ -140,7 +143,11 @@ fn switch(routes: Route) -> Html
         Route::UnsupportedMediaType => html! { <UnsupportedMediaType/> },
         Route::UnavailableForLegalReasons => html! { <UnavailableForLegalReasons/> },
         Route::ReadingList => html! { <ReadingBase/> },
-        Route::Projects => html! { <ProjectBase/>},
+        Route::Projects => html! { <ProjectBase/> },
+        Route::Software =>
+        {
+            html! { <SoftwareBase/> }
+        }
     }
 }
 

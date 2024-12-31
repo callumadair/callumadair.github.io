@@ -2,6 +2,7 @@ use capitalize::Capitalize;
 use gloo::storage::Storage;
 use lucide_yew::{
     ChevronDown,
+    House,
     PanelLeft,
 };
 use strum::IntoEnumIterator;
@@ -18,6 +19,7 @@ use crate::{
 pub(crate) fn navbar() -> Html
 {
     html! {
+        // This is just to enable the menu sidebar.
         <div class="drawer">
 
             <input id="my-drawer"
@@ -25,18 +27,21 @@ pub(crate) fn navbar() -> Html
                 class="drawer-toggle"
             />
 
+            // Actual navbar stuff goes here.
             <div class="drawer-content flex flex-col">
 
                 <div class="navbar w-full bg-primary-content text-primary">
 
                     <div class="navbar-start space-x-2">
                         <MenuToggle/>
-                        <HomeLink/>
                         <ReadingLink/>
                         <ProjectLink/>
+                        <SoftwareLink/>
                     </div>
 
-                    <div class="navbar-center"/>
+                    <div class="navbar-center">
+                        <HomeLink/>
+                    </div>
 
                     <div class="navbar-end space-x-2">
                         <ThemeControl/>
@@ -46,19 +51,8 @@ pub(crate) fn navbar() -> Html
 
             </div>
 
-            <div class="drawer-side">
-
-                <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"/>
-
-                <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
-
-                    <li><a>{"Totally an item"}</a></li>
-
-                    <li><a>{"Totally another item"}</a></li>
-
-                </ul>
-
-            </div>
+            // Sidebar stuff goes here
+            <MenuContent/>
 
         </div>
 
@@ -66,7 +60,7 @@ pub(crate) fn navbar() -> Html
 }
 
 #[function_component(MenuToggle)]
-fn menu() -> Html
+fn menu_toggle() -> Html
 {
     html! {
         <label
@@ -75,6 +69,26 @@ fn menu() -> Html
         >
             <PanelLeft size=20 />
         </label>
+    }
+}
+
+#[function_component(MenuContent)]
+fn menu_content() -> Html
+{
+    html! {
+        <div class="drawer-side">
+
+            <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"/>
+
+            <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+
+                <li><a>{"Totally an item"}</a></li>
+
+                <li><a>{"Totally another item"}</a></li>
+
+            </ul>
+
+        </div>
     }
 }
 
@@ -90,6 +104,7 @@ fn home() -> Html
             class="btn btn-ghost"
             {onclick}
         >
+            <House/>
             {"Home"}
         </a>
     }
@@ -125,6 +140,23 @@ fn project() -> Html
             {onclick}
         >
             {"Projects"}
+        </a>
+    }
+}
+
+#[function_component(SoftwareLink)]
+fn software() -> Html
+{
+    let navigator = use_navigator().expect("Failed getting navigator hook.");
+
+    let onclick = Callback::from(move |_| navigator.push(&Route::Software));
+
+    html! {
+        <a
+            class="btn btn-ghost"
+            {onclick}
+        >
+        {"Software"}
         </a>
     }
 }
