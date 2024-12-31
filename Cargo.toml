@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+capitalize = "0.3.4"
 gloo = "0.11.0"
 lucide-yew = "1.1.0"
 serde = { version = "1.0.217", features = ["derive"] }
