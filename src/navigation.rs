@@ -1,6 +1,9 @@
 use capitalize::Capitalize;
 use gloo::storage::Storage;
-use lucide_yew::Menu;
+use lucide_yew::{
+    ChevronDown,
+    PanelLeft,
+};
 use strum::IntoEnumIterator;
 use yew::prelude::*;
 use yew_router::prelude::*;
@@ -15,20 +18,46 @@ use crate::{
 pub(crate) fn navbar() -> Html
 {
     html! {
-        <div class="navbar bg-primary-content text-primary">
+        <div class="drawer">
 
-            <div class="navbar-start space-x-2">
-                <MenuToggle/>
-                <HomeLink/>
-                <ReadingLink/>
-                <ProjectLink/>
+            <input id="my-drawer"
+                type="checkbox"
+                class="drawer-toggle"
+            />
+
+            <div class="drawer-content flex flex-col">
+
+                <div class="navbar w-full bg-primary-content text-primary">
+
+                    <div class="navbar-start space-x-2">
+                        <MenuToggle/>
+                        <HomeLink/>
+                        <ReadingLink/>
+                        <ProjectLink/>
+                    </div>
+
+                    <div class="navbar-center"/>
+
+                    <div class="navbar-end space-x-2">
+                        <ThemeControl/>
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="navbar-center">
-            </div>
+            <div class="drawer-side">
 
-            <div class="navbar-end space-x-2">
-                <ThemeControl/>
+                <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"/>
+
+                <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+
+                    <li><a>{"Totally an item"}</a></li>
+
+                    <li><a>{"Totally another item"}</a></li>
+
+                </ul>
+
             </div>
 
         </div>
@@ -40,7 +69,12 @@ pub(crate) fn navbar() -> Html
 fn menu() -> Html
 {
     html! {
-        <Menu/>
+        <label
+            for="my-drawer"
+            class="btn btn-ghost drawer-button"
+        >
+            <PanelLeft size=20 />
+        </label>
     }
 }
 
@@ -108,15 +142,7 @@ fn theme() -> Html
 
             {"Theme"}
 
-            <svg
-              width="12px"
-              height="12px"
-              class="inline-block h-2 w-2 fill-current opacity-60"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 2048 2048"
-            >
-              <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"/>
-            </svg>
+            <ChevronDown/>
 
           </div>
 
