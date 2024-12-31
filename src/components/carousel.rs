@@ -1,15 +1,17 @@
 use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
-pub struct CarouselProps {
+pub struct CarouselProps
+{
     #[prop_or_default]
     pub img_paths: Vec<AttrValue>,
     #[prop_or_default]
-    pub class: Classes,
+    pub class:     Classes,
 }
 
 #[function_component(Carousel)]
-pub fn carousel_view(props: &CarouselProps) -> Html {
+pub fn carousel_view(props: &CarouselProps) -> Html
+{
     let carousel_contents = props
         .img_paths
         .clone()

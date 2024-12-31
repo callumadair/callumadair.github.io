@@ -1,8 +1,10 @@
-use crate::components::carousel::Carousel;
 use yew::prelude::*;
 
+use crate::components::carousel::Carousel;
+
 #[function_component(ReadingBase)]
-pub fn base() -> Html {
+pub fn base() -> Html
+{
     html! {
         <div class="flex items-center justify-center text-center">
             <CurrentReading/>
@@ -11,7 +13,8 @@ pub fn base() -> Html {
 }
 
 #[function_component(CurrentReading)]
-fn current() -> Html {
+fn current() -> Html
+{
     let img_paths = vec![
         AttrValue::from("assets/networking.jpg"),
         AttrValue::from("assets/linux.jpg"),
