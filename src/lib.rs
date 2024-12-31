@@ -1,5 +1,3 @@
-use std::rc::Rc;
-
 use gloo::{
     storage::{
         LocalStorage,
@@ -84,18 +82,6 @@ pub(crate) enum Theme
     Sunset,
 }
 
-impl Reducible for Theme
-{
-    type Action = Self;
-
-    fn reduce(
-        self: Rc<Self>,
-        action: Self::Action,
-    ) -> Rc<Self>
-    {
-        Rc::from(action)
-    }
-}
 #[derive(Clone, Routable, PartialEq)]
 enum Route
 {
