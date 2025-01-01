@@ -22,31 +22,31 @@ pub fn base<T: PartialEq + ToHtml>(props: &TableProps<T>) -> Html
         caption,
         cols,
         rows,
-    } = props.clone();
+    } = props;
 
     html! {
-        <div class="overflow-x-auto bg-neutral rounded-md p-3 w-full">
+        <div class="overflow-auto rounded-lg bg-primary-content p-3 w-full">
 
-            <table class="table table-md w-full">
+            <table class="table table-pin-cols table-md w-full">
 
-                <caption class="text-left caption-top">
+                <caption class="text-left text-lg caption-top">
 
                     { caption.to_string() }
 
                 </caption>
 
-                <thead class="text-primary">
+                <thead class="text-bold text-primary">
 
                     <tr>
 
                     {
                         cols.iter().map(|col_header| {
                             html!{
-                                <th>
+                                <td>
 
                                     {col_header}
 
-                                </th>
+                                </td>
                             }
                         }).collect::<Html>()
                     }
@@ -55,7 +55,7 @@ pub fn base<T: PartialEq + ToHtml>(props: &TableProps<T>) -> Html
 
                 </thead>
 
-                <tbody class="text-secondary">
+                <tbody class="">
 
                     {rows}
 
