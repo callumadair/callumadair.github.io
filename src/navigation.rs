@@ -172,7 +172,7 @@ fn theme() -> Html
     html! {
         <div class="dropdown dropdown-end">
 
-            <div class="tooltip tooltip-left tooltip-info" data-tip="Change the display theme here">
+            <div class="tooltip tooltip-left tooltip-info" data-tip="Theme">
 
               <div tabindex="0" role="button" class="btn btn-ghost">
 
