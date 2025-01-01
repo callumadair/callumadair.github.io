@@ -198,10 +198,8 @@ fn theme_content() -> Html
     Theme::iter()
         .map(|theme_variant| {
             let onclick = {
-                let theme = theme.clone();
-                let theme_variant = theme_variant.clone();
+                crate::clone!(theme, theme_variant);
                 Callback::from(move |_| {
-                    let theme_variant = theme_variant.clone();
                     gloo::storage::LocalStorage::set(THEME_STORAGE_KEY, theme_variant)
                         .expect("Failed updating stored theme.");
                     theme.set(theme_variant)
