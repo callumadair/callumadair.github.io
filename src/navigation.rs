@@ -167,16 +167,22 @@ fn software() -> Html
 #[function_component(ThemeControl)]
 fn theme() -> Html
 {
+    let theme = use_context::<UseStateHandle<Theme>>().expect("Failed getting theme hook.");
+
     html! {
         <div class="dropdown dropdown-end">
 
-          <div tabindex="0" role="button" class="btn btn-ghost">
+            <div class="tooltip tooltip-left tooltip-info" data-tip="Change the display theme here">
 
-            {"Theme"}
+              <div tabindex="0" role="button" class="btn btn-ghost">
 
-            <ChevronDown/>
+                {(*theme).clone().capitalize()}
 
-          </div>
+                <ChevronDown/>
+
+              </div>
+
+            </div>
 
           <ul tabindex="0"
             class="dropdown-content max-h-80 overflow-auto bg-base-300 rounded-box z-[1] w-52 p-2 shadow-2xl"
