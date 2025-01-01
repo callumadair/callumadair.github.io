@@ -38,6 +38,7 @@ mod components;
 mod error;
 mod navigation;
 mod pages;
+mod macros;
 
 const THEME_ATTRIBUTE_NAME: &str = "data-theme";
 const THEME_STORAGE_KEY: &str = "current-theme-name";
