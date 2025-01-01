@@ -25,17 +25,17 @@ pub fn base<T: PartialEq + ToHtml>(props: &TableProps<T>) -> Html
     } = props.clone();
 
     html! {
-        <div class="overflow-x-auto">
+        <div class="overflow-x-auto bg-neutral rounded-md p-3 w-full">
 
-            <table class="table table-sm">
+            <table class="table table-md w-full">
 
-                <caption class="text-left text-lg caption-top">
+                <caption class="text-left caption-top">
 
                     { caption.to_string() }
 
                 </caption>
 
-                <thead>
+                <thead class="text-primary">
 
                     <tr>
 
@@ -55,7 +55,7 @@ pub fn base<T: PartialEq + ToHtml>(props: &TableProps<T>) -> Html
 
                 </thead>
 
-                <tbody>
+                <tbody class="text-secondary">
 
                     {rows}
 

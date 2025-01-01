@@ -50,7 +50,7 @@ impl ToHtml for CLIToolsRow
 pub fn base() -> Html
 {
     html! {
-        <div class="flex items-center justify-center text-center">
+        <div class="flex space-y-4 p-3">
             <CLIBase/>
         </div>
     }
@@ -64,7 +64,7 @@ fn cli_tools() -> Html
     let rows = get_rows();
 
     html! {
-        <div class="flex flex-col text-primary">
+        <div class="flex flex-col w-full text-primary">
 
             <Table<CLIToolsRow> caption="CLI Tools I like"
                 {cols}
