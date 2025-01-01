@@ -20,11 +20,11 @@ fn current() -> Html
         AttrValue::from("assets/linux.jpg"),
     ];
     html! {
-        <>
+        <div class="flex flex-col my-3">
             <caption class="text-2xl text-primary text-nowrap">
                 { "Current reading" }
             </caption>
             <Carousel {img_paths} class="w-80"/>
-        </>
+        </div>
     }
 }
