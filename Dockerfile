@@ -10,6 +10,8 @@ COPY . /portfolio-web-app
 
 WORKDIR /portfolio-web-app
 
+RUN ~/.bun/bin/bun i -D daisyui@latest
+
 LABEL authors="cal"
 
 CMD trunk serve
