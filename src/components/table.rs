@@ -1,7 +1,10 @@
 use std::rc::Rc;
 
 use web_sys::{
-    wasm_bindgen::JsValue,
+    wasm_bindgen::{
+        JsCast,
+        JsValue,
+    },
     HtmlInputElement,
 };
 use yew::prelude::*;
@@ -40,16 +43,14 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
     } = props;
 
     let search_id: AttrValue = format!("{}-search", id).into();
-    let rows = use_state_eq(|| rows.clone());
+    let rows = use_state(|| props.rows.clone());
+    let display_rows = use_state(|| props.rows.clone());
 
-    let onchange = {
-        clone!(props, search_id, rows);
-        Callback::from(move |_| {
-            clone!(props, rows, search_id);
-            if !search_table(rows.clone(), search_id)
-            {
-                rows.set(props.rows.clone());
-            }
+    let onkeyup = {
+        clone!(rows, display_rows);
+        Callback::from(move |event: KeyboardEvent| {
+            clone!(rows, display_rows);
+            search_table(event, rows, display_rows);
         })
     };
 
@@ -60,7 +61,7 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
                 html! {
                     <div class="mb-3">
                         <SearchInput id={search_id}
-                            {onchange}
+                            {onkeyup}
                         />
                     </div>
                 }
@@ -102,7 +103,7 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
 
                 <tbody class="">
 
-                    {(*rows).clone()}
+                    {(*display_rows).clone()}
 
                 </tbody>
 
@@ -113,33 +114,22 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
 }
 
 fn search_table<T: PartialEq + ToHtml + Clone + Contains + 'static>(
+    evt: KeyboardEvent,
     rows: UseStateHandle<Vec<T>>,
-    input_id: AttrValue,
-) -> bool
+    display_rows: UseStateHandle<Vec<T>>,
+)
 {
-    let input_element: HtmlInputElement = JsValue::from(
-        gloo::utils::document()
-            .get_element_by_id(input_id.as_ref())
-            .expect("Failed getting search input element."),
-    )
-    .into();
+    let input_value = evt
+        .target()
+        .expect("Event should have an originating target when dispatched.")
+        .unchecked_into::<HtmlInputElement>()
+        .value();
 
-    gloo::console::log!(input_element.value());
-    let input_value = input_element.value();
     let new_rows = (*rows)
         .clone()
         .into_iter()
         .filter(|row| row.contains(&input_value))
         .collect::<Vec<T>>();
 
-    rows.set(new_rows);
-
-    if input_value == ""
-    {
-        false
-    }
-    else
-    {
-        true
-    }
+    display_rows.set(new_rows);
 }

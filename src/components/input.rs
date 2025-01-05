@@ -13,18 +13,18 @@ pub fn file() -> Html
     html! {}
 }
 
-#[derive(Properties, PartialEq)]
+#[derive(Properties, PartialEq, Clone)]
 pub struct SearchInputProps
 {
-    pub id:       AttrValue,
-    #[prop_or_default]
-    pub onchange: Callback<Event>,
+    pub id:      AttrValue,
+    pub onkeyup: Callback<KeyboardEvent>,
 }
 
 #[function_component(SearchInput)]
 pub fn search(props: &SearchInputProps) -> Html
 {
-    let SearchInputProps { id, onchange } = props;
+    let SearchInputProps { id, onkeyup } = props.clone();
+
     html! {
         <label class="input input-bordered flex items-center">
 
@@ -32,7 +32,7 @@ pub fn search(props: &SearchInputProps) -> Html
                 class="grow"
                 placeholder="Search"
                 {id}
-                {onchange}
+                {onkeyup}
             />
 
             <Search/>
