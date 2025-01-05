@@ -2,9 +2,12 @@ use std::rc::Rc;
 
 use yew::prelude::*;
 
-use crate::components::table::Table;
+use crate::{
+    components::table::Table,
+    traits::contains::Contains,
+};
 
-#[derive(PartialEq)]
+#[derive(PartialEq, Clone)]
 pub(crate) struct CLIToolsRow
 {
     pub(crate) name:        String,
@@ -46,6 +49,17 @@ impl ToHtml for CLIToolsRow
     }
 }
 
+impl Contains for CLIToolsRow
+{
+    fn contains(
+        &self,
+        key: &str,
+    ) -> bool
+    {
+        self.description.contains(key) || self.link.contains(key) || self.name.contains(key)
+    }
+}
+
 #[function_component(SoftwareBase)]
 pub fn base() -> Html
 {
@@ -60,22 +74,26 @@ pub fn base() -> Html
 fn cli_tools() -> Html
 {
     let cols = Rc::from(["Name", "Description", "Link"].map(AttrValue::from));
-
     let rows = get_rows();
+    let searchable = true;
 
     html! {
         <div class="flex flex-col w-full text-primary">
 
-            <Table<CLIToolsRow> caption="CLI Tools I like"
+            <Table<CLIToolsRow>
+                id="cli-table"
+                caption="CLI Tools I like"
                 {cols}
                 {rows}
+                {searchable}
             />
 
         </div>
     }
 }
 
-// TODO replace this with an HTTP GET to the backend whenever I get round to making it if ever.
+// TODO replace this with an HTTP GET to the backend
+// whenever I get round to making it if ever.
 fn get_rows() -> Vec<CLIToolsRow>
 {
     let starship = CLIToolsRow {
