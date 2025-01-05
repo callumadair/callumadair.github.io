@@ -1,3 +1,4 @@
+use components::navigation::Navbar;
 use gloo::{
     storage::{
         LocalStorage,
@@ -26,7 +27,6 @@ use crate::{
         UnavailableForLegalReasons,
         UnsupportedMediaType,
     },
-    navigation::Navbar,
     pages::{
         projects::ProjectBase,
         reading::ReadingBase,
@@ -36,9 +36,9 @@ use crate::{
 
 mod components;
 mod error;
-mod navigation;
-mod pages;
 mod macros;
+mod pages;
+mod traits;
 
 const THEME_ATTRIBUTE_NAME: &str = "data-theme";
 const THEME_STORAGE_KEY: &str = "current-theme-name";
