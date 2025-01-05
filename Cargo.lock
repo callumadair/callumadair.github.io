@@ -813,6 +813,7 @@ dependencies = [
  "lucide-yew",
  "serde",
  "strum",
+ "web-sys",
  "yew",
  "yew-router",
 ]
