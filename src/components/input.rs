@@ -16,21 +16,23 @@ pub fn file() -> Html
 #[derive(Properties, PartialEq)]
 pub struct SearchInputProps
 {
-    pub id: AttrValue,
+    pub id:       AttrValue,
+    #[prop_or_default]
+    pub onchange: Callback<Event>,
 }
 
 #[function_component(SearchInput)]
 pub fn search(props: &SearchInputProps) -> Html
 {
-    let SearchInputProps { id } = props;
+    let SearchInputProps { id, onchange } = props;
     html! {
         <label class="input input-bordered flex items-center">
 
             <input type="text"
                 class="grow"
                 placeholder="Search"
-                value="text"
                 {id}
+                {onchange}
             />
 
             <Search/>
