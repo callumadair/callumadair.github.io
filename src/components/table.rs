@@ -110,7 +110,7 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
     }
 }
 
-fn search_table<T: PartialEq + ToHtml + Clone + Contains + 'static>(
+fn search_table<T: PartialEq + Clone + Contains + 'static>(
     evt: KeyboardEvent,
     rows: UseStateHandle<Vec<T>>,
     display_rows: UseStateHandle<Vec<T>>,
@@ -130,3 +130,12 @@ fn search_table<T: PartialEq + ToHtml + Clone + Contains + 'static>(
 
     display_rows.set(new_rows);
 }
+
+// fn sort_table<T>(
+//     evt: MouseEvent,
+//     rows: UseStateHandle<Vec<T>>,
+//     display_rows: UseStateHandle<Vec<T>>,
+// )
+// {
+//     let field_to_sort_by = evt.target().
+// }
