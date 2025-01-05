@@ -1,10 +1,7 @@
 use std::rc::Rc;
 
 use web_sys::{
-    wasm_bindgen::{
-        JsCast,
-        JsValue,
-    },
+    wasm_bindgen::JsCast,
     HtmlInputElement,
 };
 use yew::prelude::*;
@@ -38,8 +35,8 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
         id,
         caption,
         cols,
-        rows,
         searchable,
+        ..
     } = props;
 
     let search_id: AttrValue = format!("{}-search", id).into();
