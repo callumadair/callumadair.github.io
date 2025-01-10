@@ -1,3 +1,15 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@plugin "daisyui" {
+    themes: all;
+    root: ":root";
+    include: ;
+    exclude: ;
+    prefix: ;
+    logs: true;
+}
+@plugin'@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@plugin 'tailwindcss-animate';
+/*@plugin 'tailwindcss-opentype';*/
+
