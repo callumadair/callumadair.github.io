@@ -23,7 +23,7 @@ pub fn carousel_view(props: &CarouselProps) -> Html
         .enumerate()
         .map(|(idx, path)|
             html! {
-                <div id={format!("slide{}",idx)} class="carousel-item relative w-full">
+                <div id={format!("slide{idx}")} class="carousel-item relative w-full">
                     <img src={path} class="w-full"/>
 
                     <div class="absolute left-5 right-5 top-1/2 flex translate-y-1/2 transform justify-between">

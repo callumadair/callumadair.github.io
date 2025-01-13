@@ -39,7 +39,7 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
         ..
     } = props;
 
-    let search_id: AttrValue = format!("{}-search", id).into();
+    let search_id: AttrValue = format!("{id}-search").into();
     let rows = use_state(|| props.rows.clone());
     let display_rows = use_state(|| props.rows.clone());
 

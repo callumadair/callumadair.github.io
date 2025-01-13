@@ -208,7 +208,7 @@ fn theme_content() -> Html
                 Callback::from(move |_| {
                     gloo::storage::LocalStorage::set(THEME_STORAGE_KEY, theme_variant)
                         .expect("Failed updating stored theme.");
-                    theme.set(theme_variant)
+                    theme.set(theme_variant);
                 })
             };
 
