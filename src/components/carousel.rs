@@ -1,4 +1,7 @@
-use lucide_yew::{ChevronLeft, ChevronRight};
+use lucide_yew::{
+    ChevronLeft,
+    ChevronRight,
+};
 use yew::prelude::*;
 
 #[derive(Properties, PartialEq)]
