@@ -3,7 +3,13 @@ use std::rc::Rc;
 use yew::prelude::*;
 
 use crate::{
-    components::table::Table,
+    components::{
+        modal::{
+            Modal,
+            ModalButton,
+        },
+        table::Table,
+    },
     traits::contains::Contains,
 };
 
@@ -31,16 +37,17 @@ impl ToHtml for CLIToolsRow
                 </td>
 
                 <td>
+                    <ModalButton modal_id={format!("{}-modal", self.name.clone())}
+                        modal_button_text="Open modal"
+                    />
 
-                    <a href={self.link.clone()}
-                        target="_blank"
-                        rel="noreferrer noopener"
+                    <Modal<AttrValue>
+                        id={format!("{}-modal", self.name.clone())}
+                        content={format!("{} is neat.", self.name.clone())}
                     >
 
-                        {"More info"}
 
-                    </a>
-
+                    </Modal<AttrValue>>
                 </td>
 
 
