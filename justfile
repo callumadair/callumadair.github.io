@@ -7,3 +7,6 @@ devtools:
 
 serve:
     trunk serve
+
+lint:
+    cargo clippy --workspace --all-features
