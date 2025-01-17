@@ -12,7 +12,7 @@ strum = { version = "0.26.3", features = ["derive"] }
 web-sys = { version = "0.3.76", features = ["HtmlDialogElement"] }
 yew = { version = "0.21.0", features = ["csr"] }
 yew-router = "0.18.0"
-
+shared = { path = "shared" }
 [lints]
 workspace = true
 
