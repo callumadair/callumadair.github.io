@@ -89,25 +89,25 @@ enum Route
 {
     #[at("/")]
     Home,
-    #[at("/401")]
-    Unauthorized,
     #[at("/403")]
     Forbidden,
+    #[at("/418")]
+    ImATeapot,
     #[not_found]
     #[at("/404")]
     NotFound,
-    #[at("/418")]
-    ImATeapot,
-    #[at("/415")]
-    UnsupportedMediaType,
-    #[at("/451")]
-    UnavailableForLegalReasons,
-    #[at("/reading")]
-    ReadingList,
     #[at("/projects")]
     Projects,
+    #[at("/reading")]
+    ReadingList,
     #[at("/software")]
     Software,
+    #[at("/401")]
+    Unauthorized,
+    #[at("/451")]
+    UnavailableForLegalReasons,
+    #[at("/415")]
+    UnsupportedMediaType,
 }
 
 #[function_component(App)]
