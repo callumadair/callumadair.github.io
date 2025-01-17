@@ -16,9 +16,10 @@ use crate::{
 #[derive(PartialEq, Clone)]
 pub(crate) struct SoftwareTool
 {
-    pub(crate) name:        String,
-    pub(crate) description: String,
-    pub(crate) link:        String,
+    pub(crate) name:       String,
+    pub(crate) short_desc: String,
+    pub(crate) link:       String,
+    pub(crate) long_desc:  String,
 }
 
 impl ToHtml for SoftwareTool
@@ -33,7 +34,7 @@ impl ToHtml for SoftwareTool
                 </td>
 
                 <td>
-                    {self.description.clone()}
+                    {self.short_desc.clone()}
                 </td>
 
                 <td>
@@ -69,7 +70,7 @@ impl Contains for SoftwareTool
         key: &str,
     ) -> bool
     {
-        self.description.contains(key) || self.link.contains(key) || self.name.contains(key)
+        self.short_desc.contains(key) || self.link.contains(key) || self.name.contains(key)
     }
 }
 
@@ -110,19 +111,22 @@ fn cli_tools() -> Html
 fn get_rows() -> Vec<SoftwareTool>
 {
     let starship = SoftwareTool {
-        name:        "Starship".to_string(),
-        description: "A nice modern terminal prompt".to_string(),
-        link:        "https://starship.rs".to_string(),
+        name:       "Starship".to_string(),
+        short_desc: "A nice modern terminal prompt".to_string(),
+        link:       "https://starship.rs".to_string(),
+        long_desc:  String::new(),
     };
     let hyperfine = SoftwareTool {
-        name:        "Hyperfine".to_string(),
-        description: "A benchmarking tool written in rust".to_string(),
-        link:        "https://github.com/sharkdp/hyperfine".to_string(),
+        name:       "Hyperfine".to_string(),
+        short_desc: "A benchmarking tool written in rust".to_string(),
+        link:       "https://github.com/sharkdp/hyperfine".to_string(),
+        long_desc:  String::new(),
     };
     let nushell = SoftwareTool {
-        name:        "Nushell".to_string(),
-        description: "A new way of doing shells".to_string(),
-        link:        "https://www.nushell.sh".to_string(),
+        name:       "Nushell".to_string(),
+        short_desc: "A new way of doing shells".to_string(),
+        link:       "https://www.nushell.sh".to_string(),
+        long_desc:  String::new(),
     };
 
     vec![starship, hyperfine, nushell]
