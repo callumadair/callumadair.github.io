@@ -1,0 +1,6 @@
+{
+  "image": "portfolio-image:latest",
+  "forwardPorts": [
+    12000
+  ]
+}
