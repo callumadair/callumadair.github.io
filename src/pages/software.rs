@@ -26,6 +26,7 @@ pub(crate) struct SoftwareToolRow
 
 impl From<SoftwareTool> for SoftwareToolRow
 {
+    // TODO add a derive macro for this?
     fn from(value: SoftwareTool) -> Self
     {
         Self {
