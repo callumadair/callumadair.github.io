@@ -62,9 +62,7 @@ where
                 class="modal-backdrop"
             >
 
-
-                <button>{"close"}</button>
-
+                <button class="hover:cursor-default"/>
 
             </form>
 
