@@ -9,7 +9,10 @@ RUN ~/.bun/bin/bun i -D daisyui@latest
 
 EXPOSE 12000
 
+
 COPY . /portfolio-web-app
+
+RUN cd /portfolio-web-app && trunk build
 
 WORKDIR /portfolio-web-app
 
