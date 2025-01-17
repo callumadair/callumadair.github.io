@@ -127,7 +127,7 @@ pub fn app() -> Html
             <BrowserRouter>
                 <Navbar/>
                 <Switch<Route> render={switch} />
-                
+
             </BrowserRouter>
         </ContextProvider<UseStateHandle<Theme>>>
     }
