@@ -1,6 +1,6 @@
 services:
   dev-server:
-    build: .
+    image: portfolio-image:latest
     command: trunk serve
     ports:
-      - "12000:9000"
+      - "12000:12000"
