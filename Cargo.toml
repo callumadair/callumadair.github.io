@@ -16,6 +16,9 @@ yew-router = "0.18.0"
 [lints]
 workspace = true
 
+[workspace]
+members = ["shared"]
+
 [workspace.lints.rust]
 warnings = "warn"
 deprecated-safe = "warn"
