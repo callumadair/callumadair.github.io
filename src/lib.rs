@@ -84,7 +84,7 @@ pub(crate) enum Theme
     Wireframe,
 }
 
-#[derive(Clone, Routable, PartialEq)]
+#[derive(Clone, Copy, Routable, PartialEq)]
 enum Route
 {
     #[at("/")]
@@ -127,6 +127,7 @@ pub fn app() -> Html
             <BrowserRouter>
                 <Navbar/>
                 <Switch<Route> render={switch} />
+                
             </BrowserRouter>
         </ContextProvider<UseStateHandle<Theme>>>
     }
