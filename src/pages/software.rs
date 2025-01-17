@@ -14,14 +14,14 @@ use crate::{
 };
 
 #[derive(PartialEq, Clone)]
-pub(crate) struct CLIToolsRow
+pub(crate) struct SoftwareTool
 {
     pub(crate) name:        String,
     pub(crate) description: String,
     pub(crate) link:        String,
 }
 
-impl ToHtml for CLIToolsRow
+impl ToHtml for SoftwareTool
 {
     fn to_html(&self) -> Html
     {
@@ -37,8 +37,14 @@ impl ToHtml for CLIToolsRow
                 </td>
 
                 <td>
+                    <a target="_blank" href={self.link.clone()}>
+                        {"Website"}
+                    </a>
+                </td>
+
+                <td>
                     <ModalButton modal_id={format!("{}-modal", self.name.clone())}
-                        modal_button_text="Open modal"
+                        modal_button_text="More Info"
                     />
 
                     <Modal<AttrValue>
@@ -56,7 +62,7 @@ impl ToHtml for CLIToolsRow
     }
 }
 
-impl Contains for CLIToolsRow
+impl Contains for SoftwareTool
 {
     fn contains(
         &self,
@@ -87,7 +93,7 @@ fn cli_tools() -> Html
     html! {
         <div class="flex flex-col w-full text-primary">
 
-            <Table<CLIToolsRow>
+            <Table<SoftwareTool>
                 id="cli-table"
                 caption="CLI Tools I like"
                 {cols}
@@ -101,19 +107,19 @@ fn cli_tools() -> Html
 
 // TODO replace this with an HTTP GET to the backend
 // whenever I get round to making it if ever.
-fn get_rows() -> Vec<CLIToolsRow>
+fn get_rows() -> Vec<SoftwareTool>
 {
-    let starship = CLIToolsRow {
+    let starship = SoftwareTool {
         name:        "Starship".to_string(),
         description: "A nice modern terminal prompt".to_string(),
         link:        "https://starship.rs".to_string(),
     };
-    let hyperfine = CLIToolsRow {
+    let hyperfine = SoftwareTool {
         name:        "Hyperfine".to_string(),
         description: "A benchmarking tool written in rust".to_string(),
         link:        "https://github.com/sharkdp/hyperfine".to_string(),
     };
-    let nushell = CLIToolsRow {
+    let nushell = SoftwareTool {
         name:        "Nushell".to_string(),
         description: "A new way of doing shells".to_string(),
         link:        "https://www.nushell.sh".to_string(),
