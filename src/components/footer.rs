@@ -9,7 +9,7 @@ pub fn footer() -> Html
 {
     let cur_year = Utc::now().year();
     html! {
-        <footer class="p-4 footer footer-center bg-base-300 text-base-content">
+        <footer class="absolute bottom-0 p-4 footer footer-center bg-base-300 text-base-content">
 
             <aside>
                 <p>

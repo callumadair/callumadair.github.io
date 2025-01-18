@@ -126,11 +126,29 @@ pub fn app() -> Html
     html! {
         <ContextProvider<UseStateHandle<Theme>> context={theme}>
             <BrowserRouter>
-                <Navbar/>
-                <Switch<Route> render={switch} />
-                <Footer/>
+                <Page>
+                    <Navbar/>
+                    <Switch<Route> render={switch} />
+                    <Footer/>
+                </Page>
             </BrowserRouter>
         </ContextProvider<UseStateHandle<Theme>>>
+    }
+}
+
+#[derive(Properties, PartialEq)]
+struct PageProps
+{
+    children: Children,
+}
+
+#[function_component(Page)]
+fn page(props: &PageProps) -> Html
+{
+    html! {
+        <div class="min-h-screen relative">
+            {props.children.clone()}
+        </div>
     }
 }
 
