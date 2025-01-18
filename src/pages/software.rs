@@ -11,7 +11,10 @@ use crate::{
         },
         table::Table,
     },
-    traits::contains::Contains,
+    traits::{
+        contains::Contains,
+        modal::ModalDisplay,
+    },
 };
 
 #[derive(PartialEq, Clone)]
@@ -39,6 +42,26 @@ impl From<SoftwareTool> for SoftwareToolRow
     }
 }
 
+impl ModalDisplay for SoftwareToolRow
+{
+    fn display(&self) -> Html
+    {
+        html! {
+            <>
+
+                <ModalButton modal_id={format!("{}-modal", self.name.clone())}
+                    modal_button_text="More Info"
+                />
+
+                <Modal<AttrValue>
+                    id={format!("{}-modal", self.name.clone())}
+                    content={format!("{} is neat.", self.name.clone())}
+                />
+            </>
+        }
+    }
+}
+
 impl ToHtml for SoftwareToolRow
 {
     fn to_html(&self) -> Html
@@ -61,17 +84,7 @@ impl ToHtml for SoftwareToolRow
                 </td>
 
                 <td>
-                    <ModalButton modal_id={format!("{}-modal", self.name.clone())}
-                        modal_button_text="More Info"
-                    />
-
-                    <Modal<AttrValue>
-                        id={format!("{}-modal", self.name.clone())}
-                        content={format!("{} is neat.", self.name.clone())}
-                    >
-
-
-                    </Modal<AttrValue>>
+                    {self.display()}
                 </td>
 
 
