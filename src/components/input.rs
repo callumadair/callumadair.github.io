@@ -1,4 +1,7 @@
-use lucide_yew::Search;
+use lucide_yew::{
+    ScanSearch,
+    Search,
+};
 use yew::prelude::*;
 
 #[function_component(TextArea)]
@@ -26,7 +29,7 @@ pub fn search(props: &SearchInputProps) -> Html
     let SearchInputProps { id, onkeyup } = props.clone();
 
     html! {
-        <label class="input input-bordered input-md flex items-center gap-2 grow max-w-xs">
+        <label class="input input-bordered input-sm flex items-center gap-2 max-w-48">
 
             <input type="text"
                 class="grow"
@@ -35,7 +38,7 @@ pub fn search(props: &SearchInputProps) -> Html
                 {onkeyup}
             />
 
-            <Search/>
+            <ScanSearch size=20/>
         </label>
     }
 }
