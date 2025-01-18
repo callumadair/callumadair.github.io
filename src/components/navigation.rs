@@ -30,7 +30,7 @@ pub(crate) fn navbar() -> Html
             // Actual navbar stuff goes here.
             <div class="drawer-content flex flex-col">
 
-                <div class="navbar w-full bg-primary-content text-primary">
+                <div class="navbar px-5 w-full bg-primary-content text-primary">
 
                     <div class="navbar-start space-x-2">
                         <MenuToggle/>
@@ -65,7 +65,7 @@ fn menu_toggle() -> Html
     html! {
         <label
             for="my-drawer"
-            class="btn btn-ghost drawer-button"
+            class="btn btn-sm btn-square btn-ghost drawer-button"
         >
             <PanelLeft size=20 />
         </label>
@@ -171,7 +171,10 @@ fn theme() -> Html
         <div class="dropdown dropdown-end">
 
 
-              <div tabindex="0" role="button" class="btn btn-ghost">
+              <div tabindex="0"
+                role="button"
+                class="btn btn-sm btn-circle btn-ghost"
+                >
 
                 <Palette size=20/>
 
