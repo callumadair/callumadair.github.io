@@ -1,7 +1,4 @@
-use lucide_yew::{
-    ScanSearch,
-    Search,
-};
+use lucide_yew::ScanSearch;
 use yew::prelude::*;
 
 #[function_component(TextArea)]
