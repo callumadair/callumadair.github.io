@@ -19,6 +19,7 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 
 use crate::{
+    components::footer::Footer,
     error::pages::{
         Forbidden,
         IAmTeapot,
@@ -127,7 +128,7 @@ pub fn app() -> Html
             <BrowserRouter>
                 <Navbar/>
                 <Switch<Route> render={switch} />
-
+                <Footer/>
             </BrowserRouter>
         </ContextProvider<UseStateHandle<Theme>>>
     }
