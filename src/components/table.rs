@@ -19,7 +19,7 @@ where
 {
     pub id:         AttrValue,
     #[prop_or_default]
-    pub caption:    AttrValue,
+    pub title:      AttrValue,
     #[prop_or_default]
     pub cols:       Rc<[AttrValue]>,
     #[prop_or_default]
@@ -33,7 +33,7 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
 {
     let TableProps {
         id,
-        caption,
+        title,
         cols,
         searchable,
         ..
@@ -52,31 +52,25 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
     };
 
     html! {
-        <div class="overflow-auto rounded-lg bg-primary-content p-3 w-full">
+        <div class="grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg bg-primary-content w-full">
 
-            {if *searchable {
-                html! {
-                    <div class="mb-3">
+            <h2 class="flex w-full px-3 items-center justify-between text-left text-xl caption-top">
+                { title.to_string() }
+
+                {if *searchable {
+                    html! {
                         <SearchInput id={search_id}
                             {onkeyup}
                         />
-                    </div>
-                }
-            } else {
-                html! {}
-            }}
+                    }
+                } else {
+                    html! {}
+                }}
+            </h2>
 
-            <table class="table table-pin-cols table-md w-full"
+            <table class="table table-pin-cols table-sm w-full"
                 {id}
             >
-
-                <caption class="text-left text-lg caption-top">
-
-                    { caption.to_string() }
-
-
-                </caption>
-
 
                 <thead class="font-bold text-primary">
 

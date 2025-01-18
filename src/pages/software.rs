@@ -129,7 +129,7 @@ fn cli_tools() -> Html
 
             <Table<SoftwareToolRow>
                 id="cli-table"
-                caption="CLI Tools I like"
+                title="CLI Tools I like"
                 {cols}
                 {rows}
                 {searchable}
