@@ -76,9 +76,12 @@ fn menu_toggle() -> Html
 fn menu_content() -> Html
 {
     html! {
-        <div class="drawer-side">
+        <div class="drawer-side z-30">
 
-            <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"/>
+            <label for="my-drawer"
+                aria-label="close sidebar"
+                class="drawer-overlay"
+            />
 
             <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
 
