@@ -20,11 +20,11 @@ use crate::{
 #[derive(PartialEq, Clone)]
 pub(crate) struct SoftwareToolRow
 {
-    pub(crate) name:       String,
-    pub(crate) short_desc: String,
-    pub(crate) long_desc:  String,
-    pub(crate) web_link:   String,
-    pub(crate) image_link: String,
+    pub(crate) name:        String,
+    pub(crate) short_desc:  String,
+    pub(crate) long_desc:   String,
+    pub(crate) web_link:    String,
+    pub(crate) image_links: Vec<String>,
 }
 
 impl From<SoftwareTool> for SoftwareToolRow
@@ -33,11 +33,11 @@ impl From<SoftwareTool> for SoftwareToolRow
     fn from(value: SoftwareTool) -> Self
     {
         Self {
-            name:       value.name,
-            short_desc: value.short_desc,
-            long_desc:  value.long_desc,
-            web_link:   value.web_link,
-            image_link: value.image_link,
+            name:        value.name,
+            short_desc:  value.short_desc,
+            long_desc:   value.long_desc,
+            web_link:    value.web_link,
+            image_links: value.image_links,
         }
     }
 }
@@ -144,25 +144,25 @@ fn cli_tools() -> Html
 fn get_rows() -> Vec<SoftwareToolRow>
 {
     let starship = SoftwareToolRow {
-        name:       "Starship".to_string(),
-        short_desc: "A nice modern terminal prompt".to_string(),
-        web_link:   "https://starship.rs".to_string(),
-        long_desc:  String::new(),
-        image_link: String::new(),
+        name:        "Starship".to_string(),
+        short_desc:  "A nice modern terminal prompt".to_string(),
+        web_link:    "https://starship.rs".to_string(),
+        long_desc:   String::new(),
+        image_links: Vec::new(),
     };
     let hyperfine = SoftwareToolRow {
-        name:       "Hyperfine".to_string(),
-        short_desc: "A benchmarking tool written in rust".to_string(),
-        web_link:   "https://github.com/sharkdp/hyperfine".to_string(),
-        long_desc:  String::new(),
-        image_link: String::new(),
+        name:        "Hyperfine".to_string(),
+        short_desc:  "A benchmarking tool written in rust".to_string(),
+        web_link:    "https://github.com/sharkdp/hyperfine".to_string(),
+        long_desc:   String::new(),
+        image_links: Vec::new(),
     };
     let nushell = SoftwareToolRow {
-        name:       "Nushell".to_string(),
-        short_desc: "A new way of doing shells".to_string(),
-        web_link:   "https://www.nushell.sh".to_string(),
-        long_desc:  String::new(),
-        image_link: String::new(),
+        name:        "Nushell".to_string(),
+        short_desc:  "A new way of doing shells".to_string(),
+        web_link:    "https://www.nushell.sh".to_string(),
+        long_desc:   String::new(),
+        image_links: Vec::new(),
     };
 
     vec![starship, hyperfine, nushell]
