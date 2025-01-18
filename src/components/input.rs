@@ -26,7 +26,7 @@ pub fn search(props: &SearchInputProps) -> Html
     let SearchInputProps { id, onkeyup } = props.clone();
 
     html! {
-        <label class="input input-bordered flex items-center gap-2 grow max-w-xs">
+        <label class="input input-bordered input-md flex items-center gap-2 grow max-w-xs">
 
             <input type="text"
                 class="grow"
