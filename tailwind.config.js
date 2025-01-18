@@ -19,9 +19,14 @@ module.exports = {
     daisyui: {
         themes: [
             {
-                custom: {
-                    ...require("daisyui/src/theming/themes")["dark"],
-                    "primary": "red"
+                lakeview: {
+                    ...require("daisyui/src/theming/themes")["emerald"],
+                    "primary": "#54627B",
+                    "primary-content": "#FFFFFF",
+                    "secondary": "#ECD5BB",
+                    "secondary-content": "#FFFFFF",
+                    "accent": "#710777",
+                    "accent-content": "#FFFFFF",
                 }
             },
 
