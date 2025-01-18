@@ -4,7 +4,7 @@ use yew::prelude::*;
 pub fn base() -> Html
 {
     html! {
-        <div class="h-screen flex items-center justify-center text-center">
+        <div class="flex items-center justify-center text-center">
             <CurrentProjects/>
         </div>
     }
