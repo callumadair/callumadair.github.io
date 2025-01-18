@@ -30,7 +30,7 @@ pub(crate) fn navbar() -> Html
             // Actual navbar stuff goes here.
             <div class="drawer-content flex flex-col">
 
-                <div class="navbar px-5 w-full bg-primary-content text-primary">
+                <div class="navbar px-4 w-full bg-primary-content text-primary">
 
                     <div class="navbar-start space-x-2">
                         <MenuToggle/>
@@ -92,72 +92,72 @@ fn menu_content() -> Html
     }
 }
 
-#[function_component(HomeLink)]
-fn home() -> Html
+#[derive(Properties, PartialEq, Clone)]
+struct NavbarLinkProps
+{
+    route:    Route,
+    children: Children,
+}
+
+#[function_component(NavbarLink)]
+fn navbar_link(props: &NavbarLinkProps) -> Html
 {
     let navigator = use_navigator().expect("Failed getting navigator hook.");
 
-    let onclick = Callback::from(move |_| navigator.push(&Route::Home));
+    let NavbarLinkProps {
+        route,
+        children: content,
+    } = props.clone();
 
+    let onclick = Callback::from(move |_| navigator.push(&route));
     html! {
         <a
             class="btn btn-ghost"
             {onclick}
         >
+            {content}
+        </a>
+    }
+}
+
+#[function_component(HomeLink)]
+fn home() -> Html
+{
+    html! {
+        <NavbarLink route={Route::Home} >
             <House/>
             {"Home"}
-        </a>
+        </NavbarLink>
     }
 }
 
 #[function_component(ReadingLink)]
 fn reading() -> Html
 {
-    let navigator = use_navigator().expect("Failed getting navigator hook.");
-
-    let onclick = Callback::from(move |_| navigator.push(&Route::ReadingList));
-
     html! {
-        <a
-            class="btn btn-ghost"
-            {onclick}
-        >
+        <NavbarLink route={Route::ReadingList}>
             {"Reading List"}
-        </a>
+        </NavbarLink>
     }
 }
 
 #[function_component(ProjectLink)]
 fn project() -> Html
 {
-    let navigator = use_navigator().expect("Failed getting navigator hook.");
-
-    let onclick = Callback::from(move |_| navigator.push(&Route::Projects));
-
     html! {
-        <a
-            class="btn btn-ghost"
-            {onclick}
-        >
+        <NavbarLink route={Route::Projects}>
             {"Projects"}
-        </a>
+        </NavbarLink>
     }
 }
 
 #[function_component(SoftwareLink)]
 fn software() -> Html
 {
-    let navigator = use_navigator().expect("Failed getting navigator hook.");
-
-    let onclick = Callback::from(move |_| navigator.push(&Route::Software));
-
     html! {
-        <a
-            class="btn btn-ghost"
-            {onclick}
-        >
-        {"Software"}
-        </a>
+        <NavbarLink route={Route::Software}>
+            {"Software"}
+        </NavbarLink>
     }
 }
 
