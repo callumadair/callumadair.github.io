@@ -1,4 +1,4 @@
-pub(crate) trait Contains
+pub trait Contains
 {
     fn contains(
         &self,
