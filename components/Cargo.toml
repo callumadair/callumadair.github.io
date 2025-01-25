@@ -1,0 +1,16 @@
+[package]
+name = "components"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+chrono.workspace = true
+gloo.workspace = true
+lucide-yew.workspace = true
+shared.workspace = true
+web-sys.workspace = true
+yew.workspace = true
+yew-router.workspace = true
+
+[lints]
+workspace = true

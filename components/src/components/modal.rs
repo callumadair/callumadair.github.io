@@ -1,8 +1,12 @@
 use std::fmt::Display;
 
 use gloo::utils::document;
+use shared::software::SoftwareTool;
 use web_sys::wasm_bindgen::JsCast;
 use yew::prelude::*;
+
+use crate::traits::modal::ModalDisplay;
+
 #[derive(Properties, Clone, PartialEq)]
 pub struct ModalProps<T>
 where
@@ -88,7 +92,7 @@ pub fn modal_button(props: &ModalButtonProps) -> Html
     } = props.clone();
 
     let onclick = {
-        crate::clone!(modal_id);
+        shared::clone!(modal_id);
         Callback::from(move |_evt: MouseEvent| {
             let modal_element = document()
                 .get_element_by_id(modal_id.as_str())
@@ -110,5 +114,25 @@ pub fn modal_button(props: &ModalButtonProps) -> Html
             {modal_button_text}
 
         </button>
+    }
+}
+
+impl ModalDisplay for SoftwareTool
+{
+    fn display(&self) -> Html
+    {
+        html! {
+            <>
+
+                <ModalButton modal_id={format!("{}-modal", self.name.clone())}
+                    modal_button_text="More Info"
+                />
+
+                <Modal<AttrValue>
+                    id={format!("{}-modal", self.name.clone())}
+                    content={format!("{} is neat.", self.name.clone())}
+                />
+            </>
+        }
     }
 }

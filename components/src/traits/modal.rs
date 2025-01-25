@@ -1,6 +1,6 @@
 use yew::Html;
 
-pub(crate) trait ModalDisplay
+pub trait ModalDisplay
 {
     fn display(&self) -> Html;
 }
