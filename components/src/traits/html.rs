@@ -1,5 +1,7 @@
 use shared::software::SoftwareTool;
 use yew::prelude::*;
+use crate::traits::modal::ModalDisplay;
+
 pub trait ToHtmlWrapper
 {
     fn html(&self) -> Html;
@@ -33,7 +35,7 @@ impl ToHtmlWrapper for SoftwareTool
                 </td>
 
                 <td>
-                    // {self.display()}
+                    {self.display()}
                 </td>
 
 
