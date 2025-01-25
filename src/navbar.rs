@@ -25,10 +25,16 @@ pub fn navbar() -> Html
         // This is just to enable the menu sidebar.
         <div class="drawer">
 
-            <input id="my-drawer"
+            <input id="my-menu"
                 type="checkbox"
                 class="drawer-toggle"
             />
+
+            // Sidebar stuff goes here
+            <MenuContent menu_id="my-menu">
+                <li><a>{"Totally a link"}</a></li>
+                <li><a>{"Totally another link"}</a></li>
+            </MenuContent>
 
             // Actual navbar stuff goes here.
             <div class="drawer-content flex flex-col">
@@ -36,7 +42,7 @@ pub fn navbar() -> Html
                 <div class="navbar px-4 w-full bg-primary-content text-primary">
 
                     <div class="navbar-start space-x-2">
-                        <MenuToggle/>
+                        <MenuToggle menu_id="my-menu"/>
                         <ReadingLink/>
                         <ProjectLink/>
                         <SoftwareLink/>
@@ -54,11 +60,6 @@ pub fn navbar() -> Html
 
             </div>
 
-            // Sidebar stuff goes here
-            <MenuContent>
-                <li><a>{"Totally a link"}</a></li>
-                <li><a>{"Totally another link"}</a></li>
-            </MenuContent>
         </div>
 
     }
