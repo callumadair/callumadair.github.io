@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 serde.workspace = true
+yew.workspace = true
 
 [lints]
 workspace = true
