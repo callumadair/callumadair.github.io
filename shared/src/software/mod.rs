@@ -2,7 +2,6 @@ use serde::{
     Deserialize,
     Serialize,
 };
-use yew::prelude::*;
 
 use crate::traits::contains::Contains;
 #[derive(Serialize, Deserialize, PartialEq, Clone)]

@@ -1,15 +1,6 @@
 use std::rc::Rc;
 
-use components::{
-    components::{
-        modal::{
-            Modal,
-            ModalButton,
-        },
-        table::Table,
-    },
-    traits::modal::ModalDisplay,
-};
+use components::components::table::Table;
 use shared::software::SoftwareTool;
 use yew::prelude::*;
 

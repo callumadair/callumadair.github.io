@@ -1,8 +1,4 @@
-use lucide_yew::{
-    House,
-    Palette,
-    PanelLeft,
-};
+use lucide_yew::PanelLeft;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
