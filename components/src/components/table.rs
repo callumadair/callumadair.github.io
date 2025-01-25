@@ -52,7 +52,7 @@ pub fn base<T: PartialEq + ToHtmlWrapper + Clone + Contains + 'static>(
         clone!(rows, display_rows);
         Callback::from(move |event: KeyboardEvent| {
             clone!(rows, display_rows);
-            search_table(event, rows, display_rows);
+            search_table(&event, &rows, &display_rows);
         })
     };
 
@@ -110,9 +110,9 @@ pub fn base<T: PartialEq + ToHtmlWrapper + Clone + Contains + 'static>(
 }
 
 fn search_table<T: PartialEq + Clone + Contains + 'static>(
-    evt: KeyboardEvent,
-    rows: UseStateHandle<Vec<T>>,
-    display_rows: UseStateHandle<Vec<T>>,
+    evt: &KeyboardEvent,
+    rows: &UseStateHandle<Vec<T>>,
+    display_rows: &UseStateHandle<Vec<T>>,
 )
 {
     let input_value = evt
@@ -121,7 +121,7 @@ fn search_table<T: PartialEq + Clone + Contains + 'static>(
         .unchecked_into::<HtmlInputElement>()
         .value();
 
-    let new_rows = (*rows)
+    let new_rows = (**rows)
         .clone()
         .into_iter()
         .filter(|row| row.contains(&input_value))
