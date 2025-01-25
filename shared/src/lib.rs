@@ -1,2 +1,3 @@
+pub mod macros;
 pub mod software;
-mod traits;
+pub mod traits;

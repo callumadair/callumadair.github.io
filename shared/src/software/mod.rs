@@ -2,8 +2,10 @@ use serde::{
     Deserialize,
     Serialize,
 };
+use yew::prelude::*;
 
-#[derive(Serialize, Deserialize)]
+use crate::traits::contains::Contains;
+#[derive(Serialize, Deserialize, PartialEq, Clone)]
 pub struct SoftwareTool
 {
     pub name:        String,
@@ -11,4 +13,18 @@ pub struct SoftwareTool
     pub long_desc:   String,
     pub web_link:    String,
     pub image_links: Vec<String>,
+}
+
+impl Contains for SoftwareTool
+{
+    fn contains(
+        &self,
+        key: &str,
+    ) -> bool
+    {
+        self.short_desc.contains(key)
+            || self.long_desc.contains(key)
+            || self.web_link.contains(key)
+            || self.name.contains(key)
+    }
 }
