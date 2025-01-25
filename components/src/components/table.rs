@@ -57,7 +57,7 @@ pub fn base<T: PartialEq + ToHtmlWrapper + Clone + Contains + 'static>(
     };
 
     html! {
-        <div class="grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg bg-primary-content w-full">
+        <div class="grid grid-cols-1 gap-5 p-3 overflow-auto rounded-box border border-base-content/5 bg-base-100">
 
             <h2 class="flex w-full px-3 items-center justify-between text-left text-xl caption-top">
                 { title.to_string() }
