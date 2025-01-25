@@ -10,3 +10,6 @@ serve:
 
 lint:
     cargo clippy --workspace --all-features
+
+lint-fix:
+    cargo clippy --workspace --all-features --fix
