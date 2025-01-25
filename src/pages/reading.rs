@@ -1,6 +1,5 @@
+use components::components::carousel::Carousel;
 use yew::prelude::*;
-
-use crate::components::carousel::Carousel;
 
 #[function_component(ReadingBase)]
 pub fn base() -> Html

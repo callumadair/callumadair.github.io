@@ -1,4 +1,4 @@
-use components::navigation::Navbar;
+use components::components::footer::Footer;
 use gloo::{
     storage::{
         LocalStorage,
@@ -19,7 +19,6 @@ use yew::prelude::*;
 use yew_router::prelude::*;
 
 use crate::{
-    components::footer::Footer,
     error::pages::{
         Forbidden,
         IAmTeapot,
@@ -28,6 +27,7 @@ use crate::{
         UnavailableForLegalReasons,
         UnsupportedMediaType,
     },
+    navbar::Navbar,
     pages::{
         projects::ProjectBase,
         reading::ReadingBase,
@@ -35,11 +35,10 @@ use crate::{
     },
 };
 
-mod components;
 mod error;
 mod macros;
+mod navbar;
 mod pages;
-mod traits;
 
 const THEME_ATTRIBUTE_NAME: &str = "data-theme";
 const THEME_STORAGE_KEY: &str = "current-theme-name";

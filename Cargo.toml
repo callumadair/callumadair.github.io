@@ -4,26 +4,35 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-capitalize = "0.3.4"
-gloo = "0.11.0"
-lucide-yew = "1.1.0"
+capitalize.workspace = true
+chrono.workspace = true
+components.workspace = true
+gloo.workspace = true
+lucide-yew.workspace = true
 serde.workspace = true
+shared.workspace = true
 strum = { version = "0.26.3", features = ["derive"] }
-web-sys = { version = "0.3.76", features = ["HtmlDialogElement"] }
+web-sys.workspace = true
 yew.workspace = true
-yew-router = "0.18.0"
-shared = { path = "shared" }
-chrono = "0.4.39"
+yew-router.workspace = true
 
 [lints]
 workspace = true
 
 [workspace]
-members = ["shared"]
+members = ["components", "shared"]
 
 [workspace.dependencies]
+capitalize = "0.3.4"
+components = { path = "components" }
+chrono = "0.4.39"
+gloo = "0.11.0"
+lucide-yew = "1.1.0"
 serde = { version = "1.0.217", features = ["derive"] }
+shared = { path = "shared" }
+web-sys = { version = "0.3.76", features = ["HtmlDialogElement"] }
 yew = { version = "0.21.0", features = ["csr"] }
+yew-router = "0.18.0"
 
 [workspace.lints.rust]
 warnings = "warn"

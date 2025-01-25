@@ -1,9 +1,6 @@
 use std::rc::Rc;
 
-use shared::software::SoftwareTool;
-use yew::prelude::*;
-
-use crate::{
+use components::{
     components::{
         modal::{
             Modal,
@@ -11,11 +8,10 @@ use crate::{
         },
         table::Table,
     },
-    traits::{
-        contains::Contains,
-        modal::ModalDisplay,
-    },
+    traits::modal::ModalDisplay,
 };
+use shared::software::SoftwareTool;
+use yew::prelude::*;
 
 #[derive(PartialEq, Clone)]
 pub(crate) struct SoftwareToolRow
@@ -42,71 +38,6 @@ impl From<SoftwareTool> for SoftwareToolRow
     }
 }
 
-impl ModalDisplay for SoftwareToolRow
-{
-    fn display(&self) -> Html
-    {
-        html! {
-            <>
-
-                <ModalButton modal_id={format!("{}-modal", self.name.clone())}
-                    modal_button_text="More Info"
-                />
-
-                <Modal<AttrValue>
-                    id={format!("{}-modal", self.name.clone())}
-                    content={format!("{} is neat.", self.name.clone())}
-                />
-            </>
-        }
-    }
-}
-
-impl ToHtml for SoftwareToolRow
-{
-    fn to_html(&self) -> Html
-    {
-        html! {
-            <tr>
-
-                <td>
-                    {self.name.clone()}
-                </td>
-
-                <td>
-                    {self.short_desc.clone()}
-                </td>
-
-                <td>
-                    <a target="_blank" href={self.web_link.clone()}>
-                        {"Website"}
-                    </a>
-                </td>
-
-                <td>
-                    {self.display()}
-                </td>
-
-
-            </tr>
-        }
-    }
-}
-
-impl Contains for SoftwareToolRow
-{
-    fn contains(
-        &self,
-        key: &str,
-    ) -> bool
-    {
-        self.short_desc.contains(key)
-            || self.long_desc.contains(key)
-            || self.web_link.contains(key)
-            || self.name.contains(key)
-    }
-}
-
 #[function_component(SoftwareBase)]
 pub fn base() -> Html
 {
@@ -127,7 +58,7 @@ fn cli_tools() -> Html
     html! {
         <div class="flex flex-col w-full text-primary">
 
-            <Table<SoftwareToolRow>
+            <Table<SoftwareTool>
                 id="cli-table"
                 title="CLI Tools I like"
                 {cols}
@@ -141,23 +72,23 @@ fn cli_tools() -> Html
 
 // TODO replace this with an HTTP GET to the backend
 // whenever I get round to making it if ever.
-fn get_rows() -> Vec<SoftwareToolRow>
+fn get_rows() -> Vec<SoftwareTool>
 {
-    let starship = SoftwareToolRow {
+    let starship = SoftwareTool {
         name:        "Starship".to_string(),
         short_desc:  "A nice modern terminal prompt".to_string(),
         web_link:    "https://starship.rs".to_string(),
         long_desc:   String::new(),
         image_links: Vec::new(),
     };
-    let hyperfine = SoftwareToolRow {
+    let hyperfine = SoftwareTool {
         name:        "Hyperfine".to_string(),
         short_desc:  "A benchmarking tool written in rust".to_string(),
         web_link:    "https://github.com/sharkdp/hyperfine".to_string(),
         long_desc:   String::new(),
         image_links: Vec::new(),
     };
-    let nushell = SoftwareToolRow {
+    let nushell = SoftwareTool {
         name:        "Nushell".to_string(),
         short_desc:  "A new way of doing shells".to_string(),
         web_link:    "https://www.nushell.sh".to_string(),
