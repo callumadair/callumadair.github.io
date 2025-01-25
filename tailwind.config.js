@@ -5,14 +5,14 @@ module.exports = {
         extend: {},
     },
     plugins: [
-        require('@tailwindcss/forms')({
-            strategy: 'base',
-            strategy: 'class',
-        }),
-        require('@tailwindcss/typography'),
-        require('@tailwindcss/container-queries'),
-        require('tailwindcss-animate'),
-        require('tailwindcss-opentype'),
+        // require('@tailwindcss/forms')({
+        //     strategy: 'base',
+        //     strategy: 'class',
+        // }),
+        // require('@tailwindcss/typography'),
+        // require('@tailwindcss/container-queries'),
+        // require('tailwindcss-animate'),
+        // require('tailwindcss-opentype'),
     ],
 
 }
