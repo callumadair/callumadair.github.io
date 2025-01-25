@@ -8,6 +8,9 @@ devtools:
 serve:
     trunk serve
 
+fmt:
+    cargo +nightly fmt
+
 lint:
     cargo clippy --workspace --all-features
 
