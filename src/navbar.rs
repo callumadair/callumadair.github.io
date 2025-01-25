@@ -126,7 +126,7 @@ fn theme() -> Html
               </div>
 
           <ul tabindex="0"
-            class="dropdown-content z-[1] p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto bg-primary-content shadow-2xl"
+            class="dropdown-content z-1 p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto bg-primary-content shadow-2xl"
             >
 
             <ThemeControlDropdownContent/>
