@@ -2,12 +2,19 @@ use lucide_yew::PanelLeft;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
-#[function_component(MenuToggle)]
-pub fn menu_toggle() -> Html
+#[derive(Properties, Clone, PartialEq)]
+pub struct MenuToggleProps
 {
+    pub menu_id: AttrValue,
+}
+
+#[function_component(MenuToggle)]
+pub fn menu_toggle(props: &MenuToggleProps) -> Html
+{
+    let MenuToggleProps { menu_id } = props.clone();
     html! {
         <label
-            for="my-drawer"
+            for={menu_id}
             class="btn btn-sm btn-square btn-ghost drawer-button"
         >
             <PanelLeft size=20 />
@@ -19,17 +26,18 @@ pub fn menu_toggle() -> Html
 pub struct MenuContentProps
 {
     pub children: Children,
+    pub menu_id:  AttrValue,
 }
 
 #[function_component(MenuContent)]
 pub fn menu_content(props: &MenuContentProps) -> Html
 {
-    let MenuContentProps { children } = props.clone();
+    let MenuContentProps { children, menu_id } = props.clone();
 
     html! {
         <div class="drawer-side z-30">
 
-            <label for="my-drawer"
+            <label for={menu_id}
                 aria-label="close sidebar"
                 class="drawer-overlay"
             />
