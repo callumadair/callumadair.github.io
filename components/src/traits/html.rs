@@ -1,5 +1,6 @@
 use shared::software::SoftwareTool;
 use yew::prelude::*;
+
 use crate::traits::modal::ModalDisplay;
 
 pub trait ToHtmlWrapper
