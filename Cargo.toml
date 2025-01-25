@@ -5,14 +5,12 @@ edition = "2021"
 
 [dependencies]
 capitalize.workspace = true
-chrono.workspace = true
 components.workspace = true
 gloo.workspace = true
 lucide-yew.workspace = true
 serde.workspace = true
 shared.workspace = true
 strum = { version = "0.26.3", features = ["derive"] }
-web-sys.workspace = true
 yew.workspace = true
 yew-router.workspace = true
 

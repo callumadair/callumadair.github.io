@@ -898,14 +898,12 @@ name = "portfolio-web-app"
 version = "0.1.0"
 dependencies = [
  "capitalize",
- "chrono",
  "components",
  "gloo 0.11.0",
  "lucide-yew",
  "serde",
  "shared",
  "strum",
- "web-sys",
  "yew",
  "yew-router",
 ]
