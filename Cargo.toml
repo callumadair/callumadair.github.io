@@ -24,7 +24,7 @@ yew-router.workspace = true
 workspace = true
 
 [workspace]
-members = ["components", "shared"]
+members = [ "backend","components", "shared"]
 
 [workspace.dependencies]
 capitalize = "0.3.4"
