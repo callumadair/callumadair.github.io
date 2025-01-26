@@ -9,7 +9,7 @@ use actix_web::{
 };
 
 #[get("/")]
-async fn index(settings: web::Data<Settings>) -> impl Responder
+pub async fn index(settings: web::Data<Settings>) -> impl Responder
 {
     format!(
         r#"{{

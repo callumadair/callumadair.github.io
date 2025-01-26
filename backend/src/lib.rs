@@ -1,2 +1,2 @@
-pub(crate) mod database;
-pub(crate) mod web;
+pub mod database;
+pub mod http_api;
