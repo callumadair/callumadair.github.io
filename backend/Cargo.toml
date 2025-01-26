@@ -7,7 +7,7 @@ edition = "2021"
 actix-settings = "0.8.0"
 actix-web = { version = "4.9.0", features = ["rustls"] }
 sea-orm = { version = "1.1.4", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros"] }
-tokio = "1.43.0"
+tokio = { version = "1.43.0", features = ["rt", "rt-multi-thread", "macros"] }
 tracing = "0.1.41"
 tracing-actix-web = "0.7.15"
 
