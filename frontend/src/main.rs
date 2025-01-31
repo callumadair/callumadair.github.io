@@ -1,3 +1,3 @@
-use portfolio_web_app::App;
+use frontend::App;
 
 fn main() { yew::Renderer::<App>::new().render(); }
