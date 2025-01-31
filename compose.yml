@@ -1,9 +1,9 @@
 services:
   dev-server:
-    build: .
+    build: ./frontend
     command: trunk serve
     ports:
-      - "12000:12000"
+      - "3000:3000"
     develop:
       watch:
         - action: sync
