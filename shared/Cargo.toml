@@ -10,7 +10,27 @@ description = "Shared types and functions for doing things on both the frontend 
 categories = ["web-programming"]
 
 [dependencies]
-serde.workspace = true
+serde = { version = "1.0.217", features = ["derive"] }
 
 [lints]
 workspace = true
+
+[workspace.lints.rust]
+warnings = "warn"
+deprecated-safe = "warn"
+future-incompatible = "warn"
+keyword-idents = "warn"
+let-underscore = "warn"
+nonstandard-style = "warn"
+refining-impl-trait = "warn"
+rust-2024-compatibility = "warn"
+unused = "warn"
+
+[workspace.lints.clippy]
+correctness = "warn"
+suspicious = "warn"
+complexity = "warn"
+perf = "warn"
+style = "warn"
+pedantic = "warn"
+cargo = "warn"

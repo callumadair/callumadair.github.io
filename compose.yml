@@ -1,16 +1,32 @@
 services:
   dev-server:
-    image: portfolio-image:latest
+    build: .
     command: trunk serve
     ports:
       - "12000:12000"
-
+    develop:
+      watch:
+        - action: sync
+          path: /portfolio-web-app
+          target: ./
+          ignore:
+            - backend
+            - node_modules
+            - target
+            - dist
 
   dev-backend:
-    image: portfolio-backend-image:latest
+    build: ./backend
     command: cargo run
     ports:
       - "8080:8080"
+    develop:
+      watch:
+        - action: sync
+          path: /backend
+          target: ./backend
+          ignore:
+            - ./backend/target
 
   db:
     image: postgres
