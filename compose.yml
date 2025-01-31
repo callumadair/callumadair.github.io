@@ -4,3 +4,20 @@ services:
     command: trunk serve
     ports:
       - "12000:12000"
+
+
+  dev-backend:
+    image: portfolio-backend-image:latest
+    command: cargo run
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres
+    restart: always
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
