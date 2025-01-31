@@ -172,6 +172,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "frontend"
+version = "0.1.0"
+dependencies = [
+ "capitalize",
+ "components",
+ "gloo 0.11.0",
+ "lucide-yew",
+ "serde",
+ "shared",
+ "strum",
+ "yew",
+ "yew-router",
+]
+
+[[package]]
 name = "futures"
 version = "0.3.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -891,21 +906,6 @@ dependencies = [
  "futures",
  "rustversion",
  "thiserror",
-]
-
-[[package]]
-name = "portfolio-web-app"
-version = "0.1.0"
-dependencies = [
- "capitalize",
- "components",
- "gloo 0.11.0",
- "lucide-yew",
- "serde",
- "shared",
- "strum",
- "yew",
- "yew-router",
 ]
 
 [[package]]
