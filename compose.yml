@@ -19,7 +19,9 @@ services:
             - dist
 
   dev-backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
     command: cargo run
     ports:
       - "8080:8080"
