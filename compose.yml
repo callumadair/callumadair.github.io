@@ -1,6 +1,9 @@
 services:
   dev-server:
-    build: ./frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+
     command: trunk serve
     ports:
       - "3000:3000"
