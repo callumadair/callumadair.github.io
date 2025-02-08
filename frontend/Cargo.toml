@@ -11,7 +11,6 @@ categories = ["web-programming", "gui"]
 
 [dependencies]
 capitalize.workspace = true
-components.workspace = true
 gloo.workspace = true
 lucide-yew.workspace = true
 serde.workspace = true
@@ -23,19 +22,14 @@ yew-router.workspace = true
 [lints]
 workspace = true
 
-[workspace]
-members = ["components"]
 
 [workspace.dependencies]
 capitalize = "0.3.4"
-components = { path = "components" }
-chrono = "0.4.39"
 gloo = "0.11.0"
 lucide-yew = "1.1.0"
 serde = { version = "1.0.217", features = ["derive"] }
 shared = { path = "../shared" }
 strum = { version = "0.26.3", features = ["derive"] }
-web-sys = { version = "0.3.76", features = ["HtmlDialogElement"] }
 yew = { version = "0.21.0", features = ["csr"] }
 yew-router = "0.18.0"
 

@@ -1,13 +1,13 @@
 use capitalize::Capitalize;
-use components::components::navigation::{
-    MenuContent,
-    MenuToggle,
-    NavbarLink,
-};
 use gloo::storage::Storage;
 use lucide_yew::{
     House,
     Palette,
+};
+use shared::components::{
+    MenuContent,
+    MenuToggle,
+    NavbarLink,
 };
 use strum::IntoEnumIterator;
 use yew::prelude::*;

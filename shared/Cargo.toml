@@ -10,7 +10,13 @@ description = "Shared types and functions for doing things on both the frontend 
 categories = ["web-programming"]
 
 [dependencies]
+chrono = "0.4.39"
+gloo = "0.11.0"
+lucide-yew = "1.1.0"
 serde = { version = "1.0.217", features = ["derive"] }
+web-sys = { version = "0.3.76", features = ["HtmlDialogElement"] }
+yew = { version = "0.21.0", features = ["csr"] }
+yew-router = "0.18.0"
 
 [lints]
 workspace = true

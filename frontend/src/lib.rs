@@ -1,4 +1,3 @@
-use components::components::footer::Footer;
 use gloo::{
     storage::{
         LocalStorage,
@@ -10,6 +9,7 @@ use serde::{
     Deserialize,
     Serialize,
 };
+use shared::components::Footer;
 use strum::{
     AsRefStr,
     Display,

@@ -1,4 +1,4 @@
-use yew::Html;
+use yew::prelude::*;
 
 pub trait ModalDisplay
 {

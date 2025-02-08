@@ -94,9 +94,9 @@ checksum = "6b5271031022835ee8c7582fe67403bd6cb3d962095787af7921027234bab5bf"
 
 [[package]]
 name = "cc"
-version = "1.2.10"
+version = "1.2.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "13208fcbb66eaeffe09b99fffbe1af420f00a7b35aa99ad683dfc1aa76145229"
+checksum = "c7777341816418c02e033934a09f20dc0ccaf65a5201ef8a450ae0105a573fda"
 dependencies = [
  "shlex",
 ]
@@ -119,19 +119,6 @@ dependencies = [
  "num-traits",
  "wasm-bindgen",
  "windows-targets",
-]
-
-[[package]]
-name = "components"
-version = "0.1.0"
-dependencies = [
- "chrono",
- "gloo 0.11.0",
- "lucide-yew",
- "shared",
- "web-sys",
- "yew",
- "yew-router",
 ]
 
 [[package]]
@@ -176,7 +163,6 @@ name = "frontend"
 version = "0.1.0"
 dependencies = [
  "capitalize",
- "components",
  "gloo 0.11.0",
  "lucide-yew",
  "serde",
@@ -1081,7 +1067,13 @@ dependencies = [
 name = "shared"
 version = "0.1.0"
 dependencies = [
+ "chrono",
+ "gloo 0.11.0",
+ "lucide-yew",
  "serde",
+ "web-sys",
+ "yew",
+ "yew-router",
 ]
 
 [[package]]

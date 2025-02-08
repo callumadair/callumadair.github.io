@@ -1,9 +1,5 @@
 use std::rc::Rc;
 
-use shared::{
-    clone,
-    traits::contains::Contains,
-};
 use web_sys::{
     wasm_bindgen::JsCast,
     HtmlInputElement,
@@ -12,13 +8,13 @@ use yew::prelude::*;
 
 use crate::{
     components::input::SearchInput,
-    traits::html::ToHtmlWrapper,
+    traits::contains::Contains,
 };
 
 #[derive(Properties, PartialEq, Clone)]
 pub struct TableProps<T>
 where
-    T: PartialEq + ToHtmlWrapper + Clone + Contains,
+    T: PartialEq + ToHtml + Clone + Contains,
 {
     pub id:         AttrValue,
     #[prop_or_default]
@@ -32,9 +28,7 @@ where
 }
 
 #[function_component(Table)]
-pub fn base<T: PartialEq + ToHtmlWrapper + Clone + Contains + 'static>(
-    props: &TableProps<T>
-) -> Html
+pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TableProps<T>) -> Html
 {
     let TableProps {
         id,
@@ -49,9 +43,9 @@ pub fn base<T: PartialEq + ToHtmlWrapper + Clone + Contains + 'static>(
     let display_rows = use_state(|| props.rows.clone());
 
     let onkeyup = {
-        clone!(rows, display_rows);
+        crate::clone!(rows, display_rows);
         Callback::from(move |event: KeyboardEvent| {
-            clone!(rows, display_rows);
+            crate::clone!(rows, display_rows);
             search_table(&event, &rows, &display_rows);
         })
     };
@@ -99,7 +93,7 @@ pub fn base<T: PartialEq + ToHtmlWrapper + Clone + Contains + 'static>(
 
                 <tbody class="">
 
-                    {(*display_rows).clone().html()}
+                    {(*display_rows).clone()}
 
                 </tbody>
 

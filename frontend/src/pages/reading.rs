@@ -1,4 +1,4 @@
-use components::components::carousel::Carousel;
+use shared::components::Carousel;
 use yew::prelude::*;
 
 #[function_component(ReadingBase)]

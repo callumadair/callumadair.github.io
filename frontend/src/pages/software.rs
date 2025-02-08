@@ -1,7 +1,9 @@
 use std::rc::Rc;
 
-use components::components::table::Table;
-use shared::software::SoftwareTool;
+use shared::{
+    components::Table,
+    software::SoftwareTool,
+};
 use yew::prelude::*;
 
 #[derive(PartialEq, Clone)]
