@@ -10,13 +10,15 @@ services:
     develop:
       watch:
         - action: sync
-          path: /portfolio-web-app
-          target: ./
+          path: ./frontend
+          target: /frontend
           ignore:
-            - backend
-            - node_modules
-            - target
-            - dist
+            - node_modules/
+            - target/
+            - dist/
+        - action: sync
+          path: ./shared
+          target: ./shared
 
   dev-backend:
     build:
@@ -27,11 +29,11 @@ services:
       - "8080:8080"
     develop:
       watch:
-        - action: sync
-          path: /backend
-          target: ./backend
+        - action: rebuild
+          path: ./backend
+          target: /backend
           ignore:
-            - ./backend/target
+            - target/
 
   db:
     image: postgres

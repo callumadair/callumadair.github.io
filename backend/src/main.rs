@@ -14,6 +14,11 @@ use actix_web::{
 };
 use portfolio_backend_lib::http_api::handlers::index::index;
 use tracing_actix_web::TracingLogger;
+use utoipa_actix_web::{
+    scope,
+    AppExt,
+};
+use utoipa_swagger_ui::SwaggerUi;
 
 #[tokio::main]
 async fn main() -> std::io::Result<()>
@@ -28,7 +33,7 @@ async fn main() -> std::io::Result<()>
 
     init_logger(&settings);
 
-    HttpServer::new({
+    HttpServer::new( {
         // clone settings into each worker thread
         let settings = settings.clone();
 
@@ -43,17 +48,21 @@ async fn main() -> std::io::Result<()>
                 // add request logger
                 .wrap(TracingLogger::default())
 
+                .into_utoipa_app()
                 // make `Settings` available to handlers
                 .app_data(Data::new(settings.clone()))
-
-                // add request handlers as normal
                 .service(index)
+                .openapi_service(|api| {
+                    SwaggerUi::new("/swagger-ui/{_:.*}").url("/api/openapi.json", api)
+                })
+                .into_app()
+            // add request handlers as normal
         }
     })
-    // apply the `Settings` to Actix Web's `HttpServer`
-    .try_apply_settings(&settings)?
-    .run()
-    .await
+        // apply the `Settings` to Actix Web's `HttpServer` 
+        .try_apply_settings(&settings)?
+        .run()
+        .await
 }
 
 /// Initialize the logging infrastructure.

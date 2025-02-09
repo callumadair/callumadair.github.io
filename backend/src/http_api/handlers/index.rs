@@ -8,6 +8,7 @@ use actix_web::{
     Responder,
 };
 
+#[utoipa::path(responses((status = 200, body = str)))]
 #[get("/")]
 pub async fn index(settings: web::Data<Settings>) -> impl Responder
 {
@@ -18,7 +19,7 @@ pub async fn index(settings: web::Data<Settings>) -> impl Responder
 }}"#,
         match settings.actix.mode
         {
-            Mode::Development => "development",
+            Mode::Development => "development_tony",
             Mode::Production => "production",
         },
         settings
