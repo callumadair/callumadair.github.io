@@ -2,8 +2,8 @@ FROM rust:latest
 
 EXPOSE 8080
 
-COPY ./ /backend
+COPY . /backend-workspace
 
-WORKDIR /backend
+WORKDIR /backend-workspace/backend
 
 RUN cargo build
