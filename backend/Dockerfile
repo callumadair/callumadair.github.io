@@ -1,9 +1,7 @@
-FROM rust:latest
+FROM rust:alpine
 
 EXPOSE 8080
 
 COPY . /backend-workspace
 
 WORKDIR /backend-workspace/backend
-
-CMD cargo run

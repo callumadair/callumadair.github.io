@@ -5,5 +5,3 @@ EXPOSE 3000
 COPY . /frontend-workspace
 WORKDIR /frontend-workspace/frontend
 RUN ~/.bun/bin/bun install
-
-CMD trunk serve
