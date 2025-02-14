@@ -9,8 +9,8 @@ services:
       - "3000:3000"
     develop:
       watch:
-        - action: rebuild
-          path: .
+        - action: sync+restart
+          path: ./frontend
           target: /frontend-workspace
           ignore:
             - ./frontend/node_modules/
@@ -26,8 +26,8 @@ services:
       - "8080:8080"
     develop:
       watch:
-        - action: rebuild
-          path: .
+        - action: sync+restart
+          path: .backend
           target: /backend-workspace
           ignore:
             - ./backend/target/

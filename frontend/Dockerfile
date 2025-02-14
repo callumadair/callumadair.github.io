@@ -10,8 +10,9 @@ RUN cargo install --locked trunk
 WORKDIR /frontend-workspace/frontend
 
 RUN curl -fsSL https://bun.sh/install | bash
-RUN ~/.bun/bin/bun install -D tailwindcss
+RUN ~/.bun/bin/bun install -D tailwindcss@3
 RUN ~/.bun/bin/bun i -D daisyui@latest
-RUN trunk build
 
 LABEL authors="cal"
+
+CMD trunk serve

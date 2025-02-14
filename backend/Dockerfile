@@ -6,4 +6,4 @@ COPY . /backend-workspace
 
 WORKDIR /backend-workspace/backend
 
-RUN cargo build
+CMD cargo run
