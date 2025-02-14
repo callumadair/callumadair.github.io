@@ -10,8 +10,8 @@
 }
 @plugin '@tailwindcss/typography';
 
-@source './src/';
-@source '../shared/src/components/';
+@source './src/**/*.rs';
+@source '../shared/src/components/**/*.rs';
 
 
 /*
