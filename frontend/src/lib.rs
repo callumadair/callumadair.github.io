@@ -128,8 +128,12 @@ pub fn app() -> Html
         <ContextProvider<UseStateHandle<Theme>> context={theme}>
             <BrowserRouter>
                 <Page>
-                    <Navbar/>
-                    <Switch<Route> render={switch} />
+                    <main class="grow">
+                        <Navbar/>
+
+                        <Switch<Route> render={switch} />
+                    </main>
+
                     <Footer/>
                 </Page>
             </BrowserRouter>
@@ -147,7 +151,7 @@ struct PageProps
 fn page(props: &PageProps) -> Html
 {
     html! {
-        <div class="min-h-screen relative">
+        <div class="flex flex-col min-h-screen justify-between">
             {props.children.clone()}
         </div>
     }

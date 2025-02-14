@@ -51,9 +51,9 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
     };
 
     html! {
-        <div class="grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg bg-primary-content w-full">
+        <div class="grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg rounded-box border-2">
 
-            <h2 class="flex w-full px-3 items-center justify-between text-left text-xl caption-top">
+            <h2 class="flex w-full p-3 items-center justify-between text-left text-2xl">
                 { title.to_string() }
 
                 {if *searchable {
