@@ -51,7 +51,7 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
     };
 
     html! {
-        <div class="grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg rounded-box border-2">
+        <div class="grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg rounded-box border">
 
             <h2 class="flex w-full p-3 items-center justify-between text-left text-2xl">
                 { title.to_string() }

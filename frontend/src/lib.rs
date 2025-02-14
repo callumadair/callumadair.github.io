@@ -181,7 +181,7 @@ fn switch(routes: Route) -> Html
 pub fn home() -> Html
 {
     html! {
-        <div class="h-screen flex justify-center items-center">
+        <div class="flex justify-center items-center">
             <h1 class="text-primary text-4xl">
                 {"Hello, world!"}
             </h1>
