@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     develop:
       watch:
-        - action: sync
+        - action: rebuild
           path: .
           target: /frontend-workspace
           ignore:
