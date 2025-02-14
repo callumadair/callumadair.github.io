@@ -21,34 +21,3 @@ yew-router.workspace = true
 
 [lints]
 workspace = true
-
-
-[workspace.dependencies]
-capitalize = "0.3.4"
-gloo = "0.11.0"
-lucide-yew = "1.1.0"
-serde = { version = "1.0.217", features = ["derive"] }
-shared = { path = "../shared" }
-strum = { version = "0.26.3", features = ["derive"] }
-yew = { version = "0.21.0", features = ["csr"] }
-yew-router = "0.18.0"
-
-[workspace.lints.rust]
-warnings = "warn"
-deprecated-safe = "warn"
-future-incompatible = "warn"
-keyword-idents = "warn"
-let-underscore = "warn"
-nonstandard-style = "warn"
-refining-impl-trait = "warn"
-rust-2024-compatibility = "warn"
-unused = "warn"
-
-[workspace.lints.clippy]
-correctness = "warn"
-suspicious = "warn"
-complexity = "warn"
-perf = "warn"
-style = "warn"
-pedantic = "warn"
-cargo = "warn"
