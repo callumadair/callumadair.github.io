@@ -46,15 +46,16 @@ const THEME_STORAGE_KEY: &str = "current-theme-name";
 #[derive(
     Default, PartialEq, Eq, Clone, Copy, Display, AsRefStr, EnumIter, Serialize, Deserialize,
 )]
-#[strum(serialize_all = "lowercase")]
 pub(crate) enum Theme
 {
+    Abyss,
     Acid,
     Aqua,
     Autumn,
     Black,
     Bumblebee,
     Business,
+    Caramellatte,
     Cmyk,
     Coffee,
     Corporate,
@@ -77,6 +78,7 @@ pub(crate) enum Theme
     Nord,
     Pastel,
     Retro,
+    Silk,
     Sunset,
     Synthwave,
     Valentine,
