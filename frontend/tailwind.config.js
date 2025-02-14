@@ -6,14 +6,13 @@ module.exports = {
     },
     plugins: [
         // require('daisyui'),
-        // require('@tailwindcss/forms')({
-        //     strategy: 'base',
-        //     strategy: 'class',
-        // }),
-        // require('@tailwindcss/typography'),
-        // require('@tailwindcss/container-queries'),
-        // require('tailwindcss-animate'),
-        // require('tailwindcss-opentype'),
+        require('@tailwindcss/forms')({
+            strategy: 'class',
+        }),
+        require('@tailwindcss/typography'),
+        require('@tailwindcss/container-queries'),
+        require('tailwindcss-animate'),
+        require('tailwindcss-opentype'),
     ],
 
     // daisyui: {
