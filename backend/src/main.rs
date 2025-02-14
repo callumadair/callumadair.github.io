@@ -39,24 +39,22 @@ async fn main() -> std::io::Result<()>
 
         move || {
             App::new()
-                // Include this `.wrap()` call for compression settings to take effect
-                .wrap(Condition::new(
-                    settings.actix.enable_compression,
-                    Compress::default(),
-                ))
-
-                // add request logger
-                .wrap(TracingLogger::default())
-
                 .into_utoipa_app()
-                // make `Settings` available to handlers
-                .app_data(Data::new(settings.clone()))
+                .map(|app|
+                    app.wrap(Condition::new(
+                       settings.actix.enable_compression,
+                       Compress::default(),
+                   ))
+                   .app_data(Data::new(settings.clone()))
+                   .wrap(TracingLogger::default())
+                )
                 .service(index)
                 .openapi_service(|api| {
                     SwaggerUi::new("/swagger-ui/{_:.*}").url("/api/openapi.json", api)
                 })
                 .into_app()
-            // add request handlers as normal
+
+                // add request handlers as normal
         }
     })
         // apply the `Settings` to Actix Web's `HttpServer` 
