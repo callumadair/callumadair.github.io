@@ -2,14 +2,14 @@ services:
   dev-server:
     build:
       context: .
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: frontend/docker/Dockerfile
 
     command: trunk serve
     ports:
       - "3000:3000"
     develop:
       watch:
-        - action: sync+restart
+        - action: rebuild
           path: ./frontend
           target: /frontend-workspace
           ignore:
@@ -26,8 +26,8 @@ services:
       - "8080:8080"
     develop:
       watch:
-        - action: sync+restart
-          path: .backend
+        - action: rebuild
+          path: ./backend
           target: /backend-workspace
           ignore:
             - ./backend/target/
