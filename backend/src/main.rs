@@ -53,8 +53,6 @@ async fn main() -> std::io::Result<()>
                     SwaggerUi::new("/swagger-ui/{_:.*}").url("/api/openapi.json", api)
                 })
                 .into_app()
-
-                // add request handlers as normal
         }
     })
         // apply the `Settings` to Actix Web's `HttpServer` 
