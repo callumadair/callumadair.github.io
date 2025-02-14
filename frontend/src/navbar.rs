@@ -1,4 +1,3 @@
-use capitalize::Capitalize;
 use gloo::storage::Storage;
 use lucide_yew::{
     House,
@@ -161,7 +160,7 @@ fn theme_content() -> Html
                     type="radio"
                     name="theme-dropdown"
                     class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                    aria-label={ theme_variant.to_string().capitalize() }
+                    aria-label={ theme_variant.to_string() }
                     value={ theme_variant.to_string() }
                     {onclick}
                     />

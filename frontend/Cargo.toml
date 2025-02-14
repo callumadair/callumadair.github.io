@@ -10,7 +10,6 @@ keywords = ["web", "fullstack"]
 categories = ["web-programming", "gui"]
 
 [dependencies]
-capitalize.workspace = true
 gloo.workspace = true
 lucide-yew.workspace = true
 serde.workspace = true
