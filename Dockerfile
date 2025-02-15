@@ -7,4 +7,4 @@ WORKDIR /workspace
 
 LABEL authors="cal"
 
- CMD ["just", "zellij-compose"]
+CMD ["just", "zellij-compose"]
