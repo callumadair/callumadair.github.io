@@ -38,7 +38,7 @@ pub fn navbar() -> Html
             // Actual navbar stuff goes here.
             <div class="drawer-content flex flex-col">
 
-                <div class="navbar px-4 w-full bg-primary-content text-primary">
+                <div class="navbar px-4 w-full text-primary bg-base-300">
 
                     <div class="navbar-start space-x-2">
                         <MenuToggle menu_id="my-menu"/>

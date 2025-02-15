@@ -151,7 +151,7 @@ struct PageProps
 fn page(props: &PageProps) -> Html
 {
     html! {
-        <div class="flex flex-col min-h-screen justify-between">
+        <div class="flex flex-col bg-base-100 min-h-screen justify-between">
             {props.children.clone()}
         </div>
     }
