@@ -11,7 +11,7 @@ services:
       watch:
         - action: sync+restart
           path: ./frontend
-          target: /frontend-workspace
+          target: /frontend-workspace/frontend
           ignore:
             - ./frontend/node_modules/
             - ./frontend/target/
@@ -28,7 +28,7 @@ services:
       watch:
         - action: sync+restart
           path: ./backend
-          target: /backend-workspace
+          target: /backend-workspace/backend
           ignore:
             - ./backend/target/
 
