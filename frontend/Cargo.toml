@@ -20,9 +20,3 @@ yew-router.workspace = true
 
 [lints]
 workspace = true
-
-[profile.dev]
-opt-level = 1
-
-[profile.dev.package."*"]
-opt-level = 3

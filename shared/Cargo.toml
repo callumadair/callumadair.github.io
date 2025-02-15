@@ -20,4 +20,3 @@ yew-router = "0.18.0"
 
 [lints]
 workspace = true
-
