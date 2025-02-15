@@ -121,7 +121,7 @@ pub fn app() -> Html
     document()
         .document_element()
         .expect("Failed getting root document as element.")
-        .set_attribute(THEME_ATTRIBUTE_NAME, (*theme).as_ref())
+        .set_attribute(THEME_ATTRIBUTE_NAME, &(*theme).to_string().to_lowercase())
         .expect("Failed setting the theme value.");
 
     html! {
