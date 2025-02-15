@@ -1,7 +1,14 @@
 FROM rust:alpine
 
-RUN apk add bash curl mold musl-dev
+# Add alpine packages
+RUN apk add bash clang curl mold musl-dev
+
+# Add rust toolchains and components.
 RUN rustup target add wasm32-unknown-unknown
+RUN rustup install nightly
+RUN rustup component add rustc-codegen-cranelift-preview --toolchain nightly
+
+# Add cargo-binstall and use it to install trunk.
 RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 RUN cargo binstall trunk
 
