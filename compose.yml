@@ -16,6 +16,9 @@ services:
             - ./frontend/node_modules/
             - ./frontend/target/
             - ./frontend/dist/
+        - action: sync+restart
+          path: ./shared
+          target: /frontend-workspace/shared
 
   dev-backend:
     build:
@@ -31,6 +34,9 @@ services:
           target: /backend-workspace/backend
           ignore:
             - ./backend/target/
+        - action: sync+restart
+          path: ./shared
+          target: /backend-workspace/shared
 
   db:
     image: postgres
