@@ -7,4 +7,3 @@ COPY . /frontend-workspace
 WORKDIR /frontend-workspace/frontend
 
 RUN bun install
-RUN trunk build
