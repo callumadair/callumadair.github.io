@@ -25,3 +25,9 @@ utoipa-swagger-ui = { version = "9.0.0", features = ["actix-web", "debug-embed"]
 
 [lints]
 workspace = true
+
+[profile.dev]
+opt-level = 1
+
+[profile.dev.package."*"]
+opt-level = 3
