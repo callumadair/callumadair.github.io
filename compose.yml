@@ -1,5 +1,5 @@
 services:
-  dev-server:
+  dev-frontend:
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
