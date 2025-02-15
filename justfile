@@ -3,7 +3,7 @@
 compose:
     zellij run -- docker compose up --build --watch dev-backend
     zellij run -- docker compose up --build --watch dev-frontend
-    docker compose up db
+    zellij run -- docker compose up db
 
 fmt:
     cd ./backend && cargo +nightly fmt
