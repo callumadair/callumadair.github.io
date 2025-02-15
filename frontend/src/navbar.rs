@@ -42,13 +42,11 @@ pub fn navbar() -> Html
 
                     <div class="navbar-start space-x-2">
                         <MenuToggle menu_id="my-menu"/>
+
+                        <HomeLink/>
                         <ReadingLink/>
                         <ProjectLink/>
                         <SoftwareLink/>
-                    </div>
-
-                    <div class="navbar-center">
-                        <HomeLink/>
                     </div>
 
                     <div class="navbar-end space-x-2">
