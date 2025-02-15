@@ -4,6 +4,7 @@ compose:
     zellij run -- docker compose up --build --watch dev-backend
     zellij run -- docker compose up --build --watch dev-frontend
     zellij run -- docker compose up db
+    clear
 
 fmt:
     cargo +nightly fmt
