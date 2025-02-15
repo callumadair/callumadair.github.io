@@ -43,6 +43,8 @@ pub fn navbar() -> Html
                     <div class="navbar-start space-x-2">
                         <MenuToggle menu_id="my-menu"/>
 
+                        <div class="divider divider-primary divider-horizontal"/>
+
                         <HomeLink/>
                         <ReadingLink/>
                         <ProjectLink/>
