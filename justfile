@@ -7,9 +7,10 @@ compose:
 
 alias dd := double-docker
 
+# This does not quite work currently due to issues with zellij in the zellij-compose recipe.
 double-docker:
     docker build -t double-docker:latest --file ./Dockerfile .
-    docker run -it -v "/var/run/docker.sock:/var/run/docker.sock:rw" double-docker:latest /bin/sh
+    docker run -it -v "/var/run/docker.sock:/var/run/docker.sock:rw" double-docker:latest
 
 fmt:
     cargo +nightly fmt
@@ -22,6 +23,7 @@ lint-fix:
 
 alias zc := zellij-compose
 
+# This does not work due to some of the panes not starting correctly, so that when you attach to the session, only the second two panes work.
 zellij-compose:
     zellij attach --create-background container
     zellij --session container action new-pane -- just -f {{ justfile() }} compose
