@@ -5,6 +5,7 @@ resolver = "2"
 [workspace.dependencies]
 gloo = "0.11.0"
 lucide-yew = "1.1.0"
+sea-orm = { version = "1.1.4", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "with-chrono", "with-json"] }
 serde = { version = "1.0.217", features = ["derive"] }
 shared = { path = "./shared" }
 strum = { version = "0.26.3", features = ["derive"] }
