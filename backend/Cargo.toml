@@ -16,6 +16,7 @@ actix-settings = "0.8.0"
 actix-web = { version = "4.9.0", features = ["rustls"] }
 entity = { path = "entity" }
 migration = { path = "migration" }
+sea-orm.workspace = true
 tokio = { version = "1.43.0", features = ["rt", "rt-multi-thread", "macros"] }
 tracing = "0.1.41"
 tracing-actix-web = "0.7.15"
