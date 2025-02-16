@@ -1,9 +1,8 @@
 [workspace]
-members = ["backend", "frontend", "shared"]
+members = ["backend", "frontend", "shared", "backend/migration", "backend/entity"]
 resolver = "2"
 
 [workspace.dependencies]
-capitalize = "0.3.4"
 gloo = "0.11.0"
 lucide-yew = "1.1.0"
 serde = { version = "1.0.217", features = ["derive"] }
