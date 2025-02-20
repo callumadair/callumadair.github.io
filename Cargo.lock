@@ -3426,6 +3426,7 @@ dependencies = [
  "gloo 0.11.0",
  "lucide-yew",
  "serde",
+ "strum",
  "web-sys",
  "yew",
  "yew-router",
