@@ -11,9 +11,11 @@ pub use footer::*;
 pub use input::*;
 pub use modal::*;
 pub use navigation::*;
+use strum::AsRefStr;
 pub use table::*;
 
-#[derive(Clone, Copy, PartialEq, Eq, Debug, Default)]
+#[derive(Clone, Copy, Debug, Eq, Default, PartialEq, AsRefStr)]
+#[strum(serialize_all = "kebab_case")]
 pub enum Colour
 {
     #[default]
