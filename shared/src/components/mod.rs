@@ -13,8 +13,10 @@ pub use modal::*;
 pub use navigation::*;
 pub use table::*;
 
+#[derive(Clone, Copy, PartialEq, Eq, Debug, Default)]
 pub enum Colour
 {
+    #[default]
     Primary,
     PrimaryContent,
     Secondary,
