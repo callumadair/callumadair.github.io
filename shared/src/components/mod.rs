@@ -1,3 +1,4 @@
+mod button;
 mod carousel;
 mod footer;
 mod input;
@@ -11,3 +12,27 @@ pub use input::*;
 pub use modal::*;
 pub use navigation::*;
 pub use table::*;
+
+pub enum Colour
+{
+    Primary,
+    PrimaryContent,
+    Secondary,
+    SecondaryContent,
+    Accent,
+    AccentContent,
+    Neutral,
+    NeutralContent,
+    Base100,
+    Base200,
+    Base300,
+    BaseContent,
+    Info,
+    InfoContent,
+    Success,
+    SuccessContent,
+    Warning,
+    WarningContent,
+    Error,
+    ErrorContent,
+}
