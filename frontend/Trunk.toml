@@ -13,3 +13,6 @@ port = 3000
 
 [tools]
 tailwindcss = "4.0.7"
+
+[watch]
+watch = ["../shared/**/*.rs"]
