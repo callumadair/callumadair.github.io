@@ -13,6 +13,12 @@ double-docker:
     docker build -t double-docker:latest --file ./Dockerfile .
     docker run -it -v "/var/run/docker.sock:/var/run/docker.sock:rw" double-docker:latest
 
+dev:
+    cd ./backend && zellij run -- cargo run
+    cd ./frontend && zellij run -- ~/.cargo/bin/trunk serve
+    zellij run -- docker compose up db
+    clear
+
 fmt:
     cargo +nightly fmt
 
