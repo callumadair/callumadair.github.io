@@ -18,7 +18,7 @@ double-docker:
 
 dev:
     cd ./backend && zellij run -- cargo run
-    cd ./frontend && bun install && zellij run -- ~/.cargo/bin/trunk serve
+    cd ./frontend && zellij run -- ~/.cargo/bin/trunk serve
     zellij run -- docker compose up db
     clear
 
