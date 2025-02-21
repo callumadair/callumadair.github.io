@@ -11,32 +11,85 @@ pub use footer::*;
 pub use input::*;
 pub use modal::*;
 pub use navigation::*;
-use strum::AsRefStr;
+use strum::{
+    AsRefStr,
+    EnumDiscriminants,
+};
 pub use table::*;
+
+#[macro_export]
+macro_rules! component_colours {
+    ($name:ident, $strum_prefix:literal) => {
+        #[derive(Clone, Copy, Debug, Eq, Default, PartialEq, AsRefStr)]
+        #[strum(prefix = $strum_prefix, serialize_all = "kebab_case")]
+        pub enum $name
+        {
+            Accent,
+            AccentContent,
+            Base100,
+            Base200,
+            Base300,
+            BaseContent,
+            Error,
+            ErrorContent,
+            Info,
+            InfoContent,
+            Neutral,
+            NeutralContent,
+            #[default]
+            Primary,
+            PrimaryContent,
+            Secondary,
+            SecondaryContent,
+            Success,
+            SuccessContent,
+            Warning,
+            WarningContent,
+        }
+    };
+}
 
 #[derive(Clone, Copy, Debug, Eq, Default, PartialEq, AsRefStr)]
 #[strum(serialize_all = "kebab_case")]
 pub enum Colour
 {
+    Accent,
+    AccentContent,
+    Base100,
+    Base200,
+    Base300,
+    BaseContent,
+    Error,
+    ErrorContent,
+    Info,
+    InfoContent,
+    Neutral,
+    NeutralContent,
     #[default]
     Primary,
     PrimaryContent,
     Secondary,
     SecondaryContent,
-    Accent,
-    AccentContent,
-    Neutral,
-    NeutralContent,
-    Base100,
-    Base200,
-    Base300,
-    BaseContent,
-    Info,
-    InfoContent,
     Success,
     SuccessContent,
     Warning,
     WarningContent,
-    Error,
-    ErrorContent,
+}
+#[derive(Clone, Copy, Debug, Eq, Default, PartialEq, AsRefStr)]
+#[strum(serialize_all = "kebab_case")]
+pub enum Size
+{
+    #[strum(serialize = "xs")]
+    ExtraSmall,
+    #[strum(serialize = "sm")]
+    Small,
+    #[default]
+    #[strum(serialize = "md")]
+    Medium,
+    #[strum(serialize = "lg")]
+    Large,
+    #[strum(serialize = "xl")]
+    ExtraLarge,
+    #[strum(serialize = "2xl")]
+    ExtraExtraLarge,
 }
