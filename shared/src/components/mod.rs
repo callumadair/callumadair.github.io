@@ -6,6 +6,7 @@ mod modal;
 mod navigation;
 mod table;
 
+pub use button::*;
 pub use carousel::*;
 pub use footer::*;
 pub use input::*;
