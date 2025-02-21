@@ -10,3 +10,6 @@ inject_scripts = true
 [serve]
 addresses = ["::1", "0.0.0.0"]
 port = 3000
+
+[tools]
+tailwindcss = "4.0.7"
