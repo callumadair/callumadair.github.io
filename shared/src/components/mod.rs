@@ -21,7 +21,7 @@ pub use table::*;
 #[macro_export]
 macro_rules! component_colours {
     ($name:ident, $strum_prefix:literal) => {
-        #[derive(Clone, Copy, Debug, Eq, Default, derive_more::Display, PartialEq, AsRefStr)]
+        #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
         #[strum(prefix = $strum_prefix, serialize_all = "kebab_case")]
         pub enum $name
         {
@@ -38,7 +38,6 @@ macro_rules! component_colours {
             Neutral,
             NeutralContent,
             #[default]
-            #[strum(serialize = "")]
             None,
             Primary,
             PrimaryContent,
@@ -69,7 +68,6 @@ pub enum Colour
     Neutral,
     NeutralContent,
     #[default]
-    #[strum(serialize = "")]
     None,
     Primary,
     PrimaryContent,
