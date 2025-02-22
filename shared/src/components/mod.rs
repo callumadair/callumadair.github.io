@@ -1,5 +1,6 @@
 mod button;
 mod carousel;
+mod dropdown;
 mod footer;
 mod input;
 mod modal;
@@ -48,33 +49,6 @@ macro_rules! component_colours {
     };
 }
 
-#[derive(Clone, Copy, Debug, Eq, Default, derive_more::Display, PartialEq, AsRefStr)]
-#[strum(serialize_all = "kebab_case")]
-pub enum Colour
-{
-    Accent,
-    AccentContent,
-    Base100,
-    Base200,
-    Base300,
-    BaseContent,
-    Error,
-    ErrorContent,
-    Info,
-    InfoContent,
-    Neutral,
-    NeutralContent,
-    #[default]
-    None,
-    Primary,
-    PrimaryContent,
-    Secondary,
-    SecondaryContent,
-    Success,
-    SuccessContent,
-    Warning,
-    WarningContent,
-}
 
 #[macro_export]
 macro_rules! component_sizes {
@@ -98,23 +72,4 @@ macro_rules! component_sizes {
             ExtraExtraLarge,
         }
     };
-}
-
-#[derive(Clone, Copy, Debug, Eq, Default, derive_more::Display, PartialEq, AsRefStr)]
-#[strum(serialize_all = "kebab_case")]
-pub enum Size
-{
-    #[strum(serialize = "xs")]
-    ExtraSmall,
-    #[strum(serialize = "sm")]
-    Small,
-    #[default]
-    #[strum(serialize = "md")]
-    Medium,
-    #[strum(serialize = "lg")]
-    Large,
-    #[strum(serialize = "xl")]
-    ExtraLarge,
-    #[strum(serialize = "2xl")]
-    ExtraExtraLarge,
 }
