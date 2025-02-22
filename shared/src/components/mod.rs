@@ -49,7 +49,6 @@ macro_rules! component_colours {
     };
 }
 
-
 #[macro_export]
 macro_rules! component_sizes {
     ($name:ident, $strum_prefix:literal) => {
