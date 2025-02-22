@@ -45,11 +45,11 @@ pub enum ButtonModifier
 #[display("btn {colour} {style}")]
 struct ButtonClasses
 {
-    colour:    ButtonColour,
-    style:     ButtonStyle,
     behaviour: ButtonBehaviour,
-    size:      Size,
+    colour:    ButtonColour,
     modifier:  ButtonModifier,
+    size:      Size,
+    style:     ButtonStyle,
 }
 
 #[derive(Properties, PartialEq, Clone)]
@@ -81,11 +81,11 @@ pub fn button(props: &ButtonProps) -> Html
     } = props.clone();
 
     let class = ButtonClasses {
-        colour,
-        style,
         behaviour,
-        size,
+        colour,
         modifier,
+        size,
+        style,
     }
     .to_string();
 
