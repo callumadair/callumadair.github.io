@@ -12,10 +12,7 @@ pub use footer::*;
 pub use input::*;
 pub use modal::*;
 pub use navigation::*;
-use strum::{
-    AsRefStr,
-    EnumDiscriminants,
-};
+use strum::AsRefStr;
 pub use table::*;
 
 #[macro_export]
