@@ -78,6 +78,7 @@ pub enum Colour
     Warning,
     WarningContent,
 }
+
 #[derive(Clone, Copy, Debug, Eq, Default, derive_more::Display, PartialEq, AsRefStr)]
 #[strum(serialize_all = "kebab_case")]
 pub enum Size
