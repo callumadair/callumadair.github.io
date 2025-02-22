@@ -4,8 +4,6 @@ use strum::{
 };
 use yew::prelude::*;
 
-use crate::components::Size;
-
 crate::component_colours!(ButtonColour, "btn-");
 crate::component_sizes!(ButtonSize, "btn-");
 
