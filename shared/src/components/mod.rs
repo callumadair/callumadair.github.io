@@ -9,6 +9,7 @@ mod table;
 
 pub use button::*;
 pub use carousel::*;
+use derive_more::Display;
 pub use footer::*;
 pub use input::*;
 pub use modal::*;
@@ -48,6 +49,10 @@ macro_rules! component_colours {
         }
     };
 }
+
+component_colours!(BackgroundColours, "bg-");
+component_colours!(BorderColours, "border-");
+component_colours!(TextColours, "text-");
 
 #[macro_export]
 macro_rules! component_sizes {
