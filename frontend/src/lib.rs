@@ -75,6 +75,7 @@ pub(crate) enum Theme
     // Luxury,
     #[default]
     NewLight,
+    NewDark,
     // Night,
     // Nord,
     // Pastel,
