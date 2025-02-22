@@ -42,7 +42,7 @@ pub fn menu_content(props: &MenuContentProps) -> Html
                 class="drawer-overlay"
             />
 
-            <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
+            <ul class="menu bg-base-300 text-base-content min-h-full w-80 p-4">
                 {children}
             </ul>
 

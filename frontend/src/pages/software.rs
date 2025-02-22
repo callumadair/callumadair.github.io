@@ -49,7 +49,7 @@ fn cli_tools() -> Html
     let searchable = true;
 
     html! {
-        <div class="flex flex-col w-full text-primary">
+        <div class="flex flex-col w-full">
 
             <Table<SoftwareTool>
                 id="cli-table"

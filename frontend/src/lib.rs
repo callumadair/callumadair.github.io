@@ -183,7 +183,7 @@ pub fn home() -> Html
 {
     html! {
         <div class="flex justify-center items-center">
-            <h1 class="text-primary text-4xl">
+            <h1 class="text-4xl">
                 {"Hello, world!"}
             </h1>
         </div>

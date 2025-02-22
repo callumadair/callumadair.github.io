@@ -36,11 +36,11 @@ where
 
     let inner_classes = if large
     {
-        "w-3/4 h-3/4 border-b-2 border-accent overflow-auto"
+        "w-3/4 h-3/4 border-b-2 overflow-auto"
     }
     else
     {
-        "modal-box border-b-2 border-accent overflow-auto"
+        "modal-box border-b-2 overflow-auto"
     };
 
     html! {

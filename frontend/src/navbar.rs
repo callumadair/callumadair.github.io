@@ -38,12 +38,12 @@ pub fn navbar() -> Html
             // Actual navbar stuff goes here.
             <div class="drawer-content flex flex-col">
 
-                <div class="navbar px-4 w-full text-primary bg-base-300">
+                <div class="navbar px-4 w-full bg-base-100">
 
                     <div class="navbar-start space-x-2">
                         <MenuToggle menu_id="my-menu"/>
 
-                        <div class="divider divider-primary divider-horizontal"/>
+                        <div class="divider divider-accent divider-horizontal"/>
 
                         <HomeLink/>
                         <ReadingLink/>
@@ -125,7 +125,7 @@ fn theme() -> Html
               </div>
 
           <ul tabindex="0"
-            class="dropdown-content z-1 p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto bg-primary-content shadow-2xl"
+            class="dropdown-content z-1 p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto shadow-2xl"
             >
 
             <ThemeControlDropdownContent/>

@@ -14,7 +14,7 @@ pub fn base() -> Html
 fn current() -> Html
 {
     html! {
-        <caption class="text-2xl text-primary text-nowrap">
+        <caption class="text-2xl text-nowrap">
             { "Current Projects" }
         </caption>
     }

@@ -20,7 +20,7 @@ fn current() -> Html
     ];
     html! {
         <div class="flex flex-col my-3">
-            <caption class="text-2xl text-primary text-nowrap">
+            <caption class="text-2xl text-nowrap">
                 { "Current reading" }
             </caption>
             <Carousel {img_paths} class="w-80"/>
