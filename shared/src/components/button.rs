@@ -52,6 +52,20 @@ struct ButtonClasses
     style:     ButtonStyle,
 }
 
+impl From<ButtonProps> for ButtonClasses
+{
+    fn from(value: ButtonProps) -> Self
+    {
+        Self {
+            behaviour: value.behaviour,
+            colour:    value.colour,
+            modifier:  value.modifier,
+            size:      value.size,
+            style:     value.style,
+        }
+    }
+}
+
 #[derive(Properties, PartialEq, Clone)]
 pub struct ButtonProps
 {
@@ -71,28 +85,13 @@ pub struct ButtonProps
 #[function_component(Button)]
 pub fn button(props: &ButtonProps) -> Html
 {
-    let ButtonProps {
-        behaviour,
-        colour,
-        style,
-        size,
-        modifier,
-        children,
-    } = props.clone();
-
-    let class = ButtonClasses {
-        behaviour,
-        colour,
-        modifier,
-        size,
-        style,
-    }
-    .to_string();
+    let btn_classes: ButtonClasses = props.clone().into();
+    let class = btn_classes.to_string();
 
     gloo::console::log!(&class);
     html! {
         <button {class}>
-            {children}
+            {props.children.clone()}
         </button>
     }
 }
