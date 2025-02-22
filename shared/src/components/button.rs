@@ -4,16 +4,17 @@ use strum::{
 };
 use yew::prelude::*;
 
+use crate::components::Size;
+
 crate::component_colours!(ButtonColour, "btn-");
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
 #[strum(prefix = "btn-", serialize_all = "kebab-case")]
-pub enum Behaviour
+pub enum ButtonBehaviour
 {
+    #[default]
     Active,
     Disabled,
-    #[default]
-    None,
 }
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
@@ -28,36 +29,66 @@ pub enum ButtonStyle
     None,
 }
 
-#[derive(Properties, PartialEq, Clone)]
-pub struct ButtonProps
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+#[strum(prefix = "btn-", serialize_all = "kebab-case")]
+pub enum ButtonModifier
 {
-    #[prop_or_default]
-    pub colour:   ButtonColour,
-    #[prop_or_default]
-    pub style:    ButtonStyle,
-    pub children: Children,
+    Block,
+    Circle,
+    #[default]
+    None,
+    Square,
+    Wide,
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, derive_more::Display)]
 #[display("btn {colour} {style}")]
 struct ButtonClasses
 {
-    colour: ButtonColour,
-    style:  ButtonStyle,
+    colour:    ButtonColour,
+    style:     ButtonStyle,
+    behaviour: ButtonBehaviour,
+    size:      Size,
+    modifier:  ButtonModifier,
+}
+
+#[derive(Properties, PartialEq, Clone)]
+pub struct ButtonProps
+{
+    #[prop_or_default]
+    pub behaviour: ButtonBehaviour,
+    #[prop_or_default]
+    pub children:  Children,
+    #[prop_or_default]
+    pub colour:    ButtonColour,
+    #[prop_or_default]
+    pub modifier:  ButtonModifier,
+    #[prop_or_default]
+    pub style:     ButtonStyle,
+    #[prop_or_default]
+    pub size:      Size,
 }
 #[function_component(Button)]
 pub fn button(props: &ButtonProps) -> Html
 {
     let ButtonProps {
+        behaviour,
         colour,
         style,
+        size,
+        modifier,
         children,
     } = props.clone();
+
     let class = ButtonClasses {
-        colour: ButtonColour::Accent,
+        colour,
         style,
+        behaviour,
+        size,
+        modifier,
     }
     .to_string();
+
     gloo::console::log!(&class);
     html! {
         <button {class}>
