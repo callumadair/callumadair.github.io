@@ -22,12 +22,13 @@ pub enum ButtonBehaviour
 #[strum(prefix = "btn-", serialize_all = "kebab-case")]
 pub enum ButtonStyle
 {
-    Outline,
-    Soft,
+    Dash,
     Ghost,
     Link,
     #[default]
     None,
+    Outline,
+    Soft,
 }
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
