@@ -74,6 +74,35 @@ macro_rules! component_sizes {
             ExtraLarge,
             #[strum(serialize = "2xl")]
             ExtraExtraLarge,
+            #[strum(serialize = "3xl")]
+            ExtraExtraExtraLarge,
         }
     };
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+#[strum(prefix = "border", serialize_all = "kebab_case")]
+pub enum BorderRadius
+{
+    #[strum(serialize = "xs")]
+    ExtraSmall,
+    #[strum(serialize = "sm")]
+    Small,
+    #[default]
+    #[strum(serialize = "md")]
+    Medium,
+    #[strum(serialize = "lg")]
+    Large,
+    #[strum(serialize = "xl")]
+    ExtraLarge,
+    #[strum(serialize = "2xl")]
+    ExtraExtraLarge,
+    #[strum(serialize = "3xl")]
+    ExtraExtraExtraLarge,
+    #[strum(serialize = "box")]
+    Box,
+    #[strum(serialize = "field")]
+    Field,
+    #[strum(serialize = "selector")]
+    Selector,
 }
