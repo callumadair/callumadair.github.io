@@ -76,6 +76,30 @@ pub enum Colour
     WarningContent,
 }
 
+#[macro_export]
+macro_rules! component_sizes {
+    ($name:ident, $strum_prefix:literal) => {
+        #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+        #[strum(prefix = $strum_prefix, serialize_all = "kebab_case")]
+        pub enum $name
+        {
+            #[strum(serialize = "xs")]
+            ExtraSmall,
+            #[strum(serialize = "sm")]
+            Small,
+            #[default]
+            #[strum(serialize = "md")]
+            Medium,
+            #[strum(serialize = "lg")]
+            Large,
+            #[strum(serialize = "xl")]
+            ExtraLarge,
+            #[strum(serialize = "2xl")]
+            ExtraExtraLarge,
+        }
+    };
+}
+
 #[derive(Clone, Copy, Debug, Eq, Default, derive_more::Display, PartialEq, AsRefStr)]
 #[strum(serialize_all = "kebab_case")]
 pub enum Size
