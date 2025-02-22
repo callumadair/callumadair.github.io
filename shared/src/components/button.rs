@@ -7,6 +7,7 @@ use yew::prelude::*;
 use crate::components::Size;
 
 crate::component_colours!(ButtonColour, "btn-");
+crate::component_sizes!(ButtonSize, "btn-");
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
 #[strum(prefix = "btn-", serialize_all = "kebab-case")]
@@ -42,13 +43,13 @@ pub enum ButtonModifier
 }
 
 #[derive(Clone, Copy, Debug, Default, PartialEq, Eq, derive_more::Display)]
-#[display("btn {colour} {style}")]
+#[display("btn {behaviour} {colour} {modifier} {size} {style}")]
 struct ButtonClasses
 {
     behaviour: ButtonBehaviour,
     colour:    ButtonColour,
     modifier:  ButtonModifier,
-    size:      Size,
+    size:      ButtonSize,
     style:     ButtonStyle,
 }
 
@@ -66,7 +67,7 @@ pub struct ButtonProps
     #[prop_or_default]
     pub style:     ButtonStyle,
     #[prop_or_default]
-    pub size:      Size,
+    pub size:      ButtonSize,
 }
 #[function_component(Button)]
 pub fn button(props: &ButtonProps) -> Html
