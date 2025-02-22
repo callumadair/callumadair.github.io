@@ -15,4 +15,4 @@ port = 3000
 tailwindcss = "4.0.7"
 
 [watch]
-watch = ["../shared"]
+watch = [".", "../shared"]
