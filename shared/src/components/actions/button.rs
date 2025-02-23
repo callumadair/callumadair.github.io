@@ -7,7 +7,7 @@ use yew::prelude::*;
 crate::component_colours!(ButtonColour, "btn-");
 crate::component_sizes!(ButtonSize, "btn-");
 
-#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+#[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
 #[strum(prefix = "btn-", serialize_all = "kebab-case")]
 pub enum ButtonBehaviour
 {
@@ -16,7 +16,7 @@ pub enum ButtonBehaviour
     Disabled,
 }
 
-#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+#[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
 #[strum(prefix = "btn-", serialize_all = "kebab-case")]
 pub enum ButtonStyle
 {
@@ -29,7 +29,7 @@ pub enum ButtonStyle
     Soft,
 }
 
-#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+#[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
 #[strum(prefix = "btn-", serialize_all = "kebab-case")]
 pub enum ButtonModifier
 {
@@ -41,9 +41,9 @@ pub enum ButtonModifier
     Wide,
 }
 
-#[derive(Clone, Copy, Debug, Default, PartialEq, Eq, derive_more::Display)]
+#[derive(Clone, Copy, Default, PartialEq, Eq, derive_more::Display)]
 #[display("btn {behaviour} {colour} {modifier} {size} {style}")]
-struct ButtonClasses
+pub struct ButtonClasses
 {
     behaviour: ButtonBehaviour,
     colour:    ButtonColour,
@@ -66,7 +66,7 @@ impl From<ButtonProps> for ButtonClasses
     }
 }
 
-#[derive(Properties, PartialEq, Clone)]
+#[derive(Properties, PartialEq, Clone, Default)]
 pub struct ButtonProps
 {
     #[prop_or_default]
