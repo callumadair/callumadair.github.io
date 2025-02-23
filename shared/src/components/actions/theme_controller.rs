@@ -171,6 +171,7 @@ pub struct ThemeControllerProps
 #[function_component(ThemeController)]
 pub fn theme_controller(props: &ThemeControllerProps) -> Html
 {
+    // TODO actually use this.
     // props.controller_type.clone().to_html()
     html! {}
 }
