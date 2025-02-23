@@ -5,6 +5,7 @@ mod footer;
 mod input;
 mod modal;
 mod navigation;
+mod swap;
 mod table;
 
 pub use button::*;
