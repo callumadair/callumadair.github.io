@@ -10,6 +10,7 @@ pub use actions::{
     button::*,
     dropdown::*,
     swap::*,
+    theme_controller::*,
 };
 pub use carousel::*;
 use derive_more::Display;
