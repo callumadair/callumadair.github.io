@@ -1,14 +1,16 @@
-mod button;
+mod actions;
 mod carousel;
-mod dropdown;
 mod footer;
 mod input;
 mod modal;
 mod navigation;
-mod swap;
 mod table;
 
-pub use button::*;
+pub use actions::{
+    button::*,
+    dropdown::*,
+    swap::*,
+};
 pub use carousel::*;
 use derive_more::Display;
 pub use footer::*;
