@@ -35,7 +35,7 @@ pub enum DropdownModifier
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, derive_more::Display)]
-#[display("dropdown ")]
+#[display("dropdown {background_colours} {border_radius} {modifier} {placement} {text_colours}")]
 pub struct DropdownClasses
 {
     pub background_colours: BackgroundColours,
