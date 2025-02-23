@@ -7,10 +7,12 @@ use yew::prelude::*;
 use crate::components::{
     BackgroundColours,
     BorderRadius,
+    Button,
+    ButtonProps,
     TextColours,
 };
 
-#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+#[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
 #[strum(prefix = "dropdown-", serialize_all = "kebab-case")]
 pub enum DropdownPlacement
 {
@@ -24,7 +26,7 @@ pub enum DropdownPlacement
     Right,
 }
 
-#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+#[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
 #[strum(prefix = "dropdown-", serialize_all = "kebab-case")]
 pub enum DropdownModifier
 {
@@ -34,8 +36,10 @@ pub enum DropdownModifier
     None,
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, derive_more::Display)]
-#[display("dropdown {background_colours} {border_radius} {modifier} {placement} {text_colours}")]
+#[derive(Clone, Copy, PartialEq, Eq, derive_more::Display)]
+#[display(
+    "dropdown-content {background_colours} {border_radius} {modifier} {placement} {text_colours}"
+)]
 pub struct DropdownClasses
 {
     pub background_colours: BackgroundColours,
@@ -59,7 +63,7 @@ impl From<DropdownProps> for DropdownClasses
     }
 }
 
-#[derive(Properties, Clone, Debug, PartialEq)]
+#[derive(Properties, Clone, PartialEq)]
 pub struct DropdownProps
 {
     #[prop_or_default]
@@ -74,17 +78,39 @@ pub struct DropdownProps
     pub placement:          DropdownPlacement,
     #[prop_or_default]
     pub text_colours:       TextColours,
+    #[prop_or_default]
+    pub button_props:       ButtonProps,
 }
 
 #[function_component(Dropdown)]
 pub fn dropdown(props: &DropdownProps) -> Html
 {
-    let dropdown_classes = DropdownClasses::from(props.clone());
-    let class = dropdown_classes.to_string();
+    let class = DropdownClasses::from(props.clone()).to_string();
+    let DropdownProps { button_props, .. } = props.clone();
+    let ButtonProps {
+        behaviour,
+        children,
+        colour,
+        modifier,
+        style,
+        size,
+    } = button_props;
 
     html! {
-        <div {class}>
-            {props.children.clone()}
+        <div class="dropdown mb-72">
+            <Button
+                {behaviour}
+                {colour}
+                {modifier}
+                {style}
+                {size}
+            >
+                {children}
+            </Button>
+
+            <ul {class}>
+                {props.children.clone()}
+            </ul>
         </div>
     }
 }
