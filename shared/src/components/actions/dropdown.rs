@@ -108,7 +108,9 @@ pub fn dropdown(props: &DropdownProps) -> Html
                 {children}
             </Button>
 
-            <ul {class}>
+            <ul {class}
+                tabindex="0"
+            >
                 {props.children.clone()}
             </ul>
         </div>
