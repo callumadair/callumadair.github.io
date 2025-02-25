@@ -3443,12 +3443,14 @@ dependencies = [
 name = "shared"
 version = "0.1.0"
 dependencies = [
+ "actix-web",
  "chrono",
  "derive_more 2.0.1",
  "gloo 0.11.0",
  "lucide-yew",
  "serde",
  "strum",
+ "thiserror 2.0.11",
  "web-sys",
  "yew",
  "yew-router",

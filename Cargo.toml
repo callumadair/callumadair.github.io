@@ -3,6 +3,7 @@ members = ["backend", "frontend", "shared", "shared/shared_macros", "backend/mig
 resolver = "2"
 
 [workspace.dependencies]
+actix-web = { version = "4.9.0", features = ["rustls"] }
 derive_more = { version = "2.0.1", features = ["display"] }
 gloo = "0.11.0"
 lucide-yew = "1.1.0"
@@ -10,6 +11,7 @@ sea-orm = { version = "1.1.4", features = ["sqlx-postgres", "runtime-tokio-rustl
 serde = { version = "1.0.217", features = ["derive"] }
 shared = { path = "./shared" }
 strum = { version = "0.26.3", features = ["derive"] }
+thiserror = { version = "2.0.11" }
 yew = { version = "0.21.0", features = ["csr"] }
 yew-router = "0.18.0"
 

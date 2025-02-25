@@ -13,7 +13,7 @@ name = "portfolio_backend_bin"
 
 [dependencies]
 actix-settings = "0.8.0"
-actix-web = { version = "4.9.0", features = ["rustls"] }
+actix-web.workspace = true
 entity = { path = "entity" }
 migration = { path = "migration" }
 sea-orm.workspace = true
