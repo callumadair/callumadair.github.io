@@ -1,83 +1,84 @@
-use lucide_yew::PanelLeft;
-use yew::prelude::*;
-use yew_router::prelude::*;
+use dioxus::prelude::*;
+use lucide_dioxus::PanelLeft;
 
-#[derive(Properties, Clone, PartialEq)]
+#[derive(Props, Clone, PartialEq)]
 pub struct MenuToggleProps
 {
-    pub menu_id: AttrValue,
+    pub menu_id: String,
 }
 
-#[function_component(MenuToggle)]
-pub fn menu_toggle(props: &MenuToggleProps) -> Html
+#[component]
+pub fn menu_toggle(props: MenuToggleProps) -> Element
 {
-    let MenuToggleProps { menu_id } = props.clone();
-    html! {
-        <label
-            for={menu_id}
-            class="btn btn-sm btn-square btn-ghost drawer-button"
-        >
-            <PanelLeft size=20 />
-        </label>
+    let MenuToggleProps { menu_id } = props;
+    rsx! {
+            label {
+                for: menu_id,
+                class: "btn btn-sm btn-square btn-ghost drawer-button",
+
+                PanelLeft {
+                    size: 20
+                }
+
+            }
     }
 }
 
-#[derive(Properties, Clone, PartialEq)]
+#[derive(Props, Clone, PartialEq)]
 pub struct MenuContentProps
 {
-    pub children: Children,
-    pub menu_id:  AttrValue,
+    pub children: Element,
+    pub menu_id:  String,
 }
 
-#[function_component(MenuContent)]
-pub fn menu_content(props: &MenuContentProps) -> Html
+#[component]
+pub fn menu_content(props: MenuContentProps) -> Element
 {
-    let MenuContentProps { children, menu_id } = props.clone();
+    let MenuContentProps { children, menu_id } = props;
 
-    html! {
-        <div class="drawer-side z-30">
+    rsx! {
+        div {
+            class: "drawer-side z-30",
 
-            <label for={menu_id}
-                aria-label="close sidebar"
-                class="drawer-overlay"
-            />
+            label {
+                for: menu_id,
+                aria_label: "close sidebar",
+                class:"drawer-overlay"
+            },
 
-            <ul class="menu bg-base-300 text-base-content min-h-full w-80 p-4">
+            ul {
+                class: "menu bg-base-300 text-base-content min-h-full w-80 p-4",
                 {children}
-            </ul>
+            }
 
-        </div>
+        }
     }
 }
 
-#[derive(Properties, PartialEq, Clone)]
+#[derive(Props, PartialEq, Clone)]
 pub struct NavbarLinkProps<T>
 where
     T: Routable,
 {
     pub route:    T,
-    pub children: Children,
+    pub children: Element,
 }
 
-#[function_component(NavbarLink)]
-pub fn navbar_link<T>(props: &NavbarLinkProps<T>) -> Html
+#[component]
+pub fn navbar_link<T>(props: &NavbarLinkProps<T>) -> Element
 where
     T: Routable + 'static,
 {
-    let navigator = use_navigator().expect("Failed getting navigator hook.");
-
     let NavbarLinkProps {
         route,
         children: content,
-    } = props.clone();
+    } = props;
 
-    let onclick = Callback::from(move |_| navigator.push(&route));
-    html! {
-        <a
-            class="btn btn-ghost"
-            {onclick}
-        >
-            {content}
-        </a>
+    rsx! {
+            Link {
+                class:"btn btn-ghost",
+                to: route,
+                {content}
+            }
     }
 }
