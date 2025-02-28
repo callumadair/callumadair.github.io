@@ -1,8 +1,8 @@
+use dioxus::prelude::*;
 use strum::{
     AsRefStr,
     Display,
 };
-use yew::prelude::*;
 
 use crate::components::{
     BackgroundColours,
@@ -63,27 +63,26 @@ impl From<DropdownProps> for DropdownClasses
     }
 }
 
-#[derive(Properties, Clone, PartialEq)]
+#[derive(Props, Clone, PartialEq)]
 pub struct DropdownProps
 {
-    #[prop_or_default]
+    #[props(default)]
     pub background_colours: BackgroundColours,
-    #[prop_or_default]
+    #[props(default)]
     pub border_radius:      BorderRadius,
-    #[prop_or_default]
-    pub children:           Children,
-    #[prop_or_default]
+    pub children:           Element,
+    #[props(default)]
     pub modifier:           DropdownModifier,
-    #[prop_or_default]
+    #[props(default)]
     pub placement:          DropdownPlacement,
-    #[prop_or_default]
+    #[props(default)]
     pub text_colours:       TextColours,
-    #[prop_or_default]
+    #[props(default)]
     pub button_props:       ButtonProps,
 }
 
-#[function_component(Dropdown)]
-pub fn dropdown(props: &DropdownProps) -> Html
+#[component]
+pub fn dropdown(props: DropdownProps) -> Element
 {
     let class = DropdownClasses::from(props.clone()).to_string();
     let DropdownProps { button_props, .. } = props.clone();
@@ -96,23 +95,22 @@ pub fn dropdown(props: &DropdownProps) -> Html
         size,
     } = button_props;
 
-    html! {
-        <div class="dropdown mb-72">
-            <Button
-                {behaviour}
-                {colour}
-                {modifier}
-                {style}
-                {size}
-            >
-                {children}
-            </Button>
+    rsx! {
+            div {
+                class: "dropdown mb-72",
+                Button {
+                    behaviour,
+                    colour,
+                    modifier,
+                    style,
+                    size,
+                    children
+                },
 
-            <ul {class}
-                tabindex="0"
-            >
-                {props.children.clone()}
-            </ul>
-        </div>
+                ul { class,
+                    tabindex: "0",
+                    {props.children}
+                }
+            }
     }
 }
