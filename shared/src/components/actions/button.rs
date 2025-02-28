@@ -1,8 +1,8 @@
+use dioxus::prelude::*;
 use strum::{
     AsRefStr,
     Display,
 };
-use yew::prelude::*;
 
 crate::component_colours!(ButtonColour, "btn-");
 crate::component_sizes!(ButtonSize, "btn-");
@@ -66,32 +66,32 @@ impl From<ButtonProps> for ButtonClasses
     }
 }
 
-#[derive(Properties, PartialEq, Clone, Default)]
+#[derive(Props, PartialEq, Clone)]
 pub struct ButtonProps
 {
-    #[prop_or_default]
+    #[props(default)]
     pub behaviour: ButtonBehaviour,
-    #[prop_or_default]
-    pub children:  Children,
-    #[prop_or_default]
+    pub children:  Element,
+    #[props(default)]
     pub colour:    ButtonColour,
-    #[prop_or_default]
+    #[props(default)]
     pub modifier:  ButtonModifier,
-    #[prop_or_default]
+    #[props(default)]
     pub style:     ButtonStyle,
-    #[prop_or_default]
+    #[props(default)]
     pub size:      ButtonSize,
 }
-#[function_component(Button)]
-pub fn button(props: &ButtonProps) -> Html
+#[component]
+pub fn Button(props: ButtonProps) -> Element
 {
     let btn_classes: ButtonClasses = props.clone().into();
     let class = btn_classes.to_string();
 
     gloo::console::log!(&class);
-    html! {
-        <button {class}>
-            {props.children.clone()}
-        </button>
+    rsx! {
+        button {
+            class,
+            "{props.children}"
+        }
     }
 }
