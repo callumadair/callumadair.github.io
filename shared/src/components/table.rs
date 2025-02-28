@@ -28,7 +28,7 @@ where
 }
 
 #[component]
-pub fn base<T: PartialEq + IntoDynNode + Clone + Contains + 'static>(
+pub fn Table<T: PartialEq + IntoDynNode + Clone + Contains + 'static>(
     props: TableProps<T>
 ) -> Element
 {
