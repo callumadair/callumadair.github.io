@@ -12,7 +12,7 @@ categories = ["web-programming", "gui"]
 [dependencies]
 dioxus.workspace = true
 gloo.workspace = true
-lucide-yew.workspace = true
+lucide-dioxus.workspace = true
 serde.workspace = true
 shared.workspace = true
 strum.workspace = true
