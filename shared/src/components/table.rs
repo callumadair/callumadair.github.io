@@ -1,34 +1,36 @@
 use std::rc::Rc;
 
+use dioxus::prelude::*;
 use web_sys::{
     wasm_bindgen::JsCast,
     HtmlInputElement,
 };
-use yew::prelude::*;
 
 use crate::{
     components::input::SearchInput,
     traits::contains::Contains,
 };
 
-#[derive(Properties, PartialEq, Clone)]
+#[derive(Props, PartialEq, Clone)]
 pub struct TableProps<T>
 where
-    T: PartialEq + ToHtml + Clone + Contains,
+    T: PartialEq + IntoDynNode + Clone + Contains,
 {
-    pub id:         AttrValue,
-    #[prop_or_default]
-    pub title:      AttrValue,
-    #[prop_or_default]
-    pub cols:       Rc<[AttrValue]>,
-    #[prop_or_default]
+    pub id:         String,
+    #[props(default)]
+    pub title:      String,
+    #[props(default)]
+    pub cols:       Rc<[String]>,
+    #[props(default)]
     pub rows:       Vec<T>,
-    #[prop_or_default]
+    #[props(default)]
     pub searchable: bool,
 }
 
-#[function_component(Table)]
-pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TableProps<T>) -> Html
+#[component]
+pub fn base<T: PartialEq + IntoDynNode + Clone + Contains + 'static>(
+    props: TableProps<T>
+) -> Element
 {
     let TableProps {
         id,
@@ -38,75 +40,71 @@ pub fn base<T: PartialEq + ToHtml + Clone + Contains + 'static>(props: &TablePro
         ..
     } = props;
 
-    let search_id: AttrValue = format!("{id}-search").into();
-    let rows = use_state(|| props.rows.clone());
-    let display_rows = use_state(|| props.rows.clone());
+    let search_id = format!("{id}-search");
+    let rows = use_signal(|| props.rows.clone());
+    let mut display_rows = use_signal(|| props.rows.clone());
 
     let onkeyup = {
-        crate::clone!(rows, display_rows);
-        Callback::from(move |event: KeyboardEvent| {
-            crate::clone!(rows, display_rows);
-            search_table(&event, &rows, &display_rows);
-        })
+        move |event: KeyboardEvent| {
+            search_table(&event, &rows, &mut display_rows);
+        }
     };
 
-    html! {
-        <div class="grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg rounded-box">
+    rsx! {
+        div {
+            class: "grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg rounded-box",
 
-            <h2 class="flex w-full p-3 items-center justify-between text-left text-2xl">
+            h2 {
+                class: "flex w-full p-3 items-center justify-between text-left text-2xl",
+
                 { title.to_string() }
 
                 {if *searchable {
-                    html! {
-                        <SearchInput id={search_id}
-                            {onkeyup}
-                        />
+                    rsx! {
+                        SearchInput {
+                            id: search_id,
+                            onkeyup
+                        }
                     }
                 } else {
-                    html! {}
+                    rsx! {}
                 }}
-            </h2>
+            },
 
-            <table class="table table-pin-cols table-sm w-full"
-                {id}
-            >
+            table {
+                class: "table table-pin-cols table-sm w-full",
+                id,
 
-                <thead class="font-bold">
+                thead {
+                    class: "font-bold",
 
-                    <tr>
+                    tr {
 
                     {
                         cols.iter().map(|col_header| {
-                            html!{
-                                <td>
-
-                                    {col_header}
-
-                                </td>
+                            rsx!{
+                                td {
+                                    {col_header.clone()}
+                                }
                             }
-                        }).collect::<Html>()
+                        }).collect::<Vec<Element>>()
                     }
 
-                    </tr>
-
-                </thead>
-
-                <tbody class="">
-
+                    }
+                }
+                tbody {
+                    class: "",
                     {(*display_rows).clone()}
-
-                </tbody>
-
-            </table>
-
-        </div>
+                    }
+            }
+        }
     }
 }
 
 fn search_table<T: PartialEq + Clone + Contains + 'static>(
     evt: &KeyboardEvent,
-    rows: &UseStateHandle<Vec<T>>,
-    display_rows: &UseStateHandle<Vec<T>>,
+    rows: &Signal<Vec<T>>,
+    display_rows: &mut Signal<Vec<T>>,
 )
 {
     let input_value = evt
