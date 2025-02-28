@@ -5,7 +5,7 @@ use chrono::{
 use dioxus::prelude::*;
 
 #[component]
-pub fn footer() -> Element
+pub fn Footer() -> Element
 {
     let cur_year = Utc::now().year();
     rsx! {

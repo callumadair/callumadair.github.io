@@ -14,7 +14,7 @@ pub struct CarouselProps
 }
 
 #[component]
-pub fn carousel_view(props: &CarouselProps) -> Element
+pub fn CarouselView(props: &CarouselProps) -> Element
 {
     let carousel_contents = props
         .img_paths
