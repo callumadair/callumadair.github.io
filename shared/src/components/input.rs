@@ -1,47 +1,51 @@
-use lucide_yew::ScanSearch;
-use yew::prelude::*;
+use dioxus::prelude::*;
+use lucide_dioxus::ScanSearch;
 
-#[function_component(TextArea)]
-pub fn area() -> Html
+#[component]
+pub fn area() -> Element
 {
-    html! {}
+    rsx! {}
 }
 
-#[function_component(FileUpload)]
-pub fn file() -> Html
+#[component]
+pub fn file() -> Element
 {
-    html! {}
+    rsx! {}
 }
 
-#[derive(Properties, PartialEq, Clone)]
+#[derive(Props, PartialEq, Clone)]
 pub struct SearchInputProps
 {
-    pub id:      AttrValue,
+    pub id:      String,
     pub onkeyup: Callback<KeyboardEvent>,
 }
 
-#[function_component(SearchInput)]
-pub fn search(props: &SearchInputProps) -> Html
+#[component]
+pub fn Search(props: &SearchInputProps) -> Element
 {
     let SearchInputProps { id, onkeyup } = props.clone();
 
-    html! {
-        <label class="input input-bordered input-sm flex items-center gap-2 max-w-48">
+    rsx! {
+        label {
+            class: "input input-bordered input-sm flex items-center gap-2 max-w-48",
+            input {
+                type: "text",
+                class: "grow",
+                placeholder: "Search",
+                id,
+                onkeyup,
+            },
 
-            <input type="text"
-                class="grow"
-                placeholder="Search"
-                {id}
-                {onkeyup}
-            />
+            ScanSearch {
+                size: 20
+            }
 
-            <ScanSearch size=20/>
-        </label>
+        }
     }
 }
 
-#[function_component(TextInput)]
-pub fn text() -> Html
+#[component]
+pub fn text() -> Element
 {
-    html! {}
+    rsx! {}
 }
