@@ -1,29 +1,36 @@
 use shared::components::Carousel;
-use yew::prelude::*;
+use dioxus::prelude::*;
 
-#[function_component(ReadingBase)]
-pub fn base() -> Html
+#[component]
+pub fn Reading() -> Element
 {
-    html! {
-        <div class="flex items-center justify-center text-center">
-            <CurrentReading/>
-        </div>
+    rsx! {
+        div {
+            class: "flex items-center justify-center text-center",
+            {CurrentReading}
+        }
     }
 }
 
-#[function_component(CurrentReading)]
-fn current() -> Html
+#[component]
+fn CurrentReading() -> Element
 {
     let img_paths = vec![
-        AttrValue::from("assets/networking.jpg"),
-        AttrValue::from("assets/linux.jpg"),
+        "assets/networking.jpg".into(),
+        "assets/linux.jpg".into(),
     ];
-    html! {
-        <div class="flex flex-col my-3">
-            <caption class="text-2xl text-nowrap">
+    rsx! {
+        div {
+            class: "flex flex-col my-3",
+            h2 {
+                class: "text-2xl text-nowrap",
                 { "Current reading" }
-            </caption>
-            <Carousel {img_paths} class="w-80"/>
-        </div>
+            }
+
+            Carousel {
+                img_paths,
+                class:"w-80"
+            }
+        }
     }
 }
