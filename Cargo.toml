@@ -4,6 +4,7 @@ resolver = "2"
 
 [workspace.dependencies]
 actix-web = { version = "4.9.0", features = ["rustls"] }
+dioxus = { version = "0.6.3", features = ["router"] }
 derive_more = { version = "2.0.1", features = ["display"] }
 gloo = "0.11.0"
 lucide-yew = "1.1.0"

@@ -10,13 +10,12 @@ keywords = ["web", "fullstack"]
 categories = ["web-programming", "gui"]
 
 [dependencies]
+dioxus.workspace = true
 gloo.workspace = true
 lucide-yew.workspace = true
 serde.workspace = true
 shared.workspace = true
 strum.workspace = true
-yew.workspace = true
-yew-router.workspace = true
 
 [lints]
 workspace = true
