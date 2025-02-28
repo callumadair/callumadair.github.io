@@ -1,3 +1,5 @@
+#![allow(clippy::all)]
+
 use quote::{
     format_ident,
     quote,
