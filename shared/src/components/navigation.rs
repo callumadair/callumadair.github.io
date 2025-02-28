@@ -8,7 +8,7 @@ pub struct MenuToggleProps
 }
 
 #[component]
-pub fn menu_toggle(props: MenuToggleProps) -> Element
+pub fn MenuToggle(props: MenuToggleProps) -> Element
 {
     let MenuToggleProps { menu_id } = props;
     rsx! {
@@ -32,7 +32,7 @@ pub struct MenuContentProps
 }
 
 #[component]
-pub fn menu_content(props: MenuContentProps) -> Element
+pub fn MenuContent(props: MenuContentProps) -> Element
 {
     let MenuContentProps { children, menu_id } = props;
 
@@ -58,16 +58,16 @@ pub fn menu_content(props: MenuContentProps) -> Element
 #[derive(Props, PartialEq, Clone)]
 pub struct NavbarLinkProps<T>
 where
-    T: Routable,
+    T: Routable + PartialEq,
 {
     pub route:    T,
     pub children: Element,
 }
 
 #[component]
-pub fn navbar_link<T>(props: &NavbarLinkProps<T>) -> Element
+pub fn NavbarLink<T>(props: NavbarLinkProps<T>) -> Element
 where
-    T: Routable + 'static,
+    T: Routable + PartialEq + 'static,
 {
     let NavbarLinkProps {
         route,
