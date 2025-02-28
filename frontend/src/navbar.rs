@@ -1,5 +1,6 @@
+use dioxus::prelude::*;
 use gloo::storage::Storage;
-use lucide_yew::{
+use lucide_dioxus::{
     House,
     Palette,
 };
@@ -9,7 +10,6 @@ use shared::components::{
     NavbarLink,
 };
 use strum::IntoEnumIterator;
-use yew::prelude::*;
 
 use crate::{
     Route,
@@ -17,157 +17,176 @@ use crate::{
     THEME_STORAGE_KEY,
 };
 
-#[function_component(Navbar)]
-pub fn navbar() -> Html
+#[component]
+pub fn Navbar() -> Element
 {
-    html! {
+    rsx! {
         // This is just to enable the menu sidebar.
-        <div class="drawer">
+        div {
+            class: "drawer",
 
-            <input id="my-menu"
-                type="checkbox"
-                class="drawer-toggle"
-            />
+            input {
+                id: "my-menu",
+                type: "checkbox",
+                class:"drawer-toggle",
+            },
 
             // Sidebar stuff goes here
-            <MenuContent menu_id="my-menu">
-                <li><a>{"Totally a link"}</a></li>
-                <li><a>{"Totally another link"}</a></li>
-            </MenuContent>
+            MenuContent {
+                menu_id: "my-menu",
+                li {
+                    a {
+                        "Totally a link"
+                    }
+                },
+                li {
+                    a {
+                        "Totally another link"
+                    }
+                }
+            },
 
             // Actual navbar stuff goes here.
-            <div class="drawer-content flex flex-col">
+            div {
+                class: "drawer-content flex flex-col",
 
-                <div class="navbar px-4 w-full bg-base-100">
+                div {
+                    class: "navbar px-4 w-full bg-base-100",
 
-                    <div class="navbar-start space-x-2">
-                        <MenuToggle menu_id="my-menu"/>
+                    div {
+                        class: "navbar-start space-x-2",
+                        MenuToggle {
+                            menu_id: "my-menu"
+                        }
 
-                        <div class="divider divider-accent divider-horizontal"/>
+                        div {
+                            class: "divider divider-accent divider-horizontal"
+                        }
 
-                        <HomeLink/>
-                        <ReadingLink/>
-                        <ProjectLink/>
-                        <SoftwareLink/>
-                    </div>
+                        {HomeLink}
+                        {ReadingLink}
+                        {ProjectLink}
+                        {SoftwareLink}
+                    }
 
-                    <div class="navbar-end space-x-2">
-                        <ThemeControl/>
-                    </div>
+                    div {
+                        class: "navbar-end space-x-2",
+                        {ThemeControl}
+                    }
 
-                </div>
+                }
 
-            </div>
+            }
 
-        </div>
+        }
 
     }
 }
 
-#[function_component(HomeLink)]
-fn home() -> Html
+#[component]
+fn HomeLink() -> Element
 {
-    html! {
-        <NavbarLink<Route> route={Route::Home} >
-            <House/>
-            {"Home"}
-        </NavbarLink<Route>>
+    rsx! {
+            NavbarLink<Route> {
+                route:{Route::Home},
+                {House}
+                {"Home"}
+            }
     }
 }
 
-#[function_component(ReadingLink)]
-fn reading() -> Html
+#[component]
+fn ReadingLink() -> Element
 {
-    html! {
-        <NavbarLink<Route> route={Route::ReadingList}>
+    rsx! {
+        NavbarLink<Route> {
+            route: Route::ReadingList,
             {"Reading List"}
-        </NavbarLink<Route>>
+        }
     }
 }
 
-#[function_component(ProjectLink)]
-fn project() -> Html
+#[component]
+fn ProjectLink() -> Element
 {
-    html! {
-        <NavbarLink<Route> route={Route::Projects}>
-            {"Projects"}
-        </NavbarLink<Route>>
+    rsx! {
+            NavbarLink<Route>{
+                route: Route::Projects,
+                {"Projects"}
+            }
     }
 }
 
-#[function_component(SoftwareLink)]
-fn software() -> Html
+#[component]
+fn SoftwareLink() -> Element
 {
-    html! {
-        <NavbarLink<Route> route={Route::Software}>
+    rsx! {
+        NavbarLink<Route> {
+            route: Route::Software,
             {"Software"}
-        </NavbarLink<Route>>
+        }
     }
 }
 
 // TODO make this use a list of themes I choose and also
 // retain the theme value on reload (probably a use_state
 // val?)
-#[function_component(ThemeControl)]
-fn theme() -> Html
+#[component]
+fn ThemeControl() -> Element
 {
-    html! {
-        <div class="dropdown dropdown-end">
+    rsx! {
+            div {
+                class:"dropdown dropdown-end",
 
+                div {
+                    tabindex: "0",
+                    role: "button",
+                    class: "btn btn-sm btn-circle btn-ghost",
 
-              <div tabindex="0"
-                role="button"
-                class="btn btn-sm btn-circle btn-ghost"
-                >
+                    Palette {
+                        size: 20
+                    }
 
-                <Palette size=20/>
+                  }
 
-              </div>
+              ul {
+                tabindex: "0",
+                class: "dropdown-content z-1 p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto shadow-2xl",
 
-          <ul tabindex="0"
-            class="dropdown-content z-1 p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto shadow-2xl"
-            >
+                {ThemeControlDropdownContent}
 
-            <ThemeControlDropdownContent/>
+              }
 
-          </ul>
-
-        </div>
+            }
     }
 }
 
-#[function_component(ThemeControlDropdownContent)]
-fn theme_content() -> Html
+#[component]
+fn ThemeControlDropdownContent() -> Element
 {
-    let theme = use_context::<UseStateHandle<Theme>>().expect("Failed getting theme hook.");
+    let mut theme = use_context::<Signal<Theme>>();
 
     Theme::iter()
         .map(|theme_variant| {
-            let onclick = {
-                crate::clone!(theme, theme_variant);
-                Callback::from(move |_| {
-                    gloo::storage::LocalStorage::set(THEME_STORAGE_KEY, theme_variant)
-                        .expect("Failed updating stored theme.");
-                    theme.set(theme_variant);
-                })
+            let onclick = move |_| {
+                gloo::storage::LocalStorage::set(THEME_STORAGE_KEY, theme_variant)
+                    .expect("Failed updating stored theme.");
+                theme.set(theme_variant);
             };
 
-            html! {
+            rsx! {
 
-                <li>
-
-                  <input
-                    type="radio"
-                    name="theme-dropdown"
-                    class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                    aria-label={ theme_variant.to_string() }
-                    value={ theme_variant.to_string().to_lowercase() }
-                    {onclick}
-                    />
-
-                </li>
-
+                li {
+                    input {
+                        type: "radio",
+                        name: "theme-dropdown",
+                        class: "theme-controller btn btn-sm btn-block btn-ghost justify-start",
+                        aria_label: { theme_variant.to_string() },
+                        value: { theme_variant.to_string().to_lowercase() },
+                        onclick,
+                    }
+                }
             }
         })
-        .collect::<Html>()
+        .collect::<Vec<Element>>()
 }
