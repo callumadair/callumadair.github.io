@@ -1,3 +1,4 @@
+use dioxus::prelude::*;
 use gloo::{
     storage::{
         LocalStorage,
@@ -15,8 +16,6 @@ use strum::{
     Display,
     EnumIter,
 };
-use yew::prelude::*;
-use yew_router::prelude::*;
 
 use crate::{
     error::pages::{
@@ -91,34 +90,36 @@ pub(crate) enum Theme
 #[derive(Clone, Copy, Routable, PartialEq)]
 enum Route
 {
-    #[at("/")]
+    #[layout(Navbar)]
+    #[route("/", Home)]
     Home,
-    #[at("/403")]
+    #[route("/403", Forbidden)]
     Forbidden,
-    #[at("/418")]
+    #[route("/418", IAmTeapot)]
     ImATeapot,
-    #[not_found]
-    #[at("/404")]
-    NotFound,
-    #[at("/projects")]
+    #[route("/projects", ProjectBase)]
     Projects,
-    #[at("/reading")]
+    #[route("/reading", ReadingBase)]
     ReadingList,
-    #[at("/software")]
+    #[route("/software", SoftwareBase)]
     Software,
-    #[at("/401")]
+    #[route("/401", Unauthorized)]
     Unauthorized,
-    #[at("/451")]
+    #[route("/451", UnavailableForLegalReasons)]
     UnavailableForLegalReasons,
-    #[at("/415")]
+    #[route("/415", UnsupportedMediaType)]
     UnsupportedMediaType,
+    #[end_layout]
+    #[route("/404")]
+    NotFound,
 }
 
-#[function_component(App)]
-pub fn app() -> Html
+#[component]
+pub fn app() -> Element
 {
-    let theme = LocalStorage::get::<Theme>(THEME_STORAGE_KEY).unwrap_or(Theme::default());
-    let theme = use_state_eq(|| theme);
+    let theme =
+        use_signal(LocalStorage::get::<Theme>(THEME_STORAGE_KEY).unwrap_or(Theme::default()));
+    let theme = use_context_provider(|| theme);
 
     document()
         .document_element()
@@ -126,67 +127,47 @@ pub fn app() -> Html
         .set_attribute(THEME_ATTRIBUTE_NAME, &(*theme).to_string().to_lowercase())
         .expect("Failed setting the theme value.");
 
-    html! {
-        <ContextProvider<UseStateHandle<Theme>> context={theme}>
-            <BrowserRouter>
-                <Page>
-                    <main class="grow">
-                        <Navbar/>
-
-                        <Switch<Route> render={switch} />
-                    </main>
-
-                    <Footer/>
-                </Page>
-            </BrowserRouter>
-        </ContextProvider<UseStateHandle<Theme>>>
-    }
-}
-
-#[derive(Properties, PartialEq)]
-struct PageProps
-{
-    children: Children,
-}
-
-#[function_component(Page)]
-fn page(props: &PageProps) -> Html
-{
-    html! {
-        <div class="flex flex-col bg-base-100 min-h-screen justify-between">
-            {props.children.clone()}
-        </div>
-    }
-}
-
-fn switch(routes: Route) -> Html
-{
-    match routes
-    {
-        Route::Home => html! { <Home/> },
-        Route::Unauthorized => html! { <Unauthorized/> },
-        Route::Forbidden => html! { <Forbidden/> },
-        Route::NotFound => html! { <NotFound/> },
-        Route::ImATeapot => html! { <IAmTeapot/> },
-        Route::UnsupportedMediaType => html! { <UnsupportedMediaType/> },
-        Route::UnavailableForLegalReasons => html! { <UnavailableForLegalReasons/> },
-        Route::ReadingList => html! { <ReadingBase/> },
-        Route::Projects => html! { <ProjectBase/> },
-        Route::Software =>
-        {
-            html! { <SoftwareBase/> }
+    rsx! {
+        Router::<Route> {
+            Page {
+                main {
+                    class: "grow",
+               }
+                Footer {
+                }
+            }
         }
     }
 }
 
-#[function_component(Home)]
-pub fn home() -> Html
+#[derive(Props, PartialEq)]
+struct PageProps
 {
-    html! {
-        <div class="flex justify-center items-center">
-            <h1 class="text-4xl">
-                {"Hello, world!"}
-            </h1>
-        </div>
+    children: Element,
+}
+
+#[component]
+fn Page(props: PageProps) -> Element
+{
+    rsx! {
+        div {
+            class: "flex flex-col bg-base-100 min-h-screen justify-between",
+            {props.children.clone()}
+        }
+    }
+}
+
+#[component]
+pub fn Home() -> Element
+{
+    rsx! {
+            div {
+                class: "flex justify-center items-center",
+
+                h1 {
+                    class: "text-4xl",
+                    {"Hello, world!"}
+                }
+            }
     }
 }
