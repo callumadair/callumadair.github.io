@@ -23,7 +23,7 @@ where
 }
 
 #[component]
-pub fn modal<T>(props: ModalProps<T>) -> Element
+pub fn Modal<T>(props: ModalProps<T>) -> Element
 where
     T: IntoDynNode + Clone + PartialEq + Display,
 {
@@ -80,7 +80,7 @@ pub struct ModalButtonProps
 }
 
 #[component]
-pub fn modal_button(props: ModalButtonProps) -> Element
+pub fn Modal_button(props: ModalButtonProps) -> Element
 {
     let ModalButtonProps {
         modal_id,
