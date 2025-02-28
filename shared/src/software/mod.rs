@@ -1,8 +1,12 @@
+use dioxus::{
+    dioxus_core::DynamicNode,
+    prelude::*,
+};
+use regex::Regex;
 use serde::{
     Deserialize,
     Serialize,
 };
-use yew::prelude::*;
 
 use crate::{
     components::{
@@ -32,60 +36,60 @@ impl Contains for SoftwareTool
         key: &str,
     ) -> bool
     {
-        self.short_desc.contains(key)
-            || self.long_desc.contains(key)
-            || self.web_link.contains(key)
-            || self.name.contains(key)
+        let re = Regex::new(key).unwrap();
+        re.is_match(&self.short_desc)
+            || re.is_match(&self.long_desc)
+            || re.is_match(&self.web_link)
+            || re.is_match(&self.name)
     }
 }
 
 impl ModalDisplay for SoftwareTool
 {
-    fn display(&self) -> Html
+    fn display(&self) -> Element
     {
-        html! {
-            <>
+        rsx! {
+            ModalButton {
+                modal_id: {format!("{}-modal", self.name.clone())},
+                modal_button_text: "More Info",
+            }
 
-                <ModalButton modal_id={format!("{}-modal", self.name.clone())}
-                    modal_button_text="More Info"
-                />
-
-                <Modal<AttrValue>
-                    id={format!("{}-modal", self.name.clone())}
-                    content={format!("{} is neat.", self.name.clone())}
-                />
-            </>
+            Modal<String> {
+                id: {format!("{}-modal", self.name.clone())},
+                content: {format!("{} is neat.", self.name.clone())}
+            }
         }
     }
 }
 
-impl ToHtml for SoftwareTool
+impl IntoDynNode for SoftwareTool
 {
-    fn to_html(&self) -> Html
+    fn into_dyn_node(self) -> DynamicNode
     {
-        html! {
-            <tr>
+        rsx! {
+            tr {
 
-                <td>
+                td {
                     {self.name.clone()}
-                </td>
+                },
 
-                <td>
-                    {self.short_desc.clone()}
-                </td>
+                td {
+                   { self.short_desc.clone() }
+                   },
 
-                <td>
-                    <a target="_blank" href={self.web_link.clone()}>
+                td{
+                    a {
+                        target: "_blank",
+                        href: {self.web_link.clone()},
                         {"Website"}
-                    </a>
-                </td>
+                    }
+                },
 
-                <td>
-                    {self.display()}
-                </td>
-
-
-            </tr>
+                td {
+                    { self.display() }
+                }
+            }
         }
+        .into_dyn_node()
     }
 }
