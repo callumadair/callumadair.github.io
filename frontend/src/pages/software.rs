@@ -32,7 +32,7 @@ impl From<SoftwareTool> for SoftwareToolRow
 }
 
 #[component]
-pub fn base() -> Element
+pub fn SoftwareBase() -> Element
 {
     rsx! {
         div {

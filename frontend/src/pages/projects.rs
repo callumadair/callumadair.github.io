@@ -1,7 +1,7 @@
 use dioxus::prelude::*;
 
 #[component]
-pub fn Projects() -> Element
+pub fn ProjectsBase() -> Element
 {
     rsx! {
         div {

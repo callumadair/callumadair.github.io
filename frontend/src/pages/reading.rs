@@ -2,7 +2,7 @@ use dioxus::prelude::*;
 use shared::components::Carousel;
 
 #[component]
-pub fn Reading() -> Element
+pub fn ReadingBase() -> Element
 {
     rsx! {
         div {
