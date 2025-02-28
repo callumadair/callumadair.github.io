@@ -4,8 +4,13 @@ use actix_web::{
     HttpResponse,
     ResponseError,
 };
+use dioxus::{
+    dioxus_core::DynamicNode,
+    prelude::*,
+};
+use lucide_dioxus::CircleX;
 use strum::Display;
-use yew::prelude::*;
+
 #[derive(thiserror::Error, Display, Debug)]
 pub enum Base
 {
@@ -32,17 +37,18 @@ impl ResponseError for Base
     // }
 }
 
-impl ToHtml for Base
+impl IntoDynNode for Base
 {
-    fn to_html(&self) -> Html
+    fn into_dyn_node(self) -> DynamicNode
     {
-        html! {
-            <div class="alert alert-error"
-                role="alert"
-             >
-                <lucide_yew::CircleX/>
+        let res = rsx! {
+            div {
+                class: "alert alert-error",
+                role: "alert",
+                {CircleX},
                 {self.to_string()}
-            </div>
-        }
+            }
+        };
+        res.into_dyn_node()
     }
 }
