@@ -1,67 +1,82 @@
-use yew::prelude::*;
+use dioxus::prelude::*;
 
-#[derive(Properties, PartialEq)]
+#[derive(Props, PartialEq)]
 struct BaseErrorPageProps
 {
-    error_text: AttrValue,
+    error_text: String,
 }
 
-#[function_component(BaseErrorPage)]
-fn base_error_page(props: &BaseErrorPageProps) -> Html
+#[component]
+fn BaseErrorPage(props: &BaseErrorPageProps) -> Element
 {
-    html! {
-        <div class="h-screen flex justify-center items-center">
-            <h1 class="text-2xl text-error">
+    rsx! {
+        div {
+            class:"h-screen flex justify-center items-center",
+
+            h1 {
+                class: "text-2xl text-error",
                 {props.error_text.clone()}
-            </h1>
-        </div>
+            }
+        }
     }
 }
 
-#[function_component(Unauthorized)]
-pub(crate) fn unauthorized() -> Html
+#[component]
+pub(crate) fn Unauthorized() -> Element
 {
-    html! {
-        <BaseErrorPage error_text="401 | Unauthorized"/>
+    rsx! {
+        BaseErrorPage {
+            error_text: "401 | Unauthorized"
+        }
     }
 }
 
-#[function_component(Forbidden)]
-pub(crate) fn forbidden() -> Html
+#[component]
+pub(crate) fn Forbidden() -> Element
 {
-    html! {
-        <BaseErrorPage error_text="403 | Forbidden"/>
+    rsx! {
+        BaseErrorPage {
+            error_text: "403 | Forbidden"
+        }
     }
 }
 
-#[function_component(NotFound)]
-pub(crate) fn not_found() -> Html
+#[component]
+pub(crate) fn NotFound() -> Element
 {
-    html! {
-        <BaseErrorPage error_text="404 | Page Not Found"/>
+    rsx! {
+        BaseErrorPage {
+            error_text:"404 | Page Not Found"
+        }
     }
 }
 
-#[function_component(UnsupportedMediaType)]
-pub(crate) fn unsupported_media_type() -> Html
+#[component]
+pub(crate) fn UnsupportedMediaType() -> Element
 {
-    html! {
-        <BaseErrorPage error_text="415 | Unsupported Media Type"/>
+    rsx! {
+        BaseErrorPage {
+            error_text: "415 | Unsupported Media Type"
+        }
     }
 }
 
-#[function_component(IAmTeapot)]
-pub(crate) fn im_a_teapot() -> Html
+#[component]
+pub(crate) fn ImATeapot() -> Element
 {
-    html! {
-        <BaseErrorPage error_text="418 | I'm a teapot"/>
+    rsx! {
+        BaseErrorPage {
+            error_text: "418 | I'm a teapot"
+        }
     }
 }
 
-#[function_component(UnavailableForLegalReasons)]
-pub(crate) fn unavailable_for_legal_reasons() -> Html
+#[component]
+pub(crate) fn UnavailableForLegalReasons() -> Element
 {
-    html! {
-        <BaseErrorPage error_text="451 | Unavailable For Legal Reasons"/>
+    rsx! {
+        BaseErrorPage {
+            error_text: "451 | Unavailable For Legal Reasons"
+        }
     }
 }
