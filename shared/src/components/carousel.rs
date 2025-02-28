@@ -4,7 +4,7 @@ use lucide_dioxus::{
     ChevronRight,
 };
 
-#[derive(Props, PartialEq)]
+#[derive(Props, PartialEq, Clone)]
 pub struct CarouselProps
 {
     #[props(default)]
@@ -28,7 +28,7 @@ pub fn CarouselView(props: CarouselProps) -> Element
                     class:"carousel-item relative w-full",
 
                     img {
-                        src: path,
+                        src: path.clone(),
                         class: "w-full"
                     },
 
@@ -38,13 +38,17 @@ pub fn CarouselView(props: CarouselProps) -> Element
                         a {
                             href: {format!("#slide{}", idx.saturating_sub(1))},
                             class: "btn btn-circle",
-                            {ChevronLeft},
+                            ChevronLeft {
+                                size: 20
+                            },
                         },
 
                         a {
                             href: {format!("#slide{}", idx + 1)},
                             class: "btn btn-circle",
-                            {ChevronRight},
+                            ChevronRight {
+                                size: 20
+                            },
                         }
                     }
                 }
@@ -59,7 +63,7 @@ pub fn CarouselView(props: CarouselProps) -> Element
         div {
             class,
             {"Carousel"}
-            {carousel_contents}
+            {carousel_contents.into_iter()}
         }
     }
 }
