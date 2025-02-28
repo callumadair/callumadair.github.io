@@ -80,7 +80,7 @@ pub struct ModalButtonProps
 }
 
 #[component]
-pub fn Modal_button(props: ModalButtonProps) -> Element
+pub fn ModalButton(props: ModalButtonProps) -> Element
 {
     let ModalButtonProps {
         modal_id,
