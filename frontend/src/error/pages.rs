@@ -62,7 +62,7 @@ pub(crate) fn UnsupportedMediaType() -> Element
 }
 
 #[component]
-pub(crate) fn ImATeapot() -> Element
+pub(crate) fn IAmTeapot() -> Element
 {
     rsx! {
         BaseErrorPage {
