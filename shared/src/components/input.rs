@@ -21,9 +21,9 @@ pub struct SearchInputProps
 }
 
 #[component]
-pub fn Search(props: &SearchInputProps) -> Element
+pub fn SearchInput(props: SearchInputProps) -> Element
 {
-    let SearchInputProps { id, onkeyup } = props.clone();
+    let SearchInputProps { id, onkeyup } = props;
 
     rsx! {
         label {

@@ -40,10 +40,10 @@ pub struct SwapProps
 }
 
 #[component]
-pub fn Swap(props: &SwapProps) -> Element
+pub fn Swap(props: SwapProps) -> Element
 {
-    let SwapProps { on, off, .. } = props.clone();
     let class = SwapClasses::from(props.clone()).to_string();
+    let SwapProps { on, off, .. } = props;
 
     rsx! {
        label {

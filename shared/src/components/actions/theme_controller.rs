@@ -181,7 +181,7 @@ pub struct ThemeControllerProps
 }
 
 #[component]
-pub fn ThemeController(props: &ThemeControllerProps) -> Element
+pub fn ThemeController(props: ThemeControllerProps) -> Element
 {
     // TODO actually use this.
     // props.controller_type.clone().to_html()

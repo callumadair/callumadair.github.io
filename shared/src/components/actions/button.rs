@@ -91,7 +91,7 @@ pub fn Button(props: ButtonProps) -> Element
     rsx! {
         button {
             class,
-            "{props.children}"
+            {props.children}
         }
     }
 }

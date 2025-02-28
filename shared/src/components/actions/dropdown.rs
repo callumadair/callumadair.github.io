@@ -85,7 +85,7 @@ pub struct DropdownProps
 pub fn Dropdown(props: DropdownProps) -> Element
 {
     let class = DropdownClasses::from(props.clone()).to_string();
-    let DropdownProps { button_props, .. } = props.clone();
+    let DropdownProps { button_props, .. } = props;
     let ButtonProps {
         behaviour,
         children,
