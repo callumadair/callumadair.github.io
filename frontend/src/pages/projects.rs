@@ -1,21 +1,23 @@
-use yew::prelude::*;
+use dioxus::prelude::*;
 
-#[function_component(ProjectBase)]
-pub fn base() -> Html
+#[component]
+pub fn Projects() -> Element
 {
-    html! {
-        <div class="flex items-center justify-center text-center">
-            <CurrentProjects/>
-        </div>
+    rsx! {
+        div {
+            class: "flex items-center justify-center text-center",
+            {CurrentProjects}
+        }
     }
 }
 
-#[function_component(CurrentProjects)]
-fn current() -> Html
+#[component]
+fn CurrentProjects() -> Element
 {
-    html! {
-        <caption class="text-2xl text-nowrap">
+    rsx! {
+        h2 {
+            class: "text-2xl text-nowrap",
             { "Current Projects" }
-        </caption>
+        }
     }
 }
