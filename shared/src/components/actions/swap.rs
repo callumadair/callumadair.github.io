@@ -1,8 +1,8 @@
+use dioxus::prelude::*;
 use strum::{
     AsRefStr,
     Display,
 };
-use yew::prelude::*;
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
 #[strum(serialize_all = "kebab-case")]
@@ -31,31 +31,37 @@ impl From<SwapProps> for SwapClasses
     }
 }
 
-#[derive(Properties, Clone, PartialEq)]
+#[derive(Props, Clone, PartialEq)]
 pub struct SwapProps
 {
-    pub on:         Html,
-    pub off:        Html,
+    pub on:         Element,
+    pub off:        Element,
     pub swap_style: SwapStyle,
 }
 
-#[function_component(Swap)]
-pub fn swap(props: &SwapProps) -> Html
+#[component]
+pub fn swap(props: &SwapProps) -> Element
 {
     let SwapProps { on, off, .. } = props.clone();
     let class = SwapClasses::from(props.clone()).to_string();
 
-    html! {
-       <label {class}>
-            <input type="checkbox" />
+    rsx! {
+       label {
+            {class},
 
-            <div class="swap-on">
+            input {
+                type: "checkbox"
+            }
+
+            div {
+                class:"swap-on",
                 {on}
-            </div>
+            }
 
-            <div class="swap-off">
+            div {
+                class:"swap-off",
                 {off}
-            </div>
-       </label>
+            }
+       }
     }
 }
