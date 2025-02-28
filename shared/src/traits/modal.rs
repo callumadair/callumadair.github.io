@@ -1,6 +1,6 @@
-use yew::prelude::*;
+use dioxus::prelude::*;;
 
 pub trait ModalDisplay
 {
-    fn display(&self) -> Html;
+    fn display(&self) -> Element;
 }
