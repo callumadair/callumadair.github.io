@@ -1,10 +1,10 @@
 use std::rc::Rc;
 
+use dioxus::prelude::*;
 use shared::{
     components::Table,
     software::SoftwareTool,
 };
-use yew::prelude::*;
 
 #[derive(PartialEq, Clone)]
 pub(crate) struct SoftwareToolRow
@@ -31,35 +31,37 @@ impl From<SoftwareTool> for SoftwareToolRow
     }
 }
 
-#[function_component(SoftwareBase)]
-pub fn base() -> Html
+#[component]
+pub fn base() -> Element
 {
-    html! {
-        <div class="flex space-y-4 p-3">
-            <CLIBase/>
-        </div>
+    rsx! {
+        div {
+            class: "flex space-y-4 p-3",
+            {CLIBase}
+        }
     }
 }
 
-#[function_component(CLIBase)]
-fn cli_tools() -> Html
+#[component]
+fn CLIBase() -> Element
 {
-    let cols = Rc::from(["Name", "Description", "Link"].map(AttrValue::from));
+    let cols = Rc::from(["Name", "Description", "Link"].map(String::from));
     let rows = get_rows();
     let searchable = true;
 
-    html! {
-        <div class="flex flex-col w-full">
+    rsx! {
+        div {
+            class: "flex flex-col w-full",
 
-            <Table<SoftwareTool>
-                id="cli-table"
-                title="CLI Tools I like"
-                {cols}
-                {rows}
-                {searchable}
-            />
+            Table<SoftwareTool> {
+                id: "cli-table",
+                title: "CLI Tools I like",
+                cols,
+                rows,
+                searchable
+            }
 
-        </div>
+        }
     }
 }
 
