@@ -1,4 +1,7 @@
-use yew::prelude::*;
+use dioxus::{
+    dioxus_core::DynamicNode,
+    prelude::*,
+};
 
 use crate::components::Dropdown;
 
@@ -7,80 +10,85 @@ use crate::components::Dropdown;
 #[derive(Clone, PartialEq)]
 pub enum Toggle
 {
-    ExternalIcons(Html, String, Html, String),
-    InternalIcons(Html, String, Html, String),
+    ExternalIcons(Element, String, Element, String),
+    InternalIcons(Element, String, Element, String),
     Text(String, String),
     NoDisplay(String, String),
 }
 
-impl ToHtml for Toggle
+impl IntoDynNode for Toggle
 {
-    fn to_html(&self) -> Html
+    fn into_dyn_node(self) -> DynamicNode
     {
-        match self
+        let node = match self
         {
             Toggle::ExternalIcons(left_icon_html, _left_theme, right_icon_html, right_theme) =>
             {
-                html! {
-                    <label class="flex cursor-pointer gap-2">
+                rsx! {
+                    label {
+                        class: "flex cursor-pointer gap-2",
+                        {left_icon_html.clone()},
 
-                        {left_icon_html.clone()}
+                        input {
+                            type: "checkbox",
+                            value: {right_theme.clone()},
+                            class: "toggle theme-controller"
+                        },
 
-                        <input type="checkbox"
-                            value={right_theme.clone()}
-                            class="toggle theme-controller"
-                        />
-
-                        {right_icon_html.clone()}
-
-                    </label>
+                        {right_icon_html.clone()},
+                    }
                 }
             }
+
             Toggle::InternalIcons(left_icon_html, _left_theme, right_icon_html, right_theme) =>
             {
-                html! {
-                    <label class="toggle text-base-content">
+                rsx! {
+                    label {
+                        class: "toggle text-base-content",
 
-                        <input type="checkbox"
-                            value={right_theme.clone()}
-                            class="theme-controller"
-                        />
+                        input { type: "checkbox",
+                            value:{right_theme.clone()},
+                            class:"theme-controller",
+                        },
 
-                        {left_icon_html.clone()}
+                        {left_icon_html.clone()},
 
                         {right_icon_html.clone()}
-
-                    </label>
+                    }
                 }
             }
             Toggle::Text(left_theme, right_theme) =>
             {
-                html! {
-                    <label class="flex cursor-pointer gap-2">
+                rsx! {
+                    label {class : "flex cursor-pointer gap-2" ,
+                        span { class :"label-text" ,
+                                {left_theme.clone()}
+                        },
 
-                        <span class="label-text">
-                            {left_theme.clone()}
-                        </span>
+                        input { type : "checkbox",
+                            value : { right_theme.clone() },
+                            class : "toggle theme-controller",
+                        }
 
-                        <input type="checkbox"
-                            value={right_theme.clone()}
-                            class="toggle theme-controller"
-                        />
-
-                        <span class="label-text">
-                            {right_theme.clone()}
-                        </span>
-
-                    </label>
+                        span {
+                            class : "label-text" ,
+                            { right_theme.clone() },
+                        }
+                    }
                 }
             }
             Toggle::NoDisplay(_left_theme, right_theme) =>
             {
-                html! {
-                    <input type="checkbox" value={right_theme.clone()} class="toggle theme-controller"/>
+                rsx! {
+                    input {
+                        type : "checkbox",
+                        value :{right_theme.clone()},
+                        class : "toggle theme-controller",
+                    }
                 }
             }
-        }
+        };
+        node.into_dyn_node()
     }
 }
 
@@ -92,67 +100,71 @@ pub enum Radio
     Standard(Vec<String>),
 }
 
-impl ToHtml for Radio
+impl IntoDynNode for Radio
 {
-    fn to_html(&self) -> Html
+    fn into_dyn_node(self) -> Element
     {
-        match self
+        let node = match self
         {
             Radio::Dropdown(options) =>
             {
-                html! {
-                   <Dropdown
-
-                   >
-
-                   </Dropdown>
+                rsx! {
+                     Dropdown {}
                 }
             }
+
             Radio::Input(options) =>
             {
-                html! {
-                    <fieldset class="fieldset">
+                rsx! {
+                    fieldset {
+                        class: "fieldset",
                         {
                             options.iter().map(|option| {
-                                html! {
-                                    <label class="flex gap-2 cursor-pointer items-center">
-                                        <input type="radio"
-                                            name="theme-radios"
-                                            class="radio radio-sm theme-controller"
-                                            value={option.clone()}
-                                        />
-                                    </label>
+                                rsx! {
+                                    label {
+                                        class: "flex gap-2 cursor-pointer items-center",
+                                        input {
+                                            type: "radio",
+                                            name: "theme-radios",
+                                            class: "radio radio-sm theme-controller",
+                                            value: {option.clone()},
+                                        }
+                                    }
                                 }
-                            }).collect::<Html>()
+                            }).collect::<Vec<Element>>()
                         }
-
-                    </fieldset>
+                    }
                 }
             }
+
             Radio::Standard(options) =>
             {
-                html! {
-                    <div class="join join-vertical">
+                rsx! {
+                    div {
+                        class: "join join-vertical",
                         {
-                            options.iter().map(|option| {
-                                html! {
-                                    <input type="radio"
-                                        name="theme-buttons"
-                                        class="btn theme-controller join-item"
-                                        aria-label={option.clone()}
-                                        value={option.clone()}
-                                    />
+                            options.iter().map( | option| {
+                                rsx! {
+                                    input {
+                                        type: "radio",
+                                        name: "theme-buttons",
+                                        class: "btn theme-controller join-item",
+                                        value: {option.clone()},
+                                        aria_label: {option.clone()},
+                                    }
                                 }
-                            }).collect::<Html>()
+                            }).collect::<Vec<Element>>()
                         }
-                    </div>
+                    }
                 }
             }
-        }
+        };
+
+        node.into_dyn_node()
     }
 }
 
-// TODO impl ToHtml on this enum.
+// TODO impl IntoDynNode on this enum.
 #[derive(Clone, PartialEq)]
 pub enum Type
 {
@@ -162,16 +174,16 @@ pub enum Type
     Swap(String, String),
 }
 
-#[derive(Properties, Clone, PartialEq)]
+#[derive(Props, Clone, PartialEq)]
 pub struct ThemeControllerProps
 {
     pub controller_type: Type,
 }
 
-#[function_component(ThemeController)]
-pub fn theme_controller(props: &ThemeControllerProps) -> Html
+#[component]
+pub fn ThemeController(props: &ThemeControllerProps) -> Element
 {
     // TODO actually use this.
     // props.controller_type.clone().to_html()
-    html! {}
+    rsx! {}
 }
