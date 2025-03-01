@@ -81,6 +81,22 @@ pub struct ButtonProps
     #[props(default)]
     pub size:      ButtonSize,
 }
+
+impl Default for ButtonProps
+{
+    fn default() -> Self
+    {
+        Self {
+            behaviour: Default::default(),
+            children:  Element::Ok(VNode::default()),
+            colour:    Default::default(),
+            modifier:  Default::default(),
+            style:     Default::default(),
+            size:      Default::default(),
+        }
+    }
+}
+
 #[component]
 pub fn Button(props: ButtonProps) -> Element
 {

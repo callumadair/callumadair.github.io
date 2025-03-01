@@ -1,4 +1,4 @@
-#![allow(clippy::all)]
+#![allow(clippy::all, unused)]
 
 use quote::{
     format_ident,

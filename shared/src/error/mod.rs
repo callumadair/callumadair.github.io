@@ -42,12 +42,13 @@ impl IntoDynNode for Base
     fn into_dyn_node(self) -> DynamicNode
     {
         let res = rsx! {
-            div {
-                class: "alert alert-error",
-                role: "alert",
-                {CircleX},
-                {self.to_string()}
-            }
+        div {
+            class: "alert alert-error",
+            role: "alert",
+            CircleX {
+                size: 20
+            },
+            {self.to_string()}}
         };
         res.into_dyn_node()
     }

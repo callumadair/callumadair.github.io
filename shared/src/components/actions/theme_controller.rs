@@ -1,5 +1,6 @@
 use dioxus::{
     dioxus_core::DynamicNode,
+    html::KeyCode::V,
     prelude::*,
 };
 
@@ -102,14 +103,14 @@ pub enum Radio
 
 impl IntoDynNode for Radio
 {
-    fn into_dyn_node(self) -> Element
+    fn into_dyn_node(self) -> DynamicNode
     {
-        let node = match self
+        let res = match self
         {
             Radio::Dropdown(options) =>
             {
                 rsx! {
-                     Dropdown {}
+                 Dropdown {}
                 }
             }
 
@@ -118,20 +119,16 @@ impl IntoDynNode for Radio
                 rsx! {
                     fieldset {
                         class: "fieldset",
-                        {
-                            options.iter().map(|option| {
-                                rsx! {
-                                    label {
-                                        class: "flex gap-2 cursor-pointer items-center",
-                                        input {
-                                            type: "radio",
-                                            name: "theme-radios",
-                                            class: "radio radio-sm theme-controller",
-                                            value: {option.clone()},
-                                        }
-                                    }
+                        for option in options.iter() {
+                            label {
+                                class: "flex gap-2 cursor-pointer items-center",
+                                input {
+                                    type: "radio",
+                                    name: "theme-radios",
+                                    class: "radio radio-sm theme-controller",
+                                    value: option.clone(),
                                 }
-                            }).collect::<Vec<Element>>()
+                            }
                         }
                     }
                 }
@@ -142,28 +139,22 @@ impl IntoDynNode for Radio
                 rsx! {
                     div {
                         class: "join join-vertical",
-                        {
-                            options.iter().map( | option| {
-                                rsx! {
-                                    input {
-                                        type: "radio",
-                                        name: "theme-buttons",
-                                        class: "btn theme-controller join-item",
-                                        value: {option.clone()},
-                                        aria_label: {option.clone()},
-                                    }
-                                }
-                            }).collect::<Vec<Element>>()
+                        for option in options.iter() {
+                            input {
+                                type: "radio",
+                                name: "theme-buttons",
+                                class: "btn theme-controller join-item",
+                                value: option.clone(),
+                                aria_label: option.clone(),
+                            }
                         }
                     }
                 }
             }
         };
-
-        node.into_dyn_node()
+        res.into_dyn_node()
     }
 }
-
 // TODO impl IntoDynNode on this enum.
 #[derive(Clone, PartialEq)]
 pub enum Type

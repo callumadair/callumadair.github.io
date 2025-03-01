@@ -81,6 +81,22 @@ pub struct DropdownProps
     pub button_props:       ButtonProps,
 }
 
+impl Default for DropdownProps
+{
+    fn default() -> Self
+    {
+        Self {
+            background_colours: Default::default(),
+            border_radius:      Default::default(),
+            children:           Element::Ok(VNode::default()),
+            modifier:           Default::default(),
+            placement:          Default::default(),
+            text_colours:       Default::default(),
+            button_props:       ButtonProps::default(),
+        }
+    }
+}
+
 #[component]
 pub fn Dropdown(props: DropdownProps) -> Element
 {

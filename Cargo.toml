@@ -4,7 +4,7 @@ resolver = "2"
 
 [workspace.dependencies]
 actix-web = { version = "4.9.0", features = ["rustls"] }
-dioxus = { version = "0.6.3", features = ["router"] }
+dioxus = { version = "0.6.3", features = ["router", "web"] }
 derive_more = { version = "2.0.1", features = ["display"] }
 gloo = "0.11.0"
 lucide-dioxus = "1.1.0"
@@ -13,8 +13,6 @@ serde = { version = "1.0.217", features = ["derive"] }
 shared = { path = "./shared" }
 strum = { version = "0.26.3", features = ["derive"] }
 thiserror = { version = "2.0.11" }
-yew = { version = "0.21.0", features = ["csr"] }
-yew-router = "0.18.0"
 
 [workspace.lints.rust]
 warnings = "warn"

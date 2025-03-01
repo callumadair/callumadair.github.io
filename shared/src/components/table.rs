@@ -1,20 +1,26 @@
 use std::rc::Rc;
 
-use dioxus::prelude::*;
+use dioxus::{
+    prelude::*,
+    web::WebEventExt,
+};
 use web_sys::{
     wasm_bindgen::JsCast,
     HtmlInputElement,
 };
 
 use crate::{
-    components::input::SearchInput,
+    components::{
+        input::SearchInput,
+        table::dioxus_elements::KeyboardEvent,
+    },
     traits::contains::Contains,
 };
 
 #[derive(Props, PartialEq, Clone)]
 pub struct TableProps<T>
 where
-    T: PartialEq + IntoDynNode + Clone + Contains,
+    T: PartialEq + IntoDynNode + Clone + Contains + 'static,
 {
     pub id:         String,
     #[props(default)]
@@ -51,53 +57,49 @@ pub fn Table<T: PartialEq + IntoDynNode + Clone + Contains + 'static>(
     };
 
     rsx! {
-        div {
-            class: "grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg rounded-box",
+            div {
+                class: "grid grid-cols-1 gap-5 p-3 overflow-auto rounded-lg rounded-box",
 
-            h2 {
-                class: "flex w-full p-3 items-center justify-between text-left text-2xl",
+                h2 {
+                    class: "flex w-full p-3 items-center justify-between text-left text-2xl",
 
-                { title.to_string() }
+                    { title.to_string() }
 
-                {if *searchable {
-                    rsx! {
-                        SearchInput {
-                            id: search_id,
-                            onkeyup
-                        }
-                    }
-                } else {
-                    rsx! {}
-                }}
-            },
-
-            table {
-                class: "table table-pin-cols table-sm w-full",
-                id,
-
-                thead {
-                    class: "font-bold",
-
-                    tr {
-
-                    {
-                        cols.iter().map(|col_header| {
-                            rsx!{
-                                td {
-                                    {col_header.clone()}
-                                }
+                    {if searchable {
+                        rsx! {
+                            SearchInput {
+                                id: search_id,
+                                onkeyup
                             }
-                        }).collect::<Vec<Element>>()
+                        }
+                    } else {
+                        rsx! {}
+                    }}
+                },
+
+                table {
+                    class: "table table-pin-cols table-sm w-full",
+                    id,
+
+                    thead {
+                        class: "font-bold",
+                        tr {
+                            for col_header in cols.iter() {
+                                    td {
+                                        {col_header.clone()}
+                                    }
+                            }
+                        }
+
                     }
 
+
+                    tbody {
+                        class: "",
+                        // {display_rows}
                     }
                 }
-                tbody {
-                    class: "",
-                    {(*display_rows).clone()}
-                    }
             }
-        }
     }
 }
 
@@ -107,14 +109,14 @@ fn search_table<T: PartialEq + Clone + Contains + 'static>(
     display_rows: &mut Signal<Vec<T>>,
 )
 {
+    let evt = evt.try_as_web_event().expect("Should work correctly");
     let input_value = evt
         .target()
         .expect("Event should have an originating target when dispatched.")
         .unchecked_into::<HtmlInputElement>()
         .value();
 
-    let new_rows = (**rows)
-        .clone()
+    let new_rows = rows()
         .into_iter()
         .filter(|row| row.contains(&input_value))
         .collect::<Vec<T>>();

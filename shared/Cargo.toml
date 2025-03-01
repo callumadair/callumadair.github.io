@@ -19,7 +19,8 @@ lucide-dioxus.workspace = true
 serde = { version = "1.0.217", features = ["derive"] }
 strum.workspace = true
 thiserror.workspace = true
-web-sys = { version = "0.3.76", features = ["HtmlDialogElement"] }
+web-sys = { version = "0.3.76", features = ["KeyboardEvent", "HtmlDialogElement"] }
+regex = "1.11.1"
 
 [lints]
 workspace = true

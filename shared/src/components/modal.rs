@@ -7,7 +7,7 @@ use web_sys::wasm_bindgen::JsCast;
 #[derive(Props, Clone, PartialEq)]
 pub struct ModalProps<T>
 where
-    T: IntoDynNode + Clone + PartialEq + Display,
+    T: IntoDynNode + Clone + PartialEq + Display + 'static,
 {
     /// Is this a wide view modal.
     #[props(default)]
@@ -89,7 +89,7 @@ pub fn ModalButton(props: ModalButtonProps) -> Element
 
     let onclick = {
         crate::clone!(modal_id);
-        Callback::from(move |_evt: MouseEvent| {
+        move |_evt: MouseEvent| {
             let modal_element = document()
                 .get_element_by_id(modal_id.as_str())
                 .expect("Failed to get modal element by id")
@@ -99,7 +99,7 @@ pub fn ModalButton(props: ModalButtonProps) -> Element
             modal_element
                 .show_modal()
                 .expect("Failed to show modal element");
-        })
+        }
     };
 
     rsx! {
