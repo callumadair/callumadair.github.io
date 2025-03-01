@@ -7,11 +7,6 @@ use actix_web::{
     HttpResponse,
     ResponseError,
 };
-use dioxus::{
-    dioxus_core::DynamicNode,
-    prelude::*,
-};
-use lucide_dioxus::CircleX;
 use strum::Display;
 
 #[derive(thiserror::Error, Display, Debug)]
@@ -40,19 +35,19 @@ impl ResponseError for Base
     }
 }
 
-impl IntoDynNode for Base
-{
-    fn into_dyn_node(self) -> DynamicNode
-    {
-        let res = rsx! {
-        div {
-            class: "alert alert-error",
-            role: "alert",
-            CircleX {
-                size: 20
-            },
-            {self.to_string()}}
-        };
-        res.into_dyn_node()
-    }
-}
+// impl IntoDynNode for Base
+// {
+//     fn into_dyn_node(self) -> DynamicNode
+//     {
+//         let res = rsx! {
+//         div {
+//             class: "alert alert-error",
+//             role: "alert",
+//             CircleX {
+//                 size: 20
+//             },
+//             {self.to_string()}}
+//         };
+//         res.into_dyn_node()
+//     }
+// }
