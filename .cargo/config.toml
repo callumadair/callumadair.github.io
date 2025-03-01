@@ -6,7 +6,8 @@ rustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]
 linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]
 
-[unstable]
-codegen-backend = true
-[profile.server-dev]
-codegen-backend = "cranelift"
+#[unstable]
+#codegen-backend = true
+#
+#[profile.dev]
+#codegen-backend = "cranelift"
