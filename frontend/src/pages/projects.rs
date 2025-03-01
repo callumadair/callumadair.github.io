@@ -6,7 +6,7 @@ pub fn ProjectBase() -> Element
     rsx! {
         div {
             class: "flex items-center justify-center text-center",
-            {CurrentProjects}
+            CurrentProjects {}
         }
     }
 }

@@ -1,13 +1,13 @@
 use dioxus::prelude::*;
 
-#[derive(Props, PartialEq)]
+#[derive(Props, PartialEq, Clone)]
 struct BaseErrorPageProps
 {
     error_text: String,
 }
 
 #[component]
-fn BaseErrorPage(props: &BaseErrorPageProps) -> Element
+fn BaseErrorPage(props: BaseErrorPageProps) -> Element
 {
     rsx! {
         div {

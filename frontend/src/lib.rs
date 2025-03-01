@@ -117,30 +117,30 @@ enum Route
 #[component]
 pub fn app() -> Element
 {
-    let theme =
-        use_signal(LocalStorage::get::<Theme>(THEME_STORAGE_KEY).unwrap_or(Theme::default()));
-    let theme = use_context_provider(|| theme);
+    let theme_value = LocalStorage::get::<Theme>(THEME_STORAGE_KEY).unwrap_or(Theme::default());
+    let theme_signal = use_signal(|| theme_value);
+    let theme = use_context_provider(|| theme_signal);
 
     document()
         .document_element()
         .expect("Failed getting root document as element.")
-        .set_attribute(THEME_ATTRIBUTE_NAME, &(*theme).to_string().to_lowercase())
+        .set_attribute(THEME_ATTRIBUTE_NAME, &*theme().to_string().to_lowercase())
         .expect("Failed setting the theme value.");
 
     rsx! {
-        Router::<Route> {
-            Page {
-                main {
-                    class: "grow",
-               }
-                Footer {
-                }
+        Router::<Route> {}
+
+        Page {
+            main {
+                class: "grow",
+            }
+            Footer {
             }
         }
     }
 }
 
-#[derive(Props, PartialEq)]
+#[derive(Props, PartialEq, Clone)]
 struct PageProps
 {
     children: Element,

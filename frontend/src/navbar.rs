@@ -63,15 +63,15 @@ pub fn Navbar() -> Element
                             class: "divider divider-accent divider-horizontal"
                         }
 
-                        {HomeLink}
-                        {ReadingLink}
-                        {ProjectLink}
-                        {SoftwareLink}
+                        HomeLink {}
+                        ReadingLink {}
+                        ProjectLink {}
+                        SoftwareLink {}
                     }
 
                     div {
                         class: "navbar-end space-x-2",
-                        {ThemeControl}
+                        ThemeControl {}
                     }
 
                 }
@@ -89,7 +89,7 @@ fn HomeLink() -> Element
     rsx! {
             NavbarLink<Route> {
                 route:{Route::Home},
-                {House}
+                House {}
                 {"Home"}
             }
     }
@@ -153,7 +153,7 @@ fn ThemeControl() -> Element
                 tabindex: "0",
                 class: "dropdown-content z-1 p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto shadow-2xl",
 
-                {ThemeControlDropdownContent}
+                ThemeControlDropdownContent {}
 
               }
 
@@ -166,27 +166,26 @@ fn ThemeControlDropdownContent() -> Element
 {
     let mut theme = use_context::<Signal<Theme>>();
 
-    Theme::iter()
-        .map(|theme_variant| {
-            let onclick = move |_| {
-                gloo::storage::LocalStorage::set(THEME_STORAGE_KEY, theme_variant)
-                    .expect("Failed updating stored theme.");
-                theme.set(theme_variant);
-            };
+    rsx! {
+        for theme_variant in Theme::iter() {
 
-            rsx! {
 
-                li {
-                    input {
-                        type: "radio",
-                        name: "theme-dropdown",
-                        class: "theme-controller btn btn-sm btn-block btn-ghost justify-start",
-                        aria_label: { theme_variant.to_string() },
-                        value: { theme_variant.to_string().to_lowercase() },
-                        onclick,
-                    }
+            li {
+                input {
+                    type: "radio",
+                    name: "theme-dropdown",
+                    class: "theme-controller btn btn-sm btn-block btn-ghost justify-start",
+                    aria_label: theme_variant.to_string() ,
+                    value: theme_variant.to_string().to_lowercase() ,
+                    onclick:
+                        move |_evt: MouseEvent| {
+                            gloo::storage::LocalStorage::set(THEME_STORAGE_KEY, theme_variant)
+                            .expect("Failed updating stored theme.");
+                            theme.set(theme_variant);
+                    },
                 }
             }
-        })
-        .collect::<Vec<Element>>()
+       }
+
+    }
 }

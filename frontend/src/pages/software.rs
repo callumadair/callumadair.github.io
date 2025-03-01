@@ -37,7 +37,7 @@ pub fn SoftwareBase() -> Element
     rsx! {
         div {
             class: "flex space-y-4 p-3",
-            {CLIBase}
+            CLIBase {}
         }
     }
 }

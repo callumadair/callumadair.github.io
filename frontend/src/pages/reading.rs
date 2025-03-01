@@ -7,7 +7,7 @@ pub fn ReadingBase() -> Element
     rsx! {
         div {
             class: "flex items-center justify-center text-center",
-            {CurrentReading}
+            CurrentReading {}
         }
     }
 }

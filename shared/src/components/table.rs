@@ -96,7 +96,9 @@ pub fn Table<T: PartialEq + IntoDynNode + Clone + Contains + 'static>(
 
                     tbody {
                         class: "",
-                        // {display_rows}
+                        for row in display_rows().iter() {
+                            {row.clone()}
+                        }
                     }
                 }
             }
