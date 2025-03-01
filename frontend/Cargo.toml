@@ -19,3 +19,9 @@ strum.workspace = true
 
 [lints]
 workspace = true
+
+[features]
+default = ["web"]
+web = ["dioxus/web", "dioxus/router"]
+desktop = ["dioxus/desktop"]
+mobile = ["dioxus/mobile"]

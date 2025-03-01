@@ -17,3 +17,7 @@ features = [
     "runtime-tokio-rustls",
     "sqlx-postgres"
 ]
+optional = true
+
+[features]
+sea-orm = ["dep:sea-orm-migration"]

@@ -1,4 +1,7 @@
-use dioxus::prelude::*;
+use dioxus::{
+    document::Stylesheet,
+    prelude::*,
+};
 use gloo::{
     storage::{
         LocalStorage,
@@ -129,6 +132,8 @@ pub fn App() -> Element
 
     rsx! {
         Router::<Route> {}
+
+        Stylesheet { href: asset!("./assets/out.css")}
 
         Page {
             main {
