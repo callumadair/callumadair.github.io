@@ -1,6 +1,5 @@
 use dioxus::{
     dioxus_core::DynamicNode,
-    html::KeyCode::V,
     prelude::*,
 };
 
@@ -32,7 +31,7 @@ impl IntoDynNode for Toggle
 
                         input {
                             type: "checkbox",
-                            value: {right_theme.clone()},
+                            value: right_theme.clone(),
                             class: "toggle theme-controller"
                         },
 
@@ -48,7 +47,7 @@ impl IntoDynNode for Toggle
                         class: "toggle text-base-content",
 
                         input { type: "checkbox",
-                            value:{right_theme.clone()},
+                            value: right_theme.clone(),
                             class:"theme-controller",
                         },
 
@@ -67,7 +66,7 @@ impl IntoDynNode for Toggle
                         },
 
                         input { type : "checkbox",
-                            value : { right_theme.clone() },
+                            value : right_theme.clone(),
                             class : "toggle theme-controller",
                         }
 
@@ -83,7 +82,7 @@ impl IntoDynNode for Toggle
                 rsx! {
                     input {
                         type : "checkbox",
-                        value :{right_theme.clone()},
+                        value :right_theme.clone(),
                         class : "toggle theme-controller",
                     }
                 }

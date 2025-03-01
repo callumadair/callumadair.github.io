@@ -1,6 +1,9 @@
 use actix_web::{
     body::BoxBody,
-    http::StatusCode,
+    http::{
+        header::ContentType,
+        StatusCode,
+    },
     HttpResponse,
     ResponseError,
 };
@@ -29,12 +32,12 @@ impl ResponseError for Base
         }
     }
 
-    // fn error_response(&self) -> HttpResponse<BoxBody> {
-    //    match self {
-    //        Base::Demo => {}
-    //        Base::OtherVariant => {}
-    //    }
-    // }
+    fn error_response(&self) -> HttpResponse<BoxBody>
+    {
+        HttpResponse::build(self.status_code())
+            .insert_header(ContentType::json())
+            .body(self.to_string())
+    }
 }
 
 impl IntoDynNode for Base

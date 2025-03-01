@@ -86,12 +86,12 @@ impl Default for DropdownProps
     fn default() -> Self
     {
         Self {
-            background_colours: Default::default(),
-            border_radius:      Default::default(),
-            children:           Element::Ok(VNode::default()),
-            modifier:           Default::default(),
-            placement:          Default::default(),
-            text_colours:       Default::default(),
+            background_colours: BackgroundColours::default(),
+            border_radius:      BorderRadius::default(),
+            children:           Ok(VNode::default()),
+            modifier:           DropdownModifier::default(),
+            placement:          DropdownPlacement::default(),
+            text_colours:       TextColours::default(),
             button_props:       ButtonProps::default(),
         }
     }

@@ -50,13 +50,13 @@ impl ModalDisplay for SoftwareTool
     {
         rsx! {
             ModalButton {
-                modal_id: {format!("{}-modal", self.name.clone())},
+                modal_id: format!("{}-modal", self.name.clone()),
                 modal_button_text: "More Info",
             }
 
             Modal<String> {
-                id: {format!("{}-modal", self.name.clone())},
-                content: {format!("{} is neat.", self.name.clone())}
+                id: format!("{}-modal", self.name.clone()),
+                content: format!("{} is neat.", self.name.clone())
             }
         }
     }
@@ -80,7 +80,7 @@ impl IntoDynNode for SoftwareTool
                 td{
                     a {
                         target: "_blank",
-                        href: {self.web_link.clone()},
+                        href: self.web_link.clone(),
                         {"Website"}
                     }
                 },

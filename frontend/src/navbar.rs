@@ -88,7 +88,7 @@ fn HomeLink() -> Element
 {
     rsx! {
             NavbarLink<Route> {
-                route:{Route::Home},
+                route: Route::Home,
                 House {}
                 {"Home"}
             }

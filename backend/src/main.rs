@@ -14,10 +14,7 @@ use actix_web::{
 };
 use portfolio_backend_lib::http_api::handlers::index::index;
 use tracing_actix_web::TracingLogger;
-use utoipa_actix_web::{
-    scope,
-    AppExt,
-};
+use utoipa_actix_web::AppExt;
 use utoipa_swagger_ui::SwaggerUi;
 
 #[tokio::main]

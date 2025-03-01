@@ -87,12 +87,12 @@ impl Default for ButtonProps
     fn default() -> Self
     {
         Self {
-            behaviour: Default::default(),
-            children:  Element::Ok(VNode::default()),
-            colour:    Default::default(),
-            modifier:  Default::default(),
-            style:     Default::default(),
-            size:      Default::default(),
+            behaviour: ButtonBehaviour::default(),
+            children:  Ok(VNode::default()),
+            colour:    ButtonColour::default(),
+            modifier:  ButtonModifier::default(),
+            style:     ButtonStyle::default(),
+            size:      ButtonSize::default(),
         }
     }
 }
