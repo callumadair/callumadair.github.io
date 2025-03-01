@@ -115,7 +115,7 @@ enum Route
 }
 
 #[component]
-pub fn app() -> Element
+pub fn App() -> Element
 {
     let theme_value = LocalStorage::get::<Theme>(THEME_STORAGE_KEY).unwrap_or(Theme::default());
     let theme_signal = use_signal(|| theme_value);
@@ -124,7 +124,7 @@ pub fn app() -> Element
     document()
         .document_element()
         .expect("Failed getting root document as element.")
-        .set_attribute(THEME_ATTRIBUTE_NAME, &*theme().to_string().to_lowercase())
+        .set_attribute(THEME_ATTRIBUTE_NAME, &theme().to_string().to_lowercase())
         .expect("Failed setting the theme value.");
 
     rsx! {

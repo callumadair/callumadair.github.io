@@ -1,3 +1,3 @@
 use frontend::App;
 
-fn main() { yew::Renderer::<App>::new().render(); }
+fn main() { dioxus::launch(App); }
