@@ -76,6 +76,8 @@ pub fn Navbar() -> Element
 
                 }
 
+                Outlet::<Route> {}
+
             }
 
         }
@@ -88,7 +90,7 @@ fn HomeLink() -> Element
 {
     rsx! {
             NavbarLink<Route> {
-                route: Route::Home,
+                route: Route::Home {},
                 House {}
                 {"Home"}
             }
@@ -100,7 +102,7 @@ fn ReadingLink() -> Element
 {
     rsx! {
         NavbarLink<Route> {
-            route: Route::ReadingList,
+            route: Route::ReadingBase {},
             {"Reading List"}
         }
     }
@@ -111,7 +113,7 @@ fn ProjectLink() -> Element
 {
     rsx! {
             NavbarLink<Route>{
-                route: Route::Projects,
+                route: Route::ProjectBase {},
                 {"Projects"}
             }
     }
@@ -122,7 +124,7 @@ fn SoftwareLink() -> Element
 {
     rsx! {
         NavbarLink<Route> {
-            route: Route::Software,
+            route: Route::SoftwareBase {},
             {"Software"}
         }
     }

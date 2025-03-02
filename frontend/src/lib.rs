@@ -1,7 +1,4 @@
-use dioxus::{
-    document::Stylesheet,
-    prelude::*,
-};
+use dioxus::prelude::*;
 use gloo::{
     storage::{
         LocalStorage,
@@ -50,71 +47,37 @@ const THEME_STORAGE_KEY: &str = "current-theme-name";
 )]
 pub(crate) enum Theme
 {
-    // Abyss,
-    // Acid,
-    // Aqua,
-    // Autumn,
-    // Black,
-    // Bumblebee,
-    // Business,
-    // Caramellatte,
-    // Cmyk,
-    // Coffee,
-    // Corporate,
-    // Cupcake,
-    // Cyberpunk,
-    // Dark,
-    // Dim,
-    // Dracula,
-    // Emerald,
-    // Fantasy,
-    // Forest,
-    // Garden,
-    // Halloween,
-    // Lemonade,
-    // Light,
-    // Lofi,
-    // Luxury,
     #[default]
     NewLight,
     NewDark,
-    // Night,
-    // Nord,
-    // Pastel,
-    // Retro,
-    // Silk,
-    // Sunset,
-    // Synthwave,
-    // Valentine,
-    // Winter,
-    // Wireframe,
 }
 
 #[derive(Clone, Copy, Routable, PartialEq)]
+#[rustfmt::skip]
 enum Route
 {
     #[layout(Navbar)]
-    #[route("/", Home)]
-    Home,
-    #[route("/403", Forbidden)]
-    Forbidden,
-    #[route("/418", IAmTeapot)]
-    ImATeapot,
-    #[route("/projects", ProjectBase)]
-    Projects,
-    #[route("/reading", ReadingBase)]
-    ReadingList,
-    #[route("/software", SoftwareBase)]
-    Software,
-    #[route("/401", Unauthorized)]
-    Unauthorized,
-    #[route("/451", UnavailableForLegalReasons)]
-    UnavailableForLegalReasons,
-    #[route("/415", UnsupportedMediaType)]
-    UnsupportedMediaType,
+        #[route("/")]
+        Home {},
+        #[route("/projects")]
+        ProjectBase {},
+        #[route("/reading")]
+        ReadingBase {},
+        #[route("/software")]
+        SoftwareBase {},
     #[end_layout]
+    #[route("/403")]
+    Forbidden {},
+    #[route("/418")]
+    IAmTeapot {},
+    #[route("/401")]
+    Unauthorized {},
+    #[route("/451")]
+    UnavailableForLegalReasons {},
+    #[route("/415")]
+    UnsupportedMediaType {},
     #[route("/404")]
-    NotFound,
+    NotFound {},
 }
 
 #[component]
@@ -133,7 +96,9 @@ pub fn App() -> Element
     rsx! {
         Router::<Route> {}
 
-        Stylesheet { href: asset!("./assets/out.css")}
+        document::Stylesheet{
+            href: asset!("assets/out.css")
+        }
 
         Page {
             main {
@@ -170,7 +135,7 @@ pub fn Home() -> Element
                 class: "flex justify-center items-center",
 
                 h1 {
-                    class: "text-4xl",
+                    class: "text-4xl text-black",
                     {"Hello, world!"}
                 }
             }
