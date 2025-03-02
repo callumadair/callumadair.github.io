@@ -8,9 +8,8 @@ RUN rustup target add wasm32-unknown-unknown
 RUN rustup install nightly
 RUN rustup component add rustc-codegen-cranelift-preview --toolchain nightly
 
-# Add cargo-binstall and use it to install trunk.
-RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-RUN cargo binstall trunk
+# Install dx.
+RUN cargo install dioxus-cli
 
 # Install bun and add it to the path.
 RUN curl -fsSL https://bun.sh/install | bash
