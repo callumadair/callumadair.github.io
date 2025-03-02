@@ -36,11 +36,10 @@ impl Contains for SoftwareTool
         key: &str,
     ) -> bool
     {
-        let re = Regex::new(key).unwrap();
-        re.is_match(&self.short_desc)
-            || re.is_match(&self.long_desc)
-            || re.is_match(&self.web_link)
-            || re.is_match(&self.name)
+        self.short_desc.contains(key)
+            || self.long_desc.contains(key)
+            || self.web_link.contains(key)
+            || self.name.contains(key)
     }
 }
 
