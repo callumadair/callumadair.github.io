@@ -18,7 +18,7 @@ double-docker:
 
 dev:
     cd ./backend && zellij run -- cargo run
-    cd ./frontend && zellij run -- ~/.cargo/bin/trunk serve
+    cd ./frontend && zellij run -- ~/.cargo/bin/dx serve --package frontend --port 3000 --addr 0.0.0.0
     zellij run -- docker compose up db
     clear
 
