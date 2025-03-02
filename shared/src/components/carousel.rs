@@ -8,7 +8,7 @@ use lucide_dioxus::{
 pub struct CarouselProps
 {
     #[props(default)]
-    pub img_paths: Vec<String>,
+    pub img_paths: Vec<Asset>,
     #[props(default)]
     pub class:     String,
 }
@@ -28,7 +28,7 @@ pub fn Carousel(props: CarouselProps) -> Element
                     class:"carousel-item relative w-full",
 
                     img {
-                        src: path.clone(),
+                        src: *path,
                         class: "w-full"
                     },
 

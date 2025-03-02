@@ -15,7 +15,10 @@ pub fn ReadingBase() -> Element
 #[component]
 fn CurrentReading() -> Element
 {
-    let img_paths = vec!["assets/networking.jpg".into(), "assets/linux.jpg".into()];
+    let img_paths = vec![
+        asset!("./assets/networking.jpg"),
+        asset!("./assets/linux.jpg"),
+    ];
     rsx! {
         div {
             class: "flex flex-col my-3",
