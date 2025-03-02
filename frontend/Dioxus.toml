@@ -1,19 +1,8 @@
 [application]
-asset_dir = "./frontend/assets"
 name = "portfolio-frontend"
 out_dir = "dist"
-
-[web.app]
-title = "Portfolio Site"
-base_path = ""
 
 [web.watcher]
 reload_html = true
 watch_path = [".", "../shared"]
 index_on_404 = true
-
-[web.resource]
-script = []
-
-[web.resource.dev]
-script = []
