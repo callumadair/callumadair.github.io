@@ -17,7 +17,7 @@ double-docker:
     docker run -it -v "/var/run/docker.sock:/var/run/docker.sock:rw" double-docker:latest
 
 dev:
-    cd ./backend && zellij run -- cargo run
+    cd ./backend && zellij run -- cargo run --all-features
     cd ./frontend && zellij run -- ~/.cargo/bin/dx serve --package frontend --port 3000 --addr 0.0.0.0
     zellij run -- docker compose up db
     clear
