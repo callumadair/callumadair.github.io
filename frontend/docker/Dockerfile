@@ -1,6 +1,6 @@
 FROM rust:alpine
 
-RUN apk add bash clang curl mold musl-dev openssl openssl-dev
+RUN apk add bash clang curl mold musl-dev libressl-dev
 
 # Add rust toolchains and components.
 RUN rustup target add wasm32-unknown-unknown
