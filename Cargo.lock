@@ -5670,7 +5670,6 @@ dependencies = [
  "dioxus",
  "gloo",
  "lucide-dioxus",
- "regex",
  "serde",
  "strum",
  "web-sys",

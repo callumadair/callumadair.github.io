@@ -2,7 +2,6 @@ use dioxus::{
     dioxus_core::DynamicNode,
     prelude::*,
 };
-use regex::Regex;
 use serde::{
     Deserialize,
     Serialize,
