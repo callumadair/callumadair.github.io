@@ -4,3 +4,10 @@ macro_rules! clone {
         $(let $identifier = $identifier.clone();)*
     };
 }
+
+#[macro_export]
+macro_rules! clone_mut {
+    ($($identifier:ident),*) => {
+        $(let mut $identifier = $identifier.clone();)*
+    };
+}
