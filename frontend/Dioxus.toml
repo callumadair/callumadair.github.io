@@ -2,6 +2,9 @@
 name = "portfolio-frontend"
 out_dir = "dist"
 
+[web.app]
+title = "Portfolio Web App"
+
 [web.watcher]
 reload_html = true
 watch_path = [".", "../shared"]
