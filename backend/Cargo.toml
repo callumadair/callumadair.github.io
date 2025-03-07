@@ -18,9 +18,9 @@ sea-orm = { version = "1.1.4", features = ["sqlx-postgres", "runtime-tokio-rustl
 strum.workspace = true
 thiserror.workspace = true
 tokio = { version = "1.43.0", features = ["rt", "rt-multi-thread", "macros"] }
-tracing = "0.1.41"
+tracing.workspace = true
 tracing-actix-web = { version = "0.7.15" }
-tracing-subscriber = "0.3.19"
+tracing-subscriber.workspace = true
 utoipa = { version = "5.3.1", features = ["actix_extras"] }
 utoipa-actix-web = { version = "0.1.2" }
 utoipa-swagger-ui = { version = "9.0.0", features = ["actix-web", "debug-embed"] }
