@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: ./frontend/Dockerfile
 
-    command: dx serve --package frontend --host 3000 --addr 0.0.0.0
+    command: dx serve --package frontend --port 3000 --addr 0.0.0.0
     ports:
       - "3000:3000"
     develop:
