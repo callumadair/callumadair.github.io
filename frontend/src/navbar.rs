@@ -76,6 +76,7 @@ pub fn Navbar() -> Element
 
                 }
 
+                // This is where our page content will be displayed.
                 Outlet::<Route> {}
 
             }
