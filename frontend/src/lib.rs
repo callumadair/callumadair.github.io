@@ -135,7 +135,7 @@ pub fn Home() -> Element
                 class: "flex justify-center items-center",
 
                 h1 {
-                    class: "text-4xl text-black",
+                    class: "text-4xl text-primary",
                     {"Hello, world!"}
                 }
             }
