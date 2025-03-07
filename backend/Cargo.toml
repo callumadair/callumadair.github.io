@@ -8,8 +8,8 @@ description = "The parent crate for all the backend HTTP web server."
 readme = "README.md"
 repository = "https://github.com/callumadair/callumadair.github.io/tree/stable/backend"
 license = "MIT"
-keywords = ["Server"]
-categories = ["web-programming::http-server"]
+keywords = ["server", "http", "backend"]
+categories = ["web-programming::http-server", "database"]
 workspace = ".."
 
 [lib]
