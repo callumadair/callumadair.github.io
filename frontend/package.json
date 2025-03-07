@@ -1,11 +1,13 @@
 {
-  "dependencies": {},
+  "dependencies": {
+    "@tailwindcss/cli": "^4.0.12"
+  },
   "devDependencies": {
     "@tailwindcss/container-queries": "^0.1.1",
     "@tailwindcss/forms": "^0.5.10",
     "@tailwindcss/typography": "^0.5.16",
-    "daisyui": "^5.0.0-beta.8",
-    "tailwindcss": "^4.0.6",
+    "daisyui": "^5.0.0",
+    "tailwindcss": "^4.0.12",
     "tailwindcss-animate": "^1.0.7",
     "tailwindcss-opentype": "^1.1.0"
   }
