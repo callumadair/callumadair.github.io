@@ -2,8 +2,15 @@ use dioxus::{
     dioxus_core::DynamicNode,
     prelude::*,
 };
+use lucide_dioxus::{
+    Moon,
+    Sun,
+};
 
-use crate::components::Dropdown;
+use crate::components::{
+    ButtonProps,
+    Dropdown,
+};
 
 // TODO add in logic for actually changing and storing theme
 // state.
@@ -108,8 +115,26 @@ impl IntoDynNode for Radio
         {
             Radio::Dropdown(options) =>
             {
+                let children = rsx! {"Theme"};
+                let button_props = ButtonProps {
+                    children,
+                    ..Default::default()
+                };
                 rsx! {
-                 Dropdown {}
+                 Dropdown {
+                    button_props,
+                    for option in options.iter() {
+                       li {
+                        input {
+                            type: "radio",
+                            name: "theme-dropdown",
+                            class: "theme-controller w-full btn btn-sm btn-block btn-ghost justify-start",
+                            aria_label: option.clone(),
+                            value: option.clone(),
+                        }
+                       }
+                    }
+                 }
                 }
             }
 
@@ -156,24 +181,73 @@ impl IntoDynNode for Radio
 }
 // TODO impl IntoDynNode on this enum.
 #[derive(Clone, PartialEq)]
-pub enum Type
+pub enum ThemeControllerType
 {
-    CheckBox(String, String),
+    CheckBox(String),
     Toggle(Toggle),
     Radio(Radio),
-    Swap(String, String),
+    Swap(String),
+}
+
+impl IntoDynNode for ThemeControllerType
+{
+    fn into_dyn_node(self) -> DynamicNode
+    {
+        match self
+        {
+            ThemeControllerType::CheckBox(value) =>
+            {
+                rsx! {
+                    input {
+                        type: "checkbox",
+                        class: "checkbox theme-controller",
+                        value,
+                    }
+                }
+                .into_dyn_node()
+            }
+            ThemeControllerType::Toggle(toggle) => toggle.into_dyn_node(),
+            ThemeControllerType::Radio(radio) => radio.into_dyn_node(),
+            ThemeControllerType::Swap(value) =>
+            {
+                rsx! {
+                    label {
+                        class: "swap swap-rotate",
+                        input {
+                            type: "checkbox",
+                            class: "theme-controller",
+                            value,
+                        },
+
+                        Sun {
+                            class: "swap-off h-10 w-10 fill-current",
+                            size: 16,
+                        }
+
+                        Moon {
+                            class: "swap-on h-10 w-10 fill-current",
+                            size: 16,
+                        }
+                    }
+                }
+                .into_dyn_node()
+            }
+        }
+    }
 }
 
 #[derive(Props, Clone, PartialEq)]
 pub struct ThemeControllerProps
 {
-    pub controller_type: Type,
+    pub controller_type: ThemeControllerType,
 }
 
 #[component]
 pub fn ThemeController(props: ThemeControllerProps) -> Element
 {
-    // TODO actually use this.
-    // props.controller_type.clone().to_html()
-    rsx! {}
+    let ThemeControllerProps { controller_type } = props;
+
+    rsx! {
+        {controller_type}
+    }
 }
