@@ -1,7 +1,14 @@
 [package]
 name = "backend"
 version = "0.1.0"
-edition = "2021"
+authors = ["Callum Adair"]
+rust-version = "1.85.0"
+edition = "2024"
+description = "The parent crate for all the backend HTTP web server."
+readme = "README.md"
+repository = "https://github.com/callumadair/callumadair.github.io/tree/stable/backend"
+license = "MIT"
+workspace = ".."
 
 [lib]
 path = "./src/lib.rs"
