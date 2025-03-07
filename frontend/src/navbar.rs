@@ -153,7 +153,7 @@ fn ThemeControl() -> Element
 
               ul {
                 tabindex: "0",
-                class: "dropdown-content z-1 p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto shadow-2xl",
+                class: "dropdown-content bg-base-200 z-1 p-2 gap-y-5 w-40 max-h-80 rounded-box overflow-auto shadow-2xl",
 
                 ThemeControlDropdownContent {}
 
