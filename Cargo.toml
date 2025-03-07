@@ -43,6 +43,9 @@ opt-level = 3
 inherits = "dev"
 opt-level = 1
 
+[profile.wasm-dev.package."*"]
+opt-level = 3
+
 [profile.server-dev]
 inherits = "dev"
 
