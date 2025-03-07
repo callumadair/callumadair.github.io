@@ -96,7 +96,7 @@ pub fn App() -> Element
     rsx! {
         Router::<Route> {}
 
-        document::Stylesheet{
+        document::Stylesheet {
             href: asset!("assets/out.css")
         }
 
