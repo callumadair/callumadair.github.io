@@ -3,6 +3,7 @@ use gloo::storage::Storage;
 use lucide_dioxus::{
     House,
     Palette,
+    SlidersHorizontal,
 };
 use shared::components::{
     MenuContent,
@@ -71,6 +72,7 @@ pub fn Navbar() -> Element
 
                     div {
                         class: "navbar-end space-x-2",
+                        SettingsLink {}
                         ThemeControl {}
                     }
 
@@ -131,6 +133,22 @@ fn SoftwareLink() -> Element
     }
 }
 
+#[component]
+fn SettingsLink() -> Element
+{
+    rsx! {
+        Link {
+            to: Route::SettingsBase {},
+            button {
+                class: "btn btn-square btn-ghost",
+                SlidersHorizontal {
+                    size: 20
+                }
+            }
+        }
+    }
+}
+
 // TODO make this use a list of themes I choose and also
 // retain the theme value on reload (probably a use_state
 // val?)
@@ -144,7 +162,7 @@ fn ThemeControl() -> Element
                 div {
                     tabindex: "0",
                     role: "button",
-                    class: "btn btn-sm btn-circle btn-ghost",
+                    class: "btn btn-square btn-ghost",
 
                     Palette {
                         size: 20

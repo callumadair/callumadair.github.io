@@ -30,6 +30,7 @@ use crate::{
     pages::{
         projects::ProjectBase,
         reading::ReadingBase,
+        settings::SettingsBase,
         software::SoftwareBase,
     },
 };
@@ -65,6 +66,8 @@ enum Route
         ReadingBase {},
         #[route("/software")]
         SoftwareBase {},
+        #[route("/settings")]
+        SettingsBase {},
     #[end_layout]
     #[route("/403")]
     Forbidden {},
@@ -135,7 +138,7 @@ pub fn Home() -> Element
                 class: "flex justify-center items-center",
 
                 h1 {
-                    class: "text-4xl text-primary",
+                    class: "text-4xl",
                     {"Hello, world!"}
                 }
             }
