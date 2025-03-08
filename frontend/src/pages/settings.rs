@@ -5,7 +5,12 @@ pub fn SettingsBase() -> Element
 {
     rsx! {
         div {
-            class: "flex items-start justify-start",
+            class: "flex items-start justify-start p-5",
+
+            h2 {
+                class: "text-xl",
+                "Settings"
+            }
         }
     }
 }
