@@ -11,6 +11,11 @@ pub fn SettingsBase() -> Element
                 class: "text-xl",
                 "Settings"
             }
+
+            h3 {
+                class: "text-lg",
+                "Themes"
+            }
         }
     }
 }
