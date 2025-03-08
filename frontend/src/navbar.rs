@@ -22,69 +22,31 @@ use crate::{
 pub fn Navbar() -> Element
 {
     rsx! {
-        // This is just to enable the menu sidebar.
         div {
-            class: "drawer",
-
-            input {
-                id: "my-menu",
-                type: "checkbox",
-                class:"drawer-toggle",
-            },
-
-            // Sidebar stuff goes here
-            MenuContent {
-                menu_id: "my-menu",
-                li {
-                    a {
-                        "Totally a link"
-                    }
-                },
-                li {
-                    a {
-                        "Totally another link"
-                    }
-                }
-            },
-
-            // Actual navbar stuff goes here.
+            class: "navbar px-4 w-full bg-base-100",
             div {
-                class: "drawer-content flex flex-col",
+                class: "navbar-start space-x-2",
+
+                MenuToggle {
+                    menu_id: "my-menu"
+                }
 
                 div {
-                    class: "navbar px-4 w-full bg-base-100",
-
-                    div {
-                        class: "navbar-start space-x-2",
-                        MenuToggle {
-                            menu_id: "my-menu"
-                        }
-
-                        div {
-                            class: "divider divider-accent divider-horizontal"
-                        }
-
-                        HomeLink {}
-                        ReadingLink {}
-                        ProjectLink {}
-                        SoftwareLink {}
-                    }
-
-                    div {
-                        class: "navbar-end space-x-2",
-                        SettingsLink {}
-                        ThemeControl {}
-                    }
-
+                    class: "divider divider-accent divider-horizontal"
                 }
 
-                // This is where our page content will be displayed.
-                Outlet::<Route> {}
-
+                HomeLink {}
+                ReadingLink {}
+                ProjectLink {}
+                SoftwareLink {}
             }
 
+            div {
+                class: "navbar-end space-x-2",
+                SettingsLink {}
+                ThemeControl {}
+            }
         }
-
     }
 }
 

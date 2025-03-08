@@ -10,7 +10,10 @@ use serde::{
     Deserialize,
     Serialize,
 };
-use shared::components::Footer;
+use shared::components::{
+    Footer,
+    MenuContent,
+};
 use strum::{
     AsRefStr,
     Display,
@@ -57,7 +60,7 @@ pub(crate) enum Theme
 #[rustfmt::skip]
 enum Route
 {
-    #[layout(Navbar)]
+    #[layout(Page)]
         #[route("/")]
         Home {},
         #[route("/projects")]
@@ -102,31 +105,64 @@ pub fn App() -> Element
         document::Stylesheet {
             href: asset!("assets/out.css")
         }
-
-        Page {
-            main {
-                class: "grow",
-            }
-            Footer {
-            }
-        }
     }
 }
 
-#[derive(Props, PartialEq, Clone)]
-struct PageProps
-{
-    children: Element,
-}
-
 #[component]
-fn Page(props: PageProps) -> Element
+pub fn Page() -> Element
 {
     rsx! {
+
+        // This is just to enable the menu sidebar.
         div {
-            class: "flex flex-col bg-base-100 min-h-screen justify-between",
-            {props.children.clone()}
+            class: "drawer",
+
+            input {
+                id: "my-menu",
+                type: "checkbox",
+                class:"drawer-toggle",
+            },
+
+            // Sidebar stuff goes here
+            MenuContent {
+                menu_id: "my-menu",
+                li {
+                    a {
+                        "Totally a link"
+                    }
+                },
+                li {
+                    a {
+                        "Totally another link"
+                    }
+                }
+            },
+
+            // Actual navbar stuff goes here.
+            div {
+                class: "drawer-content flex flex-col",
+
+                div {
+                    class: "flex flex-col bg-base-100 h-screen justify-between",
+
+                    Navbar {}
+
+                    main {
+                        class: "grow",
+
+                        // This is where our page content will be displayed.
+                        Outlet::<Route> {}
+                    }
+
+                    Footer {
+                    }
+                }
+
+
+            }
+
         }
+
     }
 }
 
