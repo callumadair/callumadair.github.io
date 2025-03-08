@@ -1,5 +1,6 @@
 mod actions;
 mod carousel;
+mod feedback;
 mod footer;
 mod input;
 mod modal;
@@ -14,6 +15,7 @@ pub use actions::{
 };
 pub use carousel::*;
 use derive_more::Display;
+pub use feedback::alert::*;
 pub use footer::*;
 pub use input::*;
 pub use modal::*;
