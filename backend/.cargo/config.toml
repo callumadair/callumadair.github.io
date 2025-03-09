@@ -1,0 +1,6 @@
+# Unfortunately the dioxus cli cries about this, need to find fix to get it to ignore this whole package.
+#[unstable]
+#codegen-backend = true
+#
+#[profile.dev]
+#codegen-backend = "cranelift"
