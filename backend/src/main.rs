@@ -35,7 +35,7 @@ async fn main() -> color_eyre::Result<()>
     // setting:
     Settings::override_field_with_env_var(&mut settings.actix.hosts, "APPLICATION__HOSTS")?;
     let db_conn: DatabaseConnection =
-        Database::connect("postgres://postgres:password@localhost/database").await?;
+        Database::connect("postgres://postgres:password@localhost:5432").await?;
 
     init_logger(&settings);
 
