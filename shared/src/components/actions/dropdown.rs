@@ -5,11 +5,11 @@ use strum::{
 };
 
 use crate::components::{
-    BackgroundColours,
+    BackgroundColour,
     BorderRadius,
     Button,
     ButtonProps,
-    TextColours,
+    TextColour,
 };
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
@@ -50,11 +50,11 @@ pub enum DropdownModifier
 )]
 pub struct DropdownClasses
 {
-    pub background_colours: BackgroundColours,
+    pub background_colours: BackgroundColour,
     pub border_radius:      BorderRadius,
     pub modifier:           DropdownModifier,
     pub placement:          DropdownPlacement,
-    pub text_colours:       TextColours,
+    pub text_colours:       TextColour,
 }
 
 impl From<DropdownProps> for DropdownClasses
@@ -75,7 +75,7 @@ impl From<DropdownProps> for DropdownClasses
 pub struct DropdownProps
 {
     #[props(default)]
-    pub background_colours: BackgroundColours,
+    pub background_colours: BackgroundColour,
     #[props(default)]
     pub border_radius:      BorderRadius,
     pub children:           Element,
@@ -84,7 +84,7 @@ pub struct DropdownProps
     #[props(default)]
     pub placement:          DropdownPlacement,
     #[props(default)]
-    pub text_colours:       TextColours,
+    pub text_colours:       TextColour,
     #[props(default)]
     pub button_props:       ButtonProps,
 }
@@ -94,12 +94,12 @@ impl Default for DropdownProps
     fn default() -> Self
     {
         Self {
-            background_colours: BackgroundColours::default(),
+            background_colours: BackgroundColour::default(),
             border_radius:      BorderRadius::default(),
             children:           Ok(VNode::default()),
             modifier:           DropdownModifier::default(),
             placement:          DropdownPlacement::default(),
-            text_colours:       TextColours::default(),
+            text_colours:       TextColour::default(),
             button_props:       ButtonProps::default(),
         }
     }

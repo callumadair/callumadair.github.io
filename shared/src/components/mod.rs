@@ -23,92 +23,172 @@ pub use navigation::*;
 use strum::AsRefStr;
 pub use table::*;
 
-#[macro_export]
-macro_rules! component_colours {
-    ($name:ident, $strum_prefix:literal) => {
-        #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
-        #[strum(prefix = $strum_prefix, serialize_all = "kebab_case")]
-        pub enum $name
-        {
-            Accent,
-            AccentContent,
-            Base100,
-            Base200,
-            Base300,
-            BaseContent,
-            Error,
-            ErrorContent,
-            Info,
-            InfoContent,
-            Neutral,
-            NeutralContent,
-            #[default]
-            None,
-            Primary,
-            PrimaryContent,
-            Secondary,
-            SecondaryContent,
-            Success,
-            SuccessContent,
-            Warning,
-            WarningContent,
-        }
-    };
-}
-
-component_colours!(BackgroundColours, "bg-");
-component_colours!(BorderColours, "border-");
-component_colours!(TextColours, "text-");
-
-#[macro_export]
-macro_rules! component_sizes {
-    ($name:ident, $strum_prefix:literal) => {
-        #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
-        #[strum(prefix = $strum_prefix, serialize_all = "kebab_case")]
-        pub enum $name
-        {
-            #[strum(serialize = "xs")]
-            ExtraSmall,
-            #[strum(serialize = "sm")]
-            Small,
-            #[default]
-            #[strum(serialize = "md")]
-            Medium,
-            #[strum(serialize = "lg")]
-            Large,
-            #[strum(serialize = "xl")]
-            ExtraLarge,
-            #[strum(serialize = "2xl")]
-            ExtraExtraLarge,
-            #[strum(serialize = "3xl")]
-            ExtraExtraExtraLarge,
-        }
-    };
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum BackgroundColour
+{
+    #[strum(serialize = "bg-accent")]
+    Accent,
+    #[strum(serialize = "bg-accent-content")]
+    AccentContent,
+    #[strum(serialize = "bg-base-100")]
+    Base100,
+    #[strum(serialize = "bg-base-200")]
+    Base200,
+    #[strum(serialize = "bg-base-300")]
+    Base300,
+    #[strum(serialize = "bg-base-content")]
+    BaseContent,
+    #[strum(serialize = "bg-error")]
+    Error,
+    #[strum(serialize = "bg-error-content")]
+    ErrorContent,
+    #[strum(serialize = "bg-info")]
+    Info,
+    #[strum(serialize = "bg-info-content")]
+    InfoContent,
+    #[strum(serialize = "bg-neutral")]
+    Neutral,
+    #[strum(serialize = "bg-neutral-content")]
+    NeutralContent,
+    #[default]
+    #[strum(serialize = "")]
+    None,
+    #[strum(serialize = "bg-primary")]
+    Primary,
+    #[strum(serialize = "bg-primary-content")]
+    PrimaryContent,
+    #[strum(serialize = "bg-secondary")]
+    Secondary,
+    #[strum(serialize = "bg-secondary-content")]
+    SecondaryContent,
+    #[strum(serialize = "bg-success")]
+    Success,
+    #[strum(serialize = "bg-success-content")]
+    SuccessContent,
+    #[strum(serialize = "bg-warning")]
+    Warning,
+    #[strum(serialize = "bg-warning-content")]
+    WarningContent,
 }
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "border", serialize_all = "kebab_case")]
+pub enum BorderColour
+{
+    #[strum(serialize = "border-accent")]
+    Accent,
+    #[strum(serialize = "border-accent-content")]
+    AccentContent,
+    #[strum(serialize = "border-base-100")]
+    Base100,
+    #[strum(serialize = "border-base-200")]
+    Base200,
+    #[strum(serialize = "border-base-300")]
+    Base300,
+    #[strum(serialize = "border-base-content")]
+    BaseContent,
+    #[strum(serialize = "border-error")]
+    Error,
+    #[strum(serialize = "border-error-content")]
+    ErrorContent,
+    #[strum(serialize = "border-info")]
+    Info,
+    #[strum(serialize = "border-info-content")]
+    InfoContent,
+    #[strum(serialize = "border-neutral")]
+    Neutral,
+    #[strum(serialize = "border-neutral-content")]
+    NeutralContent,
+    #[default]
+    #[strum(serialize = "")]
+    None,
+    #[strum(serialize = "border-primary")]
+    Primary,
+    #[strum(serialize = "border-primary-content")]
+    PrimaryContent,
+    #[strum(serialize = "border-secondary")]
+    Secondary,
+    #[strum(serialize = "border-secondary-content")]
+    SecondaryContent,
+    #[strum(serialize = "border-success")]
+    Success,
+    #[strum(serialize = "border-success-content")]
+    SuccessContent,
+    #[strum(serialize = "border-warning")]
+    Warning,
+    #[strum(serialize = "border-warning-content")]
+    WarningContent,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum TextColour
+{
+    #[strum(serialize = "text-accent")]
+    Accent,
+    #[strum(serialize = "text-accent-content")]
+    AccentContent,
+    #[strum(serialize = "text-base-100")]
+    Base100,
+    #[strum(serialize = "text-base-200")]
+    Base200,
+    #[strum(serialize = "text-base-300")]
+    Base300,
+    #[strum(serialize = "text-base-content")]
+    BaseContent,
+    #[strum(serialize = "text-error")]
+    Error,
+    #[strum(serialize = "text-error-content")]
+    ErrorContent,
+    #[strum(serialize = "text-info")]
+    Info,
+    #[strum(serialize = "text-info-content")]
+    InfoContent,
+    #[strum(serialize = "text-neutral")]
+    Neutral,
+    #[strum(serialize = "text-neutral-content")]
+    NeutralContent,
+    #[default]
+    #[strum(serialize = "")]
+    None,
+    #[strum(serialize = "text-primary")]
+    Primary,
+    #[strum(serialize = "text-primary-content")]
+    PrimaryContent,
+    #[strum(serialize = "text-secondary")]
+    Secondary,
+    #[strum(serialize = "text-secondary-content")]
+    SecondaryContent,
+    #[strum(serialize = "text-success")]
+    Success,
+    #[strum(serialize = "text-success-content")]
+    SuccessContent,
+    #[strum(serialize = "text-warning")]
+    Warning,
+    #[strum(serialize = "text-warning-content")]
+    WarningContent,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
 pub enum BorderRadius
 {
-    #[strum(serialize = "xs")]
+    #[strum(serialize = "border-xs")]
     ExtraSmall,
-    #[strum(serialize = "sm")]
+    #[strum(serialize = "border-sm")]
     Small,
     #[default]
-    #[strum(serialize = "md")]
+    #[strum(serialize = "border-md")]
     Medium,
-    #[strum(serialize = "lg")]
+    #[strum(serialize = "border-lg")]
     Large,
-    #[strum(serialize = "xl")]
+    #[strum(serialize = "border-xl")]
     ExtraLarge,
-    #[strum(serialize = "2xl")]
+    #[strum(serialize = "border-2xl")]
     ExtraExtraLarge,
-    #[strum(serialize = "3xl")]
+    #[strum(serialize = "border-3xl")]
     ExtraExtraExtraLarge,
-    #[strum(serialize = "box")]
+    #[strum(serialize = "border-box")]
     Box,
-    #[strum(serialize = "field")]
+    #[strum(serialize = "border-field")]
     Field,
-    #[strum(serialize = "selector")]
+    #[strum(serialize = "border-selector")]
     Selector,
 }
