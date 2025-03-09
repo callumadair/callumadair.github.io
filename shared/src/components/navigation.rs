@@ -58,7 +58,7 @@ pub fn MenuContent(props: MenuContentProps) -> Element
 #[derive(Props, PartialEq, Clone)]
 pub struct NavbarLinkProps<T>
 where
-    T: Routable + PartialEq,
+    T: Routable + PartialEq + Clone,
 {
     pub route:    T,
     pub children: Element,
@@ -67,16 +67,23 @@ where
 #[component]
 pub fn NavbarLink<T>(props: NavbarLinkProps<T>) -> Element
 where
-    T: Routable + PartialEq + 'static,
+    T: Routable + PartialEq + Clone + 'static,
 {
+    let cur_route: T = use_route();
     let NavbarLinkProps {
         route,
         children: content,
     } = props;
 
+    let mut class = String::from("btn btn-ghost");
+    if cur_route == route
+    {
+        class.push_str(" border-b-accent");
+    }
+
     rsx! {
             Link {
-                class:"btn btn-ghost",
+                class,
                 to: route,
                 {content}
             }
