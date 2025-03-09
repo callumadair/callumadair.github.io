@@ -6,39 +6,47 @@ use strum::{
 };
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "alert-", serialize_all = "kebab-case")]
 pub enum AlertStyle
 {
+    #[strum(serialize = "alert-dash")]
     Dash,
     #[default]
+    #[strum(serialize = "")]
     None,
+    #[strum(serialize = "alert-soft")]
     Soft,
 }
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "alert-", serialize_all = "kebab-case")]
 pub enum AlertColour
 {
+    #[strum(serialize = "alert-error")]
     Error,
+    #[strum(serialize = "alert-info")]
     Info,
     #[default]
+    #[strum(serialize = "")]
     None,
+    #[strum(serialize = "alert-success")]
     Success,
+    #[strum(serialize = "alert-warning")]
     Warning,
 }
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "alert-", serialize_all = "kebab-case")]
 pub enum AlertDirection
 {
+    #[strum(serialize = "alert-horizontal")]
     Horizontal,
     #[default]
+    #[strum(serialize = "")]
     None,
+    #[strum(serialize = "alert-vertical")]
     Vertical,
 }
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, derive_more::Display)]
-#[display("alert {style} {colour} {direction}")]
+#[display("alert {style} {colour} {direction} p-5")]
 pub struct AlertClasses
 {
     style:     AlertStyle,
