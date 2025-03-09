@@ -6,6 +6,7 @@ rustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]
 linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=/usr/bin/mold"]
 
+# This can't be used on the frontend as the target is not yet supported
 #[unstable]
 #codegen-backend = true
 #
