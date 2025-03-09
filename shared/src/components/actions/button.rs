@@ -8,36 +8,46 @@ crate::component_colours!(ButtonColour, "btn-");
 crate::component_sizes!(ButtonSize, "btn-");
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "btn-", serialize_all = "kebab-case")]
 pub enum ButtonBehaviour
 {
     #[default]
+    #[strum(serialize = "btn-active")]
     Active,
+    #[strum(serialize = "btn-disabled")]
     Disabled,
 }
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "btn-", serialize_all = "kebab-case")]
 pub enum ButtonStyle
 {
+    #[strum(serialize = "btn-dash")]
     Dash,
+    #[strum(serialize = "btn-ghost")]
     Ghost,
+    #[strum(serialize = "btn-link")]
     Link,
     #[default]
+    #[strum(serialize = "")]
     None,
+    #[strum(serialize = "btn-outline")]
     Outline,
+    #[strum(serialize = "btn-soft")]
     Soft,
 }
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "btn-", serialize_all = "kebab-case")]
 pub enum ButtonModifier
 {
+    #[strum(serialize = "btn-block")]
     Block,
+    #[strum(serialize = "btn-circle")]
     Circle,
     #[default]
+    #[strum(serialize = "")]
     None,
+    #[strum(serialize = "btn-square")]
     Square,
+    #[strum(serialize = "btn-wide")]
     Wide,
 }
 
