@@ -5,12 +5,14 @@ use strum::{
 };
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(serialize_all = "kebab-case")]
 pub enum SwapStyle
 {
+    #[strum(serialize = "swap-flip")]
     Flip,
+    #[strum(serialize = "swap-rotate")]
     Rotate,
     #[default]
+    #[strum(serialize = "")]
     None,
 }
 
