@@ -1,2 +1,4 @@
-#[toolchain]
+[toolchain]
+channel = "stable"
+# Use nightly when cranelift fix is figured out
 #channel = "nightly"

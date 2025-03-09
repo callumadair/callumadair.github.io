@@ -46,6 +46,6 @@ workspace = true
 default = []
 
 [profile.dev]
-# Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`.
-codegen-backend = "cranelift"
+# Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`, and the dioxus cli will cry.
+#codegen-backend = "cranelift"
 opt-level = 1
