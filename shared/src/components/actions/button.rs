@@ -4,9 +4,6 @@ use strum::{
     Display,
 };
 
-crate::component_colours!(ButtonColour, "btn-");
-crate::component_sizes!(ButtonSize, "btn-");
-
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
 pub enum ButtonBehaviour
 {
@@ -15,6 +12,90 @@ pub enum ButtonBehaviour
     Active,
     #[strum(serialize = "btn-disabled")]
     Disabled,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum ButtonColour
+{
+    #[strum(serialize = "btn-accent")]
+    Accent,
+    #[strum(serialize = "btn-accent-content")]
+    AccentContent,
+    #[strum(serialize = "btn-base-100")]
+    Base100,
+    #[strum(serialize = "btn-base-200")]
+    Base200,
+    #[strum(serialize = "btn-base-300")]
+    Base300,
+    #[strum(serialize = "btn-base-content")]
+    BaseContent,
+    #[strum(serialize = "btn-error")]
+    Error,
+    #[strum(serialize = "btn-error-content")]
+    ErrorContent,
+    #[strum(serialize = "btn-info")]
+    Info,
+    #[strum(serialize = "btn-info-content")]
+    InfoContent,
+    #[strum(serialize = "btn-neutral")]
+    Neutral,
+    #[strum(serialize = "btn-neutral-content")]
+    NeutralContent,
+    #[default]
+    #[strum(serialize = "")]
+    None,
+    #[strum(serialize = "btn-primary")]
+    Primary,
+    #[strum(serialize = "btn-primary-content")]
+    PrimaryContent,
+    #[strum(serialize = "btn-secondary")]
+    Secondary,
+    #[strum(serialize = "btn-secondary-content")]
+    SecondaryContent,
+    #[strum(serialize = "btn-success")]
+    Success,
+    #[strum(serialize = "btn-success-content")]
+    SuccessContent,
+    #[strum(serialize = "btn-warning")]
+    Warning,
+    #[strum(serialize = "btn-warning-content")]
+    WarningContent,
+}
+
+#[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum ButtonModifier
+{
+    #[strum(serialize = "btn-block")]
+    Block,
+    #[strum(serialize = "btn-circle")]
+    Circle,
+    #[default]
+    #[strum(serialize = "")]
+    None,
+    #[strum(serialize = "btn-square")]
+    Square,
+    #[strum(serialize = "btn-wide")]
+    Wide,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum ButtonSize
+{
+    #[strum(serialize = "btn-xs")]
+    ExtraSmall,
+    #[strum(serialize = "btn-sm")]
+    Small,
+    #[default]
+    #[strum(serialize = "btn-md")]
+    Medium,
+    #[strum(serialize = "btn-lg")]
+    Large,
+    #[strum(serialize = "btn-xl")]
+    ExtraLarge,
+    #[strum(serialize = "btn-2xl")]
+    ExtraExtraLarge,
+    #[strum(serialize = "btn-3xl")]
+    ExtraExtraExtraLarge,
 }
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
@@ -33,22 +114,6 @@ pub enum ButtonStyle
     Outline,
     #[strum(serialize = "btn-soft")]
     Soft,
-}
-
-#[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-pub enum ButtonModifier
-{
-    #[strum(serialize = "btn-block")]
-    Block,
-    #[strum(serialize = "btn-circle")]
-    Circle,
-    #[default]
-    #[strum(serialize = "")]
-    None,
-    #[strum(serialize = "btn-square")]
-    Square,
-    #[strum(serialize = "btn-wide")]
-    Wide,
 }
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, derive_more::Display)]
