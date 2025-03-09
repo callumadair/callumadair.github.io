@@ -13,26 +13,34 @@ use crate::components::{
 };
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "dropdown-", serialize_all = "kebab-case")]
 pub enum DropdownPlacement
 {
     #[default]
+    #[strum(serialize = "dropdown-start")]
     Start,
+    #[strum(serialize = "dropdown-center")]
     Center,
+    #[strum(serialize = "dropdown-end")]
     End,
+    #[strum(serialize = "dropdown-top")]
     Top,
+    #[strum(serialize = "dropdown-bottom")]
     Bottom,
+    #[strum(serialize = "dropdown-left")]
     Left,
+    #[strum(serialize = "dropdown-right")]
     Right,
 }
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
-#[strum(prefix = "dropdown-", serialize_all = "kebab-case")]
 pub enum DropdownModifier
 {
+    #[strum(serialize = "dropdown-hover")]
     Hover,
+    #[strum(serialize = "dropdown-open")]
     Open,
     #[default]
+    #[strum(serialize = "")]
     None,
 }
 
