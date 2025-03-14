@@ -8,6 +8,7 @@ use strum::{
 /// Checks package runner is installed and runs tailwind.
 pub fn main()
 {
+    println!("cargo:rerun-if-changed=src/**/*.rs");
     let toolchain = install_packages();
 
     // Compile TailwindCSS .css file
