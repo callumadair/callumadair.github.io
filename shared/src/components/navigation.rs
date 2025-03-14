@@ -75,17 +75,24 @@ where
         children: content,
     } = props;
 
-    let mut class = String::from("btn btn-ghost");
+    let mut class = String::new();
     if cur_route == route
     {
-        class.push_str(" border-b-accent");
+        class.push_str("w-9/10 border border-secondary");
     }
 
     rsx! {
-            Link {
-                class,
-                to: route,
-                {content}
+            div {
+                class: "flex flex-col items-center justify-center",
+                Link {
+                    class: "btn btn-ghost",
+                    to: route,
+                    {content}
+                }
+
+                div {
+                    class,
+                }
             }
     }
 }
