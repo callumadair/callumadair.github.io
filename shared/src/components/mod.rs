@@ -1,5 +1,6 @@
 mod actions;
 mod carousel;
+mod data_display;
 mod feedback;
 mod footer;
 mod input;
@@ -14,6 +15,7 @@ pub use actions::{
     theme_controller::*,
 };
 pub use carousel::*;
+pub use data_display::collapse::*;
 use derive_more::Display;
 pub use feedback::alert::*;
 pub use footer::*;
