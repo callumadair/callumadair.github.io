@@ -16,13 +16,15 @@ pub use actions::{
 };
 pub use carousel::*;
 pub use data_display::collapse::*;
-use derive_more::Display;
 pub use feedback::alert::*;
 pub use footer::*;
 pub use input::*;
 pub use modal::*;
 pub use navigation::*;
-use strum::AsRefStr;
+use strum::{
+    AsRefStr,
+    Display,
+};
 pub use table::*;
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
