@@ -124,6 +124,32 @@ pub enum BorderColour
 }
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum BorderRadius
+{
+    #[strum(serialize = "border-xs")]
+    ExtraSmall,
+    #[strum(serialize = "border-sm")]
+    Small,
+    #[default]
+    #[strum(serialize = "border-md")]
+    Medium,
+    #[strum(serialize = "border-lg")]
+    Large,
+    #[strum(serialize = "border-xl")]
+    ExtraLarge,
+    #[strum(serialize = "border-2xl")]
+    ExtraExtraLarge,
+    #[strum(serialize = "border-3xl")]
+    ExtraExtraExtraLarge,
+    #[strum(serialize = "border-box")]
+    Box,
+    #[strum(serialize = "border-field")]
+    Field,
+    #[strum(serialize = "border-selector")]
+    Selector,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
 pub enum TextColour
 {
     #[strum(serialize = "text-accent")]
@@ -169,30 +195,4 @@ pub enum TextColour
     Warning,
     #[strum(serialize = "text-warning-content")]
     WarningContent,
-}
-
-#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
-pub enum BorderRadius
-{
-    #[strum(serialize = "border-xs")]
-    ExtraSmall,
-    #[strum(serialize = "border-sm")]
-    Small,
-    #[default]
-    #[strum(serialize = "border-md")]
-    Medium,
-    #[strum(serialize = "border-lg")]
-    Large,
-    #[strum(serialize = "border-xl")]
-    ExtraLarge,
-    #[strum(serialize = "border-2xl")]
-    ExtraExtraLarge,
-    #[strum(serialize = "border-3xl")]
-    ExtraExtraExtraLarge,
-    #[strum(serialize = "border-box")]
-    Box,
-    #[strum(serialize = "border-field")]
-    Field,
-    #[strum(serialize = "border-selector")]
-    Selector,
 }
