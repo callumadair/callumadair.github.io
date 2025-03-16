@@ -23,7 +23,7 @@ pub enum CollapseModifier
 }
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, derive_more::Display)]
-#[display("collapse {open_state} {symbol}")]
+#[display("collapse {background_colour} {open_state} {symbol}")]
 struct CollapseClasses
 {
     background_colour: BackgroundColour,
