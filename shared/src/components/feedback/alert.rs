@@ -46,7 +46,7 @@ pub enum AlertDirection
 }
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, derive_more::Display)]
-#[display("alert {style} {colour} {direction} p-5")]
+#[display("alert {style} {colour} {direction} w-full p-5")]
 pub struct AlertClasses
 {
     style:     AlertStyle,
