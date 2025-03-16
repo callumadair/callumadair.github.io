@@ -6,6 +6,8 @@ use strum::{
 
 use crate::components::{
     BackgroundColour,
+    PeerBackgroundColour,
+    PeerTextColour,
     TextColour,
 };
 
@@ -47,8 +49,8 @@ impl From<CollapseProps> for CollapseClasses
 #[derive(Props, PartialEq, Clone)]
 pub struct CollapseProps
 {
-    checked_background_colour: Option<BackgroundColour>,
-    checked_text_colour:       Option<TextColour>,
+    checked_background_colour: Option<PeerBackgroundColour>,
+    checked_text_colour:       Option<PeerTextColour>,
     initial_background_colour: Option<BackgroundColour>,
     initial_text_colour:       Option<TextColour>,
     children:                  Element,
