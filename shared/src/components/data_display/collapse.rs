@@ -4,7 +4,10 @@ use strum::{
     Display,
 };
 
-use crate::components::BackgroundColour;
+use crate::components::{
+    BackgroundColour,
+    TextColour,
+};
 
 #[derive(Clone, Copy, Eq, Default, Display, PartialEq, AsRefStr)]
 pub enum CollapseModifier
@@ -23,12 +26,11 @@ pub enum CollapseModifier
 }
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, derive_more::Display)]
-#[display("collapse {background_colour} {open_state} {symbol}")]
+#[display("collapse bg-base-100 border border-base-300 {open_state} {symbol}")]
 struct CollapseClasses
 {
-    background_colour: BackgroundColour,
-    open_state:        CollapseModifier,
-    symbol:            CollapseModifier,
+    open_state: CollapseModifier,
+    symbol:     CollapseModifier,
 }
 
 impl From<CollapseProps> for CollapseClasses
@@ -36,9 +38,8 @@ impl From<CollapseProps> for CollapseClasses
     fn from(value: CollapseProps) -> Self
     {
         Self {
-            background_colour: value.background_colour.unwrap_or_default(),
-            open_state:        value.open_state.unwrap_or_default(),
-            symbol:            value.symbol.unwrap_or_default(),
+            open_state: value.open_state.unwrap_or_default(),
+            symbol:     value.symbol.unwrap_or_default(),
         }
     }
 }
@@ -46,34 +47,63 @@ impl From<CollapseProps> for CollapseClasses
 #[derive(Props, PartialEq, Clone)]
 pub struct CollapseProps
 {
-    background_colour: Option<BackgroundColour>,
-    children:          Element,
-    open_state:        Option<CollapseModifier>,
-    symbol:            Option<CollapseModifier>,
-    title:             String,
+    checked_background_colour: Option<BackgroundColour>,
+    checked_text_colour:       Option<TextColour>,
+    initial_background_colour: Option<BackgroundColour>,
+    initial_text_colour:       Option<TextColour>,
+    children:                  Element,
+    open_state:                Option<CollapseModifier>,
+    symbol:                    Option<CollapseModifier>,
+    title:                     String,
 }
 
 #[component]
 pub fn Collapse(props: CollapseProps) -> Element
 {
-    let outer_classes = CollapseClasses::from(props.clone()).to_string();
+    let class = CollapseClasses::from(props.clone()).to_string();
+
+    let CollapseProps {
+        checked_background_colour,
+        checked_text_colour,
+        initial_background_colour,
+        initial_text_colour,
+        children,
+        title,
+        ..
+    } = props;
+
+    let title_class = format!(
+        "collapse-title {} {} peer-checked:{} peer-checked:{}",
+        initial_background_colour.unwrap_or_default(),
+        initial_text_colour.unwrap_or_default(),
+        checked_background_colour.unwrap_or_default(),
+        checked_text_colour.unwrap_or_default(),
+    );
+
+    let content_class = format!(
+        "collapse-content {} {} peer-checked:{} peer-checked:{}",
+        initial_background_colour.unwrap_or_default(),
+        initial_text_colour.unwrap_or_default(),
+        checked_background_colour.unwrap_or_default(),
+        checked_text_colour.unwrap_or_default(),
+    );
 
     rsx! {
         div {
-            class: outer_classes,
+            class,
             input {
                 type: "checkbox",
                 class: "peer"
             }
 
             div {
-                class: "collapse-title",
-                {props.title}
+                class: title_class,
+                {title}
             }
 
             div {
-                class: "collapse-content",
-                {props.children}
+                class: content_class,
+                {children}
             }
         }
     }
