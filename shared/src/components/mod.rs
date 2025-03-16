@@ -150,6 +150,102 @@ pub enum BorderRadius
 }
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum PeerBackgroundColour
+{
+    #[strum(serialize = "peer-checked:bg-accent")]
+    Accent,
+    #[strum(serialize = "peer-checked:bg-accent-content")]
+    AccentContent,
+    #[strum(serialize = "peer-checked:bg-base-100")]
+    Base100,
+    #[strum(serialize = "peer-checked:bg-base-200")]
+    Base200,
+    #[strum(serialize = "peer-checked:bg-base-300")]
+    Base300,
+    #[strum(serialize = "peer-checked:bg-base-content")]
+    BaseContent,
+    #[strum(serialize = "peer-checked:bg-error")]
+    Error,
+    #[strum(serialize = "peer-checked:bg-error-content")]
+    ErrorContent,
+    #[strum(serialize = "peer-checked:bg-info")]
+    Info,
+    #[strum(serialize = "peer-checked:bg-info-content")]
+    InfoContent,
+    #[strum(serialize = "peer-checked:bg-neutral")]
+    Neutral,
+    #[strum(serialize = "peer-checked:bg-neutral-content")]
+    NeutralContent,
+    #[default]
+    #[strum(serialize = "")]
+    None,
+    #[strum(serialize = "peer-checked:bg-primary")]
+    Primary,
+    #[strum(serialize = "peer-checked:bg-primary-content")]
+    PrimaryContent,
+    #[strum(serialize = "peer-checked:bg-secondary")]
+    Secondary,
+    #[strum(serialize = "peer-checked:bg-secondary-content")]
+    SecondaryContent,
+    #[strum(serialize = "peer-checked:bg-success")]
+    Success,
+    #[strum(serialize = "peer-checked:bg-success-content")]
+    SuccessContent,
+    #[strum(serialize = "peer-checked:bg-warning")]
+    Warning,
+    #[strum(serialize = "peer-checked:bg-warning-content")]
+    WarningContent,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum PeerTextColour
+{
+    #[strum(serialize = "peer-checked:text-accent")]
+    Accent,
+    #[strum(serialize = "peer-checked:text-accent-content")]
+    AccentContent,
+    #[strum(serialize = "peer-checked:text-base-100")]
+    Base100,
+    #[strum(serialize = "peer-checked:text-base-200")]
+    Base200,
+    #[strum(serialize = "peer-checked:text-base-300")]
+    Base300,
+    #[strum(serialize = "peer-checked:text-base-content")]
+    BaseContent,
+    #[strum(serialize = "peer-checked:text-error")]
+    Error,
+    #[strum(serialize = "peer-checked:text-error-content")]
+    ErrorContent,
+    #[strum(serialize = "peer-checked:text-info")]
+    Info,
+    #[strum(serialize = "peer-checked:text-info-content")]
+    InfoContent,
+    #[strum(serialize = "peer-checked:text-neutral")]
+    Neutral,
+    #[strum(serialize = "peer-checked:text-neutral-content")]
+    NeutralContent,
+    #[default]
+    #[strum(serialize = "")]
+    None,
+    #[strum(serialize = "peer-checked:text-primary")]
+    Primary,
+    #[strum(serialize = "peer-checked:text-primary-content")]
+    PrimaryContent,
+    #[strum(serialize = "peer-checked:text-secondary")]
+    Secondary,
+    #[strum(serialize = "peer-checked:text-secondary-content")]
+    SecondaryContent,
+    #[strum(serialize = "peer-checked:text-success")]
+    Success,
+    #[strum(serialize = "peer-checked:text-success-content")]
+    SuccessContent,
+    #[strum(serialize = "peer-checked:text-warning")]
+    Warning,
+    #[strum(serialize = "peer-checked:text-warning-content")]
+    WarningContent,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
 pub enum TextColour
 {
     #[strum(serialize = "text-accent")]
