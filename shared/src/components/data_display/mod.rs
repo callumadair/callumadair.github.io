@@ -1,2 +1,2 @@
-mod accordion;
-pub mod collapse;
+pub(super) mod accordion;
+pub(super) mod collapse;

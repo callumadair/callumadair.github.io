@@ -29,7 +29,7 @@ pub enum CollapseModifier
 
 #[derive(Clone, Copy, Default, PartialEq, Eq, derive_more::Display)]
 #[display("collapse bg-base-100 border border-base-300 {open_state} {symbol}")]
-struct CollapseClasses
+pub(super) struct CollapseClasses
 {
     open_state: CollapseModifier,
     symbol:     CollapseModifier,

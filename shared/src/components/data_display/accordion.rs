@@ -1,8 +1,8 @@
 use dioxus::prelude::*;
 
 use crate::components::{
-    collapse::CollapseModifier,
     BackgroundColour,
+    CollapseModifier,
     PeerBackgroundColour,
     PeerTextColour,
     TextColour,

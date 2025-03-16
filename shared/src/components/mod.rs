@@ -15,7 +15,10 @@ pub use actions::{
     theme_controller::*,
 };
 pub use carousel::*;
-pub use data_display::collapse::*;
+pub use data_display::{
+    accordion::*,
+    collapse::*,
+};
 pub use feedback::alert::*;
 pub use footer::*;
 pub use input::*;

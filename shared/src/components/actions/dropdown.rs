@@ -5,10 +5,12 @@ use strum::{
 };
 
 use crate::components::{
+    actions::button::{
+        Button,
+        ButtonProps,
+    },
     BackgroundColour,
     BorderRadius,
-    Button,
-    ButtonProps,
     TextColour,
 };
 
