@@ -178,7 +178,6 @@ pub fn Button(props: ButtonProps) -> Element
     let btn_classes: ButtonClasses = props.clone().into();
     let class = btn_classes.to_string();
 
-    gloo::console::log!(&class);
     rsx! {
         button {
             class,
