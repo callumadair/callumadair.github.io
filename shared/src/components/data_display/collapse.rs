@@ -59,6 +59,7 @@ pub struct CollapseProps
     title:                     String,
 }
 
+// FIX colour display on checked
 #[component]
 pub fn Collapse(props: CollapseProps) -> Element
 {
@@ -75,7 +76,7 @@ pub fn Collapse(props: CollapseProps) -> Element
     } = props;
 
     let title_class = format!(
-        "collapse-title {} {} peer-checked:{} peer-checked:{}",
+        "collapse-title {} {} {} {}",
         initial_background_colour.unwrap_or_default(),
         initial_text_colour.unwrap_or_default(),
         checked_background_colour.unwrap_or_default(),
@@ -83,7 +84,7 @@ pub fn Collapse(props: CollapseProps) -> Element
     );
 
     let content_class = format!(
-        "collapse-content {} {} peer-checked:{} peer-checked:{}",
+        "collapse-content {} {} {} {}",
         initial_background_colour.unwrap_or_default(),
         initial_text_colour.unwrap_or_default(),
         checked_background_colour.unwrap_or_default(),
