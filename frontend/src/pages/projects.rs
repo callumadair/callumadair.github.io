@@ -1,5 +1,6 @@
 use dioxus::prelude::*;
 use shared::components::{
+    AccordionItem,
     Alert,
     AlertColour,
     AlertDirection,
@@ -47,6 +48,26 @@ fn CurrentProjects() -> Element
                     initial_background_colour: BackgroundColour::Secondary,
                     initial_text_colour: TextColour::SecondaryContent,
                     symbol: CollapseModifier::Plus,
+                    "Item"
+                }
+
+                AccordionItem {
+                    title: "Accordion Item One",
+                    checked_background_colour: PeerBackgroundColour::Accent,
+                    checked_text_colour: PeerTextColour::AccentContent,
+                    initial_background_colour: BackgroundColour::Primary,
+                    initial_text_colour: TextColour::PrimaryContent,
+                    name: "accordion-1",
+                    "Item"
+                }
+
+                AccordionItem {
+                    title: "Accordion Item Two",
+                    checked_background_colour: PeerBackgroundColour::Accent,
+                    checked_text_colour: PeerTextColour::AccentContent,
+                    initial_background_colour: BackgroundColour::Primary,
+                    initial_text_colour: TextColour::PrimaryContent,
+                    name: "accordion-1",
                     "Item"
                 }
             }
