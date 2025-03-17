@@ -343,3 +343,10 @@ pub enum TextColour
     #[strum(serialize = "text-warning-content")]
     WarningContent,
 }
+
+#[derive(PartialEq, Clone, derive_more::Display)]
+#[display("h-{_0}")]
+pub struct Height(String);
+#[derive(PartialEq, Clone, derive_more::Display)]
+#[display("w-{_0}")]
+pub struct Width(String);
