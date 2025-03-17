@@ -344,9 +344,9 @@ pub enum TextColour
     WarningContent,
 }
 
-#[derive(PartialEq, Clone, derive_more::Display)]
+#[derive(PartialEq, Default, Eq, Clone, derive_more::Display)]
 #[display("h-{_0}")]
 pub struct Height(String);
-#[derive(PartialEq, Clone, derive_more::Display)]
+#[derive(PartialEq, Default, Eq, Clone, derive_more::Display)]
 #[display("w-{_0}")]
 pub struct Width(String);
