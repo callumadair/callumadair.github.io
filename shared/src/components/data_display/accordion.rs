@@ -28,9 +28,9 @@ impl From<AccordionItemProps> for AccordionClasses
 }
 
 #[derive(Props, PartialEq, Clone)]
-struct AccordionItemProps
+pub struct AccordionItemProps
 {
-    accordion_name:            String,
+    name:                      String,
     checked_background_colour: Option<PeerBackgroundColour>,
     checked_text_colour:       Option<PeerTextColour>,
     children:                  Element,
@@ -47,7 +47,7 @@ pub fn AccordionItem(props: AccordionItemProps) -> Element
     let class = AccordionClasses::from(props.clone()).to_string();
 
     let AccordionItemProps {
-        accordion_name,
+        name,
         checked_background_colour,
         checked_text_colour,
         initial_background_colour,
@@ -79,7 +79,7 @@ pub fn AccordionItem(props: AccordionItemProps) -> Element
 
             input {
                 type: "radio",
-                name: accordion_name,
+                name,
             }
 
             div {
