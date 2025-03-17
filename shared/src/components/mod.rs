@@ -249,6 +249,54 @@ pub enum PeerTextColour
 }
 
 #[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
+pub enum RingColour
+{
+    #[strum(serialize = "ring-accent")]
+    Accent,
+    #[strum(serialize = "ring-accent-content")]
+    AccentContent,
+    #[strum(serialize = "ring-base-100")]
+    Base100,
+    #[strum(serialize = "ring-base-200")]
+    Base200,
+    #[strum(serialize = "ring-base-300")]
+    Base300,
+    #[strum(serialize = "ring-base-content")]
+    BaseContent,
+    #[strum(serialize = "ring-error")]
+    Error,
+    #[strum(serialize = "ring-error-content")]
+    ErrorContent,
+    #[strum(serialize = "ring-info")]
+    Info,
+    #[strum(serialize = "ring-info-content")]
+    InfoContent,
+    #[strum(serialize = "ring-neutral")]
+    Neutral,
+    #[strum(serialize = "ring-neutral-content")]
+    NeutralContent,
+    #[default]
+    #[strum(serialize = "")]
+    None,
+    #[strum(serialize = "ring-primary")]
+    Primary,
+    #[strum(serialize = "ring-primary-content")]
+    PrimaryContent,
+    #[strum(serialize = "ring-secondary")]
+    Secondary,
+    #[strum(serialize = "ring-secondary-content")]
+    SecondaryContent,
+    #[strum(serialize = "ring-success")]
+    Success,
+    #[strum(serialize = "ring-success-content")]
+    SuccessContent,
+    #[strum(serialize = "ring-warning")]
+    Warning,
+    #[strum(serialize = "ring-warning-content")]
+    WarningContent,
+}
+
+#[derive(Clone, Copy, Debug, Eq, Default, Display, PartialEq, AsRefStr)]
 pub enum TextColour
 {
     #[strum(serialize = "text-accent")]
