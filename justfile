@@ -24,11 +24,3 @@ lint:
 
 lint-fix:
     cargo clippy --workspace --all-features --fix
-
-alias zc := zellij-compose
-
-# This does not work due to some of the panes not starting correctly, so that when you attach to the session, only the second two panes work.
-zellij-compose:
-    zellij attach --create-background container
-    zellij --session container action new-pane -- just -f {{ justfile() }} compose
-    zellij attach container
