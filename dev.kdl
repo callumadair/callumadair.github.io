@@ -1,0 +1,24 @@
+layout {
+    pane split_direction="vertical" {
+        pane
+        pane {
+            command "docker"
+            args "compose" "up" "db"
+            name "Postgres Database"
+        }
+    }
+    pane split_direction="vertical" {
+        pane {
+            command "cargo"
+            args "run" "--all-features"
+            cwd "./backend"
+            name "Portfolio Backend"
+        }
+        pane {
+            command "dx"
+            args "serve" "--package" "frontend" "--port" "3000" "--addr" "0.0.0.0"
+            cwd "./frontend"
+            name "Portfolio Frontend"
+        }
+    }
+}
