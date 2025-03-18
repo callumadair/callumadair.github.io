@@ -4,10 +4,7 @@ clean:
     cargo clean
 
 compose:
-    zellij run -- docker compose up --build --watch dev-backend
-    zellij run -- docker compose up --build --watch dev-frontend
-    zellij run -- docker compose up db
-    clear
+    zellij --layout ./compose.kdl
 
 alias dd := double-docker
 
