@@ -4,7 +4,7 @@ clean:
     cargo clean
 
 compose:
-    zellij -n ./compose.kdl
+    zellij --layout ./compose.kdl
 
 alias dd := double-docker
 
