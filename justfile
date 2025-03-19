@@ -4,7 +4,7 @@ clean:
     cargo clean
 
 compose:
-    zellij --layout ./compose.kdl
+    zellij -n ./compose.kdl
 
 alias dd := double-docker
 
@@ -14,7 +14,7 @@ double-docker:
     docker run -it -v "/var/run/docker.sock:/var/run/docker.sock:rw" double-docker:latest
 
 dev:
-    zellij --layout ./dev.kdl
+    zellij -n ./dev.kdl
 
 fmt:
     cargo +nightly fmt
