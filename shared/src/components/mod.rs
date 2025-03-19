@@ -18,6 +18,7 @@ pub use carousel::*;
 pub use data_display::{
     accordion::*,
     badge::*,
+    card::*,
     collapse::*,
 };
 pub use feedback::alert::*;
