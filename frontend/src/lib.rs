@@ -52,8 +52,8 @@ const THEME_STORAGE_KEY: &str = "current-theme-name";
 pub(crate) enum Theme
 {
     #[default]
-    NewLight,
-    NewDark,
+    Light,
+    Dark,
 }
 
 #[derive(Clone, Copy, Routable, PartialEq)]
