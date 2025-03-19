@@ -87,22 +87,3 @@ pub fn Avatar(props: AvatarProps) -> Element
         }
     }
 }
-
-#[derive(Props, PartialEq, Clone)]
-pub struct AvatarGroupProps
-{
-    pub avatars: Vec<AvatarProps>,
-}
-#[component]
-pub fn AvatarGroup(props: AvatarGroupProps) -> Element
-{
-    rsx! {
-        div {
-            class: "avatar-group",
-
-            for avatar in props.avatars.iter() {
-
-            }
-        }
-    }
-}
