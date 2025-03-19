@@ -11,6 +11,5 @@ pub mod http_api;
 #[derive(Debug, Clone)]
 pub struct AppState
 {
-    pub db_conn:  DatabaseConnection,
-    pub settings: BasicSettings<NoSettings>,
+    pub db_conn: DatabaseConnection,
 }

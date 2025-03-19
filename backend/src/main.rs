@@ -52,10 +52,10 @@ async fn main() -> color_eyre::Result<()>
                         settings.actix.enable_compression,
                         Compress::default(),
                     ))
+                        .app_data(Data::new(settings.clone()))
                         .app_data(Data::new(
                             AppState {
                                 db_conn: db_conn.clone(),
-                                settings: settings.clone(),
                             }
                         ))
                         .wrap(TracingLogger::default())
