@@ -14,8 +14,8 @@ layout {
         }
         pane split_direction="vertical" {
             pane {
-                command "cargo"
-                args "run" "--all-features"
+                command "bacon"
+                args "run"
                 cwd "./backend"
                 name "Portfolio Backend (Local)"
                 borderless false
