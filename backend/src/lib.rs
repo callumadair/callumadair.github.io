@@ -1,7 +1,3 @@
-use actix_settings::{
-    BasicSettings,
-    NoSettings,
-};
 use sea_orm::DatabaseConnection;
 
 pub mod database;
