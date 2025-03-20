@@ -68,8 +68,8 @@ impl From<CardProps> for CardClasses
 #[derive(Props, PartialEq, Clone)]
 pub struct CardProps
 {
-    pub actions:  Element,
-    pub children: Element,
+    pub actions:  Option<Element>,
+    pub children: Option<Element>,
     pub img_src:  Option<String>,
     pub modifier: Option<CardModifier>,
     pub size:     Option<CardSize>,
@@ -104,16 +104,20 @@ pub fn Card(props: CardProps) -> Element
             div {
                 class: "card-body",
 
-                h2 {
-                    class: "card-title",
-                    {title}
+                if title.is_some() {
+                    h2 {
+                        class: "card-title",
+                        {title}
+                    }
                 }
 
                 {children}
 
-                div {
-                    class: "card-actions",
-                    {actions}
+                if actions.is_some() {
+                    div {
+                        class: "card-actions",
+                        {actions}
+                    }
                 }
             }
        }
