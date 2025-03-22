@@ -669,6 +669,7 @@ dependencies = [
  "actix-settings",
  "actix-web",
  "color-eyre",
+ "entity",
  "sea-orm",
  "strum 0.27.1",
  "thiserror 2.0.11",

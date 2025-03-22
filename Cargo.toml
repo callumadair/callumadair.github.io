@@ -8,6 +8,7 @@ resolver = "2"
 
 [workspace.dependencies]
 dioxus = { version = "0.6.3", features = ["router", "web"] }
+entity = { path = "./backend/entity" }
 gloo = "0.11.0"
 lucide-dioxus = "1.1.0"
 serde = { version = "1.0.217", features = ["derive"] }
