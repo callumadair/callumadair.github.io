@@ -16,6 +16,12 @@ double-docker:
 dev:
     zellij -n ./zellij/dev.kdl
 
+devtools:
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    rustup target add wasm32-unknown-unknown
+    curl -fsSL https://bun.sh/install | bash
+    bun install -D tailwindcss
+
 fmt:
     cargo +nightly fmt
 
