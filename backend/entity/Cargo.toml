@@ -13,5 +13,6 @@ categories = ["database", "data-structures"]
 actix-web = { version = "4.9.0", features = ["rustls"] }
 sea-orm = { version = "1.1.4", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "with-chrono", "with-json"] }
 serde.workspace = true
+serde_json.workspace = true
 
 [features]
