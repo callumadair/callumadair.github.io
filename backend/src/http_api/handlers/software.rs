@@ -1,7 +1,12 @@
 use actix_web::{
     HttpResponse,
+    HttpResponseBuilder,
     Responder,
     get,
+    http::{
+        StatusCode,
+        header::CONTENT_TYPE,
+    },
     web,
 };
 use entity::software::Entity as SoftwareTool;
@@ -13,7 +18,10 @@ use sea_orm::{
 use crate::AppState;
 
 #[utoipa::path(
-    responses((status = 200, body = str ))
+    responses(
+        (status = OK, body = Vec<entity::software::Model>),
+        (status = INTERNAL_SERVER_ERROR, body = crate::error::BackendError),
+    )
 )]
 #[get("/software")]
 pub async fn software(state: web::Data<AppState>) -> crate::error::Result<impl Responder>
@@ -21,5 +29,5 @@ pub async fn software(state: web::Data<AppState>) -> crate::error::Result<impl R
     let software_tools: Vec<entity::software::Model> =
         SoftwareTool::find().all(&state.db_conn).await?;
 
-    Ok(software_tools)
+    Ok(HttpResponse::Ok().json(software_tools))
 }
