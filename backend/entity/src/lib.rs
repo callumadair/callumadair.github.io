@@ -1,2 +1,2 @@
-mod image;
-mod software;
+pub mod image;
+pub mod software;
