@@ -1,14 +1,15 @@
 use actix_web::{
-    body::BoxBody,
-    http::{
-        header::ContentType,
-        StatusCode,
-    },
     HttpResponse,
     ResponseError,
+    body::BoxBody,
+    http::{
+        StatusCode,
+        header::ContentType,
+    },
 };
 use strum::Display;
 
+pub(crate) type Result<T> = core::result::Result<T, Base>;
 #[derive(thiserror::Error, Display, Debug)]
 pub enum Base
 {
