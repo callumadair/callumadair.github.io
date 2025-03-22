@@ -1,10 +1,17 @@
+use actix_web::{
+    HttpRequest,
+    HttpResponse,
+    Responder,
+    body::BoxBody,
+    http::header::ContentType,
+};
 use sea_orm::entity::prelude::*;
 use serde::{
     Deserialize,
     Serialize,
 };
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Deserialize, Serialize)]
+#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Deserialize, Serialize, utoipa::ToSchema)]
 #[sea_orm(table_name = "software_tools")]
 pub struct Model
 {
@@ -29,3 +36,20 @@ impl Related<super::image::Entity> for Entity
 }
 
 impl ActiveModelBehavior for ActiveModel {}
+
+impl Responder for Model
+{
+    type Body = BoxBody;
+
+    fn respond_to(
+        self,
+        req: &HttpRequest,
+    ) -> HttpResponse<Self::Body>
+    {
+        let body = serde_json::to_string(&self).unwrap();
+
+        HttpResponse::Ok()
+            .content_type(ContentType::json())
+            .body(body)
+    }
+}
