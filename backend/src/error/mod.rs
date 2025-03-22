@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+
 use actix_web::{
     HttpResponse,
     ResponseError,
@@ -7,24 +9,26 @@ use actix_web::{
         header::ContentType,
     },
 };
-use strum::Display;
+use utoipa::openapi::{
+    RefOr,
+    Schema,
+};
 
-pub(crate) type Result<T> = core::result::Result<T, Base>;
-#[derive(thiserror::Error, Display, Debug)]
-pub enum Base
+pub(crate) type Result<T> = core::result::Result<T, BackendError>;
+#[derive(thiserror::Error, Debug)]
+pub enum BackendError
 {
-    Demo,
-    OtherVariant,
+    #[error("{0}")]
+    Database(#[from] sea_orm::error::DbErr),
 }
 
-impl ResponseError for Base
+impl ResponseError for BackendError
 {
     fn status_code(&self) -> StatusCode
     {
         match self
         {
-            Base::Demo => StatusCode::IM_A_TEAPOT,
-            Base::OtherVariant => StatusCode::NOT_ACCEPTABLE,
+            Self::Database(_) => StatusCode::INTERNAL_SERVER_ERROR,
         }
     }
 
@@ -33,6 +37,27 @@ impl ResponseError for Base
         HttpResponse::build(self.status_code())
             .insert_header(ContentType::json())
             .body(self.to_string())
+    }
+}
+
+impl utoipa::ToSchema for BackendError
+{
+    fn name() -> Cow<'static, str> { Cow::Borrowed("Backend Error") }
+}
+
+impl utoipa::PartialSchema for BackendError
+{
+    fn schema() -> RefOr<Schema>
+    {
+        utoipa::openapi::ObjectBuilder::new()
+            .property(
+                "message",
+                utoipa::openapi::ObjectBuilder::new()
+                    .schema_type(utoipa::openapi::schema::Type::String),
+            )
+            .required("message")
+            .examples(Some(serde_json::json! {"message: server bad"}))
+            .into()
     }
 }
 
