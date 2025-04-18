@@ -32,3 +32,8 @@ lint:
 
 lint-fix:
     cargo clippy --workspace --all-features --fix
+
+alias u := update
+
+update:
+  cargo update --workspace
