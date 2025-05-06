@@ -36,4 +36,4 @@ lint-fix:
 alias u := update
 
 update:
-  cargo update --workspace
+  cargo update
