@@ -25,7 +25,7 @@ pub fn Navbar() -> Element
         div {
             class: "navbar px-4 w-full bg-base-100",
             div {
-                class: "navbar-start space-x-2",
+                class: "navbar-start",
 
                 MenuToggle {
                     menu_id: "my-menu"
@@ -57,7 +57,6 @@ fn HomeLink() -> Element
             NavbarLink<Route> {
                 route: Route::Home {},
                 House {}
-                {"Home"}
             }
     }
 }
