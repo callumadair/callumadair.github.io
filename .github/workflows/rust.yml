@@ -10,13 +10,10 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  build:
-
+  Lint:
     runs-on: ubuntu-latest
-
+    container: callumadair/rust-runner-image:latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: cargo build --verbose
-    - name: Run tests
-      run: cargo test --verbose
+      - uses: actions/checkout@v4
+      - name: Lint
+        run: cargo clippy --workspace --all-features
