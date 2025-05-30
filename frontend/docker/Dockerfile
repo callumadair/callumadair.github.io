@@ -1,4 +1,5 @@
 FROM rust:alpine
+LABEL authors="Callum Adair"
 
 RUN apk add bash clang curl mold musl-dev libressl-dev
 

@@ -1,5 +1,5 @@
 FROM callumadair/portfolio-backend:latest
-LABEL authors="cal"
+LABEL authors="Callum Adair"
 
 EXPOSE 8080
 

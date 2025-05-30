@@ -1,4 +1,5 @@
 FROM rust:alpine
+LABEL authors="Callum Adair"
 
 EXPOSE 8080
 ENV RUSTFLAGS="-C target-feature=-crt-static"
