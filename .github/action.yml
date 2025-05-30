@@ -1,0 +1,5 @@
+name: 'Rust Setup'
+description: 'Sets up a rust image for running the jobs on.'
+runs:
+  using: docker
+  image: 'docker/rust:latest'
