@@ -1,7 +1,28 @@
 FROM rust:alpine
 LABEL authors="Callum Adair"
 
-RUN apk add alsa-lib-dev bash clang curl gtk+3.0 glib glib-dev mold musl-dev openssl-dev pango perl
+RUN apk add \
+    alsa-lib-dev \
+    build-base \
+    clang \
+    curl \
+    file \
+    gtk+3.0-dev \
+    glib-dev \
+    libayatana-appindicator-dev \
+    librsvg \
+    libsoup3-dev \
+    mold \
+    musl-dev \
+    openssl \
+    openssl-dev \
+    pango \
+    perl \
+    wget \
+    webkit2gtk-4.1 \
+    webkit2gtk-4.1-dev
+
+
 RUN rustup component add clippy
 RUN rustup +nightly component add rustfmt
 
