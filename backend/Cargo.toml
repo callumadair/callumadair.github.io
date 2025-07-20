@@ -32,6 +32,7 @@ entity = { path = "./entity" }
 sea-orm = { version = "1.1.4", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "with-chrono", "with-json"] }
 serde.workspace = true
 serde_json.workspace = true
+shared.workspace = true
 strum.workspace = true
 thiserror.workspace = true
 tokio = { version = "1.43.0", features = ["rt", "rt-multi-thread", "macros"] }
