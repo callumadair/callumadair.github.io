@@ -1,5 +1,7 @@
 {
-  "image": "portfolio-image:latest",
+  "build": {
+    "dockerfile": "../Dockerfile"
+  },
   "forwardPorts": [
     12000
   ]
