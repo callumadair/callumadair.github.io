@@ -14,16 +14,6 @@ use utoipa::openapi::{
     Schema,
 };
 
-macro_rules! impl_nested_error {
-    ($parent:ty, $child:ident, $($originator:ident),*) => {
-        $(
-            impl From<$originator> for BackendError
-            {
-                fn from(value: $originator) -> Self { Self::$child($child::from(value)) }
-            }
-        )*
-    };
-}
 
 pub(crate) type Result<T> = core::result::Result<T, BackendError>;
 #[derive(thiserror::Error, Debug)]
