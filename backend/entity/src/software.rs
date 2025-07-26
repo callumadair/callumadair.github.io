@@ -23,20 +23,6 @@ pub struct Model
     pub web_link:   String,
 }
 
-#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
-pub enum Relation
-{
-    #[sea_orm(has_many = "super::image::Entity")]
-    Image,
-}
-
-impl Related<super::image::Entity> for Entity
-{
-    fn to() -> RelationDef { Relation::Image.def() }
-}
-
-impl ActiveModelBehavior for ActiveModel {}
-
 impl Responder for Model
 {
     type Body = BoxBody;
@@ -52,4 +38,18 @@ impl Responder for Model
             .content_type(ContentType::json())
             .body(body)
     }
+}
+
+impl ActiveModelBehavior for ActiveModel {}
+
+#[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
+pub enum Relation
+{
+    #[sea_orm(has_many = "super::image::Entity")]
+    Image,
+}
+
+impl Related<super::image::Entity> for Entity
+{
+    fn to() -> RelationDef { Relation::Image.def() }
 }
