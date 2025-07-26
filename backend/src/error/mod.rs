@@ -14,11 +14,12 @@ use utoipa::openapi::{
     Schema,
 };
 
-
 pub(crate) type Result<T> = core::result::Result<T, BackendError>;
 #[derive(thiserror::Error, Debug)]
 pub enum BackendError
 {
+    #[error("{0}")]
+    ActixWeb(#[from] actix_web::Error),
     #[error("{0}")]
     Database(#[from] sea_orm::error::DbErr),
 }
@@ -30,6 +31,7 @@ impl ResponseError for BackendError
         match self
         {
             Self::Database(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            Self::ActixWeb(inner) => inner.as_response_error().status_code(),
         }
     }
 
