@@ -20,7 +20,7 @@ use crate::AppState;
         (status = INTERNAL_SERVER_ERROR, body = crate::error::BackendError),
     )
 )]
-#[get("")]
+#[get("/index")]
 async fn index(state: web::Data<AppState>) -> crate::error::Result<impl Responder>
 {
     let software_tools: Vec<entity::software::Model> =
@@ -35,7 +35,7 @@ async fn index(state: web::Data<AppState>) -> crate::error::Result<impl Responde
         (status = INTERNAL_SERVER_ERROR, body = crate::error::BackendError),
     )
 )]
-#[post("/new")]
+#[post("/create")]
 async fn create(
     web::Json(new_entry): web::Json<shared::software::SoftwareTool>,
     state: web::Data<AppState>,
