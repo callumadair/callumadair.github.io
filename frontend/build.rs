@@ -8,8 +8,9 @@ use strum::{
 /// Checks package runner is installed and runs tailwind.
 pub fn main()
 {
-    if std::env::var("SKIP_BUILD_SCRIPT").unwrap_or("0".into()) == "1"{
-       return; 
+    if std::env::var("SKIP_BUILD_SCRIPT").unwrap_or("0".into()) == "1"
+    {
+        return;
     }
     println!("cargo:rerun-if-changed=src/**/*.rs");
     let toolchain = install_packages();

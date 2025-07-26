@@ -3,9 +3,9 @@ use actix_settings::{
     Settings,
 };
 use actix_web::{
+    Responder,
     get,
     web,
-    Responder,
 };
 
 #[utoipa::path(responses((status = 200, body = str)))]
