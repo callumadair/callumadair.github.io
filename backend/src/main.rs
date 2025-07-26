@@ -4,18 +4,19 @@ use actix_settings::{
     Settings,
 };
 use actix_web::{
-    App,
-    HttpServer,
     middleware::{
         Compress,
         Condition,
     },
     web::Data,
+    App,
+    HttpServer,
 };
+use portfolio_backend_lib::http_api::handlers;
 use portfolio_backend_lib::{
+    http_api::handlers::index::index
+    ,
     AppState,
-    http_api,
-    http_api::handlers::index::index,
 };
 use sea_orm::{
     Database,
@@ -62,7 +63,12 @@ async fn main() -> color_eyre::Result<()>
                         .wrap(TracingLogger::default())
                 )
                 .service(index)
-                .service(http_api::handlers::software::software_scope())
+                .service(
+                    utoipa_actix_web::scope("/software")
+                        .configure(|cfg| {
+                            cfg.service(handlers::software::index).service(handlers::software::create);
+                        })
+                )
                 .openapi_service(|api| {
                     SwaggerUi::new("/swagger-ui/{_:.*}").url("/api/openapi.json", api)
                 })
