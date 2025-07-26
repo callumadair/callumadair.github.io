@@ -36,8 +36,12 @@ suspicious = "warn"
 complexity = "warn"
 perf = "warn"
 style = "warn"
-pedantic = "warn"
 cargo = "warn"
+
+unwrap_used = "warn"
+expect_used = "warn"
+todo = "warn"
+unimplemented = "warn"
 
 [profile.dev]
 # Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`.

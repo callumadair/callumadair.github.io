@@ -17,4 +17,7 @@ serde_json.workspace = true
 shared.workspace = true
 utoipa = "5.3.1"
 
+[lints]
+workspace = true
+
 [features]

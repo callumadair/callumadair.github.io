@@ -19,5 +19,8 @@ features = [
 ]
 optional = true
 
+[lints]
+workspace = true
+
 [features]
 sea-orm = ["dep:sea-orm-migration"]
