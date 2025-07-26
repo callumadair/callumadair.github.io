@@ -25,9 +25,18 @@ alias d := dev
 dev:
     zellij --layout ./.zellij/dev.kdl
 
+alias A := devtools-arch
+
+# Install devtools for the user on ArchLinux.
+devtools-arch:
+    sudo pacman -S bacon dioxus-cli just rustup  zellij
+    rustup target add wasm32-unknown-unknown
+    curl -fsSL https://bun.sh/install | bash
+    bun install -D tailwindcss
+
 alias D := devtools
 
-# Install the required devtools.
+# Install the required devtools assuming a platform independent approach.
 devtools:
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     rustup target add wasm32-unknown-unknown
