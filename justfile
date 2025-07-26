@@ -10,7 +10,7 @@ alias C := compose
 
 # Run the backend, frontend and database using the compose configurations.
 compose:
-    zellij --layout ./..zellij/compose.kdl
+    zellij --layout ./.zellij/compose.kdl
 
 alias dd := double-docker
 
@@ -23,7 +23,7 @@ alias d := dev
 
 # Run the backend and frontend locally, with the database in a container.
 dev:
-    zellij --layout ./..zellij/dev.kdl
+    zellij --layout ./.zellij/dev.kdl
 
 alias D := devtools
 
@@ -32,7 +32,7 @@ devtools:
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     rustup target add wasm32-unknown-unknown
     curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-    cargo binstall dioxus-cli just .zellij bacon
+    cargo binstall dioxus-cli just zellij bacon
     curl -fsSL https://bun.sh/install | bash
     bun install -D tailwindcss
 
