@@ -17,7 +17,6 @@ reqwest = "0.12.12"
 serde.workspace = true
 shared.workspace = true
 strum.workspace = true
-syntect = { version = "5.2.0", default-features = false, features = ["default-fancy"] }
 
 [build-dependencies]
 strum.workspace = true
