@@ -1,3 +1,5 @@
+use std::borrow::Cow;
+
 use dioxus::{
     dioxus_core::DynamicNode,
     prelude::*,
@@ -5,6 +7,10 @@ use dioxus::{
 use serde::{
     Deserialize,
     Serialize,
+};
+use utoipa::openapi::{
+    RefOr,
+    Schema,
 };
 
 use crate::{
@@ -89,5 +95,50 @@ impl IntoDynNode for SoftwareTool
             }
         }
         .into_dyn_node()
+    }
+}
+
+impl utoipa::ToSchema for SoftwareTool
+{
+    fn name() -> Cow<'static, str> { Cow::Borrowed("Software Tool") }
+}
+
+impl utoipa::PartialSchema for SoftwareTool
+{
+    // TODO fix this schema definition.
+    fn schema() -> RefOr<Schema>
+    {
+        utoipa::openapi::ObjectBuilder::new()
+            .property(
+                "Name",
+                utoipa::openapi::ObjectBuilder::new()
+                    .schema_type(utoipa::openapi::schema::Type::String),
+            )
+            .property(
+                "Short Description",
+                utoipa::openapi::ObjectBuilder::new()
+                    .schema_type(utoipa::openapi::schema::Type::String),
+            )
+            .property(
+                "Long Description",
+                utoipa::openapi::ObjectBuilder::new()
+                    .schema_type(utoipa::openapi::schema::Type::String),
+            )
+            .property(
+                "Web Link",
+                utoipa::openapi::ObjectBuilder::new()
+                    .schema_type(utoipa::openapi::schema::Type::String),
+            )
+            .property(
+                "Image Links",
+                utoipa::openapi::ObjectBuilder::new()
+                    .schema_type(utoipa::openapi::schema::Type::Array),
+            )
+            .required("Name")
+            .required("Short Description")
+            .required("Long Description")
+            .required("Web Link")
+            .examples(Some(serde_json::json! {"message: server bad"}))
+            .into()
     }
 }
