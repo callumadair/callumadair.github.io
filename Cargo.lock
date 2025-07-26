@@ -5988,7 +5988,9 @@ dependencies = [
  "gloo",
  "lucide-dioxus",
  "serde",
+ "serde_json",
  "strum 0.27.2",
+ "utoipa",
  "web-sys",
 ]
 
