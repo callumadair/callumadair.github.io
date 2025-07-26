@@ -43,6 +43,9 @@ utoipa.workspace = true
 utoipa-actix-web = { version = "0.1.2" }
 utoipa-swagger-ui = { version = "9.0.0", features = ["actix-web", "debug-embed"] }
 
+[dev-dependencies]
+rusty-hook.workspace = true
+
 [lints]
 workspace = true
 
