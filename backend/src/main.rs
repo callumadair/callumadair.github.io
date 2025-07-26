@@ -14,6 +14,7 @@ use actix_web::{
 };
 use portfolio_backend_lib::{
     AppState,
+    http_api,
     http_api::handlers::index::index,
 };
 use sea_orm::{
@@ -61,6 +62,7 @@ async fn main() -> color_eyre::Result<()>
                         .wrap(TracingLogger::default())
                 )
                 .service(index)
+                .service(http_api::handlers::software::software_scope())
                 .openapi_service(|api| {
                     SwaggerUi::new("/swagger-ui/{_:.*}").url("/api/openapi.json", api)
                 })
