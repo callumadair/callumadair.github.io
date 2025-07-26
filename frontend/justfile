@@ -1,5 +1,0 @@
-serve:
-    trunk serve
-
-fmt:
-    cargo +nightly fmt

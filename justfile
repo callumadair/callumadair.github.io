@@ -2,28 +2,32 @@
 
 alias c := clean
 
+# Clean the build artifacts.
 clean:
     cargo clean
 
 alias C := compose
 
+# Run the backend, frontend and database using the compose configurations.
 compose:
-    .zellij --layout ./..zellij/compose.kdl
+    zellij --layout ./..zellij/compose.kdl
 
 alias dd := double-docker
 
-# This does not quite work currently due to issues with .zellij in the .zellij-compose recipe.
+# Run the compose recipe from a base container.
 double-docker:
     docker build -t double-docker:latest --file ./Dockerfile .
     docker run -it -v "/var/run/docker.sock:/var/run/docker.sock:rw" double-docker:latest
 
 alias d := dev
 
+# Run the backend and frontend locally, with the database in a container.
 dev:
-    .zellij --layout ./..zellij/dev.kdl
+    zellij --layout ./..zellij/dev.kdl
 
 alias D := devtools
 
+# Install the required devtools.
 devtools:
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     rustup target add wasm32-unknown-unknown
@@ -34,20 +38,30 @@ devtools:
 
 alias f := fmt
 
+# Run cargo fmt with the nightly toolchain for access to more rustfmt options.
 fmt:
     cargo +nightly fmt
 
 alias l := lint
 
+# Run cargo clippy across the workspace.
 lint:
     cargo clippy --workspace --all-features
 
 alias L := lint-fix
 
+# Run cargo clippy fix across the workspace.
 lint-fix:
     cargo clippy --workspace --all-features --fix
 
 alias u := update
 
+# Update all cargo dependencies in the local crate.
 update:
     cargo update
+
+alias U := update-workspace
+
+# Update just the workspace level dependencies.
+update-workspace:
+    cargo update --workspace
