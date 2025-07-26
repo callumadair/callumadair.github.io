@@ -2139,6 +2139,7 @@ dependencies = [
  "sea-orm",
  "serde",
  "serde_json",
+u "shared",
  "utoipa",
 ]
 
@@ -5988,6 +5989,7 @@ dependencies = [
  "lucide-dioxus",
  "serde",
  "strum 0.27.2",
+ "utoipa",
  "web-sys",
 ]
 
