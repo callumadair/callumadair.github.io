@@ -2354,6 +2354,7 @@ dependencies = [
 name = "frontend"
 version = "0.1.0"
 dependencies = [
+ "color-eyre",
  "dioxus",
  "gloo",
  "lucide-dioxus",

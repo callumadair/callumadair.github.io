@@ -6,11 +6,11 @@ use strum::{
 };
 
 /// Checks package runner is installed and runs tailwind.
-pub fn main()
+pub fn main() -> color_eyre::Result<()>
 {
     if std::env::var("SKIP_BUILD_SCRIPT").unwrap_or("0".into()) == "1"
     {
-        return;
+        return Ok(());
     }
     println!("cargo:rerun-if-changed=src/**/*.rs");
     let toolchain = install_packages();
@@ -18,8 +18,8 @@ pub fn main()
     // Compile TailwindCSS .css file
     std::process::Command::new(toolchain)
         .args(["tailwindcss", "-i", "./main.css", "-o", "./assets/out.css"])
-        .output()
-        .expect("Failed to run tailwind.");
+        .output()?;
+    Ok(())
 }
 
 #[derive(AsRefStr)]
