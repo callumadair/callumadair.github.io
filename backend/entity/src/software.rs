@@ -29,7 +29,7 @@ impl Responder for Model
 
     fn respond_to(
         self,
-        req: &HttpRequest,
+        _req: &HttpRequest,
     ) -> HttpResponse<Self::Body>
     {
         let body = serde_json::to_string(&self).unwrap();
