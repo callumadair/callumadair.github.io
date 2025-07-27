@@ -1,5 +1,11 @@
-use std::borrow::Cow;
-
+#[cfg(feature = "backend")]
+use actix_web::{
+    body::BoxBody,
+    http::header::ContentType,
+    HttpRequest,
+    HttpResponse,
+    Responder,
+};
 use dioxus::{
     dioxus_core::DynamicNode,
     prelude::*,
@@ -7,10 +13,6 @@ use dioxus::{
 use serde::{
     Deserialize,
     Serialize,
-};
-use utoipa::openapi::{
-    RefOr,
-    Schema,
 };
 
 use crate::{
@@ -24,7 +26,7 @@ use crate::{
     },
 };
 
-#[derive(Serialize, Deserialize, PartialEq, Clone)]
+#[derive(Serialize, Deserialize, PartialEq, Clone, utoipa::ToSchema)]
 pub struct SoftwareTool
 {
     pub name:        String,
@@ -98,47 +100,19 @@ impl IntoDynNode for SoftwareTool
     }
 }
 
-impl utoipa::ToSchema for SoftwareTool
+#[cfg(feature = "backend")]
+impl Responder for SoftwareTool
 {
-    fn name() -> Cow<'static, str> { Cow::Borrowed("Software Tool") }
-}
+    type Body = BoxBody;
 
-impl utoipa::PartialSchema for SoftwareTool
-{
-    // TODO fix this schema definition.
-    fn schema() -> RefOr<Schema>
+    fn respond_to(
+        self,
+        _req: &HttpRequest,
+    ) -> HttpResponse<Self::Body>
     {
-        utoipa::openapi::ObjectBuilder::new()
-            .property(
-                "Name",
-                utoipa::openapi::ObjectBuilder::new()
-                    .schema_type(utoipa::openapi::schema::Type::String),
-            )
-            .property(
-                "Short Description",
-                utoipa::openapi::ObjectBuilder::new()
-                    .schema_type(utoipa::openapi::schema::Type::String),
-            )
-            .property(
-                "Long Description",
-                utoipa::openapi::ObjectBuilder::new()
-                    .schema_type(utoipa::openapi::schema::Type::String),
-            )
-            .property(
-                "Web Link",
-                utoipa::openapi::ObjectBuilder::new()
-                    .schema_type(utoipa::openapi::schema::Type::String),
-            )
-            .property(
-                "Image Links",
-                utoipa::openapi::ObjectBuilder::new()
-                    .schema_type(utoipa::openapi::schema::Type::Array),
-            )
-            .required("Name")
-            .required("Short Description")
-            .required("Long Description")
-            .required("Web Link")
-            .examples(Some(serde_json::json! {"message: server bad"}))
-            .into()
+        let body = serde_json::to_string(&self).unwrap();
+        HttpResponse::Ok()
+            .content_type(ContentType::json())
+            .body(body)
     }
 }
