@@ -14,7 +14,16 @@ use serde::{
     Serialize,
 };
 
-#[derive(Clone, Debug, PartialEq, DeriveEntityModel, Deserialize, Serialize, utoipa::ToSchema)]
+#[derive(
+    Clone,
+    Debug,
+    PartialEq,
+    DeriveEntityModel,
+    Deserialize,
+    Serialize,
+    utoipa::ToSchema,
+    utoipa::ToResponse,
+)]
 #[sea_orm(table_name = "software_tools")]
 pub struct Model
 {
@@ -24,6 +33,26 @@ pub struct Model
     pub short_desc: String,
     pub long_desc:  String,
     pub web_link:   String,
+}
+
+impl Model
+{
+    pub async fn to_software_tool(
+        self,
+        db_conn: &DatabaseConnection,
+    ) -> Result<shared::software::SoftwareTool, DbErr>
+    {
+        let image_links = self
+            .find_related(crate::image::Entity)
+            .all(db_conn)
+            .await?
+            .into_iter()
+            .map(|image| image.path)
+            .collect::<Vec<String>>();
+        let mut software_tool = shared::software::SoftwareTool::from(self);
+        software_tool.image_links = image_links;
+        Ok(software_tool)
+    }
 }
 
 impl Responder for Model
@@ -40,6 +69,20 @@ impl Responder for Model
         HttpResponse::Ok()
             .content_type(ContentType::json())
             .body(body)
+    }
+}
+
+impl From<Model> for shared::software::SoftwareTool
+{
+    fn from(value: Model) -> Self
+    {
+        Self {
+            name:        value.name,
+            short_desc:  value.short_desc,
+            long_desc:   value.long_desc,
+            web_link:    value.web_link,
+            image_links: vec![],
+        }
     }
 }
 
