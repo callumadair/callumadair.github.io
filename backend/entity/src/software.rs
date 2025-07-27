@@ -42,10 +42,8 @@ impl Model
         db_conn: &DatabaseConnection,
     ) -> Result<shared::software::SoftwareTool, DbErr>
     {
-        let image_links = self
-            .find_related(crate::image::Entity)
-            .all(db_conn)
-            .await?
+        let images = self.find_related(crate::image::Entity).all(db_conn).await?;
+        let image_links = images
             .into_iter()
             .map(|image| image.path)
             .collect::<Vec<String>>();

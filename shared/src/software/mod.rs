@@ -26,7 +26,7 @@ use crate::{
     },
 };
 
-#[derive(Serialize, Deserialize, PartialEq, Clone, utoipa::ToSchema)]
+#[derive(Debug, Serialize, Deserialize, PartialEq, Clone, utoipa::ToSchema)]
 pub struct SoftwareTool
 {
     pub name:        String,

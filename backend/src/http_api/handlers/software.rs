@@ -1,9 +1,7 @@
 use actix_web::{
     HttpResponse,
-    HttpResponseBuilder,
     Responder,
     get,
-    http::StatusCode,
     post,
     web,
 };
@@ -32,7 +30,7 @@ async fn index(state: web::Data<AppState>) -> crate::error::Result<impl Responde
 
 #[utoipa::path(
     responses(
-        (status = OK, body = entity::software::Model),
+        (status = OK, body = shared::software::SoftwareTool),
         (status = INTERNAL_SERVER_ERROR, body = crate::error::BackendError),
     )
 )]
@@ -43,7 +41,9 @@ async fn create(
 ) -> crate::error::Result<impl Responder>
 {
     let active_model: SoftwareActiveModel = new_entry.into();
-    let success_response = active_model.insert(&state.db_conn).await?;
+    let database_response = active_model.insert(&state.db_conn).await?;
+    // TODO fix error below.
+    let success_response = database_response.to_software_tool(&state.db_conn).await?;
 
     Ok(success_response)
 }
