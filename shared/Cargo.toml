@@ -10,6 +10,7 @@ description = "Shared types and functions for doing things on both the frontend 
 categories = ["web-programming"]
 
 [dependencies]
+actix-web = { version = "4.9.0", optional = true}
 chrono = "0.4.39"
 derive_more = { version = "2.0.1", features = ["display"] }
 dioxus.workspace = true
@@ -26,4 +27,5 @@ workspace = true
 
 [features]
 default = ["web"]
+backend = ["dep:actix-web"]
 web = ["dioxus/web", "dioxus/router"]
