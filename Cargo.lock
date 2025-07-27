@@ -2121,6 +2121,7 @@ dependencies = [
  "sea-orm",
  "serde",
  "serde_json",
+ "shared",
  "utoipa",
 ]
 

@@ -7,12 +7,13 @@ use actix_web::{
     post,
     web,
 };
-use entity::software::Entity as SoftwareTool;
+use entity::software::{
+    ActiveModel as SoftwareActiveModel,
+    Entity as SoftwareTool,
+};
 use sea_orm::entity::prelude::*;
-use utoipa_actix_web::scope::Scope;
 
 use crate::AppState;
-
 
 #[utoipa::path(
     responses(
@@ -41,6 +42,8 @@ async fn create(
     state: web::Data<AppState>,
 ) -> crate::error::Result<impl Responder>
 {
-    let res = HttpResponseBuilder::new(StatusCode::OK).await?;
-    Ok(res)
+    let active_model: SoftwareActiveModel = new_entry.into();
+    let success_response = active_model.insert(&state.db_conn).await?;
+
+    Ok(success_response)
 }

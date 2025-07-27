@@ -5,7 +5,10 @@ use actix_web::{
     body::BoxBody,
     http::header::ContentType,
 };
-use sea_orm::entity::prelude::*;
+use sea_orm::{
+    IntoActiveValue,
+    entity::prelude::*,
+};
 use serde::{
     Deserialize,
     Serialize,
@@ -41,6 +44,20 @@ impl Responder for Model
 }
 
 impl ActiveModelBehavior for ActiveModel {}
+
+impl From<shared::software::SoftwareTool> for ActiveModel
+{
+    fn from(value: shared::software::SoftwareTool) -> Self
+    {
+        Self {
+            name: value.name.into_active_value(),
+            short_desc: value.short_desc.into_active_value(),
+            long_desc: value.long_desc.into_active_value(),
+            web_link: value.web_link.into_active_value(),
+            ..Default::default()
+        }
+    }
+}
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
 pub enum Relation
