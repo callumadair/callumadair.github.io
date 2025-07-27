@@ -650,6 +650,7 @@ dependencies = [
  "actix-web",
  "color-eyre",
  "entity",
+ "migration",
  "sea-orm",
  "serde_json",
  "shared",

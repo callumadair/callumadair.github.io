@@ -1,3 +1,5 @@
+use std::time::Duration;
+
 use actix_settings::{
     ApplySettings,
     Mode,
@@ -12,13 +14,19 @@ use actix_web::{
     App,
     HttpServer,
 };
-use portfolio_backend_lib::http_api::handlers;
+use migration::{
+    Migrator,
+    MigratorTrait,
+};
 use portfolio_backend_lib::{
-    http_api::handlers::index::index
-    ,
+    http_api::{
+        handlers,
+        handlers::index::index,
+    },
     AppState,
 };
 use sea_orm::{
+    ConnectOptions,
     Database,
     DatabaseConnection,
 };
@@ -26,9 +34,12 @@ use tracing_actix_web::TracingLogger;
 use utoipa_actix_web::AppExt;
 use utoipa_swagger_ui::SwaggerUi;
 
+const DATABASE_PATH: &str = "postgres://postgres:password@localhost:5432";
+
 #[tokio::main]
 async fn main() -> color_eyre::Result<()>
 {
+    color_eyre::install()?;
     let mut settings =
         Settings::parse_toml("./Server.toml").expect("Failed to parse `Settings` from Server.toml");
 
@@ -36,10 +47,9 @@ async fn main() -> color_eyre::Result<()>
     // have its value override the `settings.actix.hosts`
     // setting:
     Settings::override_field_with_env_var(&mut settings.actix.hosts, "APPLICATION__HOSTS")?;
-    let db_conn: DatabaseConnection =
-        Database::connect("postgres://postgres:password@localhost:5432").await?;
 
     init_logger(&settings);
+    let db_conn = init_database().await?;
 
     HttpServer::new({
         // clone settings into each worker thread
@@ -105,4 +115,18 @@ fn init_logger(settings: &Settings)
     }
 
     tracing_subscriber::fmt::init();
+}
+async fn init_database() -> color_eyre::Result<DatabaseConnection>
+{
+    let mut opt = ConnectOptions::new(DATABASE_PATH);
+    opt.max_connections(100)
+        .min_connections(5)
+        .connect_timeout(Duration::from_secs(10))
+        .idle_timeout(Duration::from_secs(10))
+        .max_lifetime(Duration::from_secs(30))
+        .sqlx_logging(true);
+    let db_conn: DatabaseConnection = Database::connect(opt).await?;
+    Migrator::up(&db_conn, None).await?;
+
+    Ok(db_conn)
 }
