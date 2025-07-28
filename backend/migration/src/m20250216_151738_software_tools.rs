@@ -41,7 +41,7 @@ impl MigrationTrait for Migration
 }
 
 #[derive(DeriveIden)]
-enum SoftwareTools
+pub(crate) enum SoftwareTools
 {
     Table,
     Id,
