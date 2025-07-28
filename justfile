@@ -29,9 +29,10 @@ alias A := devtools-arch
 
 # Install devtools for the user on ArchLinux.
 devtools-arch:
-    sudo pacman -S bacon dioxus-cli just rustup  zellij
+    sudo pacman -S bacon clang dioxus-cli just mold rustup  zellij
     rustup target add wasm32-unknown-unknown
     curl -fsSL https://bun.sh/install | bash
+    source ~/.zshrc
     bun install -D tailwindcss
 
 alias D := devtools
