@@ -6,24 +6,32 @@ use actix_settings::{
     Settings,
 };
 use actix_web::{
+    App,
+    HttpServer,
     middleware::{
         Compress,
         Condition,
     },
     web::Data,
-    App,
-    HttpServer,
 };
 use migration::{
     Migrator,
     MigratorTrait,
 };
 use portfolio_backend_lib::{
+    AppState,
     http_api::{
         handlers,
         handlers::index::index,
     },
-    AppState,
+};
+use rustls::{
+    ServerConfig,
+    pki_types::{
+        CertificateDer,
+        PrivateKeyDer,
+        pem::PemObject,
+    },
 };
 use sea_orm::{
     ConnectOptions,
@@ -50,6 +58,7 @@ async fn main() -> color_eyre::Result<()>
 
     init_logger(&settings);
     let db_conn = init_database().await?;
+    // let rustls_config = load_rustls_config()?;
 
     HttpServer::new({
         // clone settings into each worker thread
@@ -87,6 +96,7 @@ async fn main() -> color_eyre::Result<()>
     })
         // apply the `Settings` to Actix Web's `HttpServer` 
         .try_apply_settings(&settings)?
+        // .bind_rustls_0_23(&format!("{}:{}", settings.actix.hosts[0].host, settings.actix.hosts[0].port),rustls_config)?
         .run()
         .await?;
 
@@ -129,4 +139,21 @@ async fn init_database() -> color_eyre::Result<DatabaseConnection>
     Migrator::up(&db_conn, None).await?;
 
     Ok(db_conn)
+}
+
+fn load_rustls_config() -> color_eyre::Result<rustls::ServerConfig>
+{
+    rustls::crypto::aws_lc_rs::default_provider().install_default().unwrap();
+
+    // load TLS key/cert files
+    let cert_chain = CertificateDer::pem_file_iter("cert.pem")?
+        .flatten()
+        .collect();
+
+    let key_der = PrivateKeyDer::from_pem_file("key.pem")?;
+
+    let server_config = ServerConfig::builder()
+        .with_no_client_auth()
+        .with_single_cert(cert_chain, key_der)?;
+    Ok(server_config)
 }
