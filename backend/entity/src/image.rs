@@ -5,7 +5,7 @@ use serde::{
 };
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel, Deserialize, Serialize)]
-#[sea_orm(table_name = "software_tools")]
+#[sea_orm(table_name = "images")]
 pub struct Model
 {
     #[sea_orm(primary_key)]

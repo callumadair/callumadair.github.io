@@ -104,10 +104,10 @@ impl From<shared::software::SoftwareTool> for ActiveModel
 pub enum Relation
 {
     #[sea_orm(has_many = "super::image::Entity")]
-    Image,
+    Images,
 }
 
 impl Related<super::image::Entity> for Entity
 {
-    fn to() -> RelationDef { Relation::Image.def() }
+    fn to() -> RelationDef { Relation::Images.def() }
 }
