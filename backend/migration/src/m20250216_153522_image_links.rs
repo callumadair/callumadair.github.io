@@ -29,7 +29,7 @@ impl MigrationTrait for Migration
                     .col(string(Images::Path))
                     .foreign_key(
                         ForeignKeyCreateStatement::new()
-                            .name("software-tool-id")
+                            .name("fk-software-tool-id")
                             .from(Images::Table, Images::SoftwareToolId)
                             .to(SoftwareTools::Table, SoftwareTools::Id)
                             .on_delete(ForeignKeyAction::Cascade)

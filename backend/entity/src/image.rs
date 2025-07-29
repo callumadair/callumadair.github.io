@@ -1,4 +1,5 @@
 use sea_orm::entity::prelude::*;
+use sea_orm::IntoActiveValue;
 use serde::{
     Deserialize,
     Serialize,
@@ -32,3 +33,12 @@ impl Related<super::software::Entity> for Entity
 }
 
 impl ActiveModelBehavior for ActiveModel {}
+
+impl From<String> for ActiveModel {
+    fn from(value: String) -> Self {
+       Self {
+           path: value.into_active_value(),
+           .. Default::default()
+       }
+    }
+}
