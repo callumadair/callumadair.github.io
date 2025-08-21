@@ -21,7 +21,7 @@ use crate::AppState;
 
 #[utoipa::path(
     responses(
-        (status = OK, body = Vec<entity::software::Model>),
+        (status = OK, body = Vec<shared::software::SoftwareTool>),
         (status = INTERNAL_SERVER_ERROR, body = crate::error::BackendError),
     )
 )]
@@ -59,8 +59,7 @@ async fn create(
     for image_link in &new_entry.image_links
     {
         let mut image_active_model: ImageActiveModel = image_link.clone().into();
-        image_active_model.software_tool_id =
-            software_insert_response.id.into_active_value();
+        image_active_model.software_tool_id = software_insert_response.id.into_active_value();
         image_active_model.insert(&state.db_conn).await?;
     }
 

@@ -1,38 +1,123 @@
-use actix_web::{
-    HttpRequest,
-    HttpResponse,
-    Responder,
-    body::BoxBody,
-    http::header::ContentType,
-};
+use bon::bon;
 use sea_orm::{
+    ActiveValue,
     IntoActiveValue,
     entity::prelude::*,
 };
-use serde::{
-    Deserialize,
-    Serialize,
+
+use crate::{
+    error::{
+        Error,
+        InstantiationError,
+    },
+    impl_into_active_value,
 };
+#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType)]
+pub struct SoftwareName(String);
+impl_into_active_value!(SoftwareName);
+
+impl SoftwareName
+{
+    fn new(raw: &str) -> crate::Result<Self>
+    {
+        let trimmed = raw.trim();
+        if trimmed.is_empty()
+        {
+            Err(Error::InstantiationError(
+                InstantiationError::SoftwareNameEmpty,
+            ))
+        }
+        else
+        {
+            Ok(Self(trimmed.to_string()))
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType)]
+pub struct SoftwareShortDescription(String);
+impl_into_active_value!(SoftwareShortDescription);
+
+impl SoftwareShortDescription
+{
+    fn new(raw: &str) -> crate::Result<Self>
+    {
+        let trimmed = raw.trim();
+        if trimmed.is_empty()
+        {
+            Err(Error::InstantiationError(
+                InstantiationError::SoftwareShortDescriptionEmpty,
+            ))
+        }
+        else
+        {
+            Ok(Self(trimmed.to_string()))
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType)]
+pub struct SoftwareLongDescription(String);
+impl_into_active_value!(SoftwareLongDescription);
+
+impl SoftwareLongDescription
+{
+    fn new(raw: &str) -> crate::Result<Self>
+    {
+        let trimmed = raw.trim();
+        if trimmed.is_empty()
+        {
+            Err(Error::InstantiationError(
+                InstantiationError::SoftwareLongDescriptionEmpty,
+            ))
+        }
+        else
+        {
+            Ok(Self(trimmed.to_string()))
+        }
+    }
+}
+#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType)]
+pub struct SoftwareWebLink(String);
+impl_into_active_value!(SoftwareWebLink);
+
+impl SoftwareWebLink
+{
+    fn new(raw: &str) -> crate::Result<Self>
+    {
+        let trimmed = raw.trim();
+        if trimmed.is_empty()
+        {
+            Err(Error::InstantiationError(
+                InstantiationError::SoftwareWebLinkEmpty,
+            ))
+        }
+        else
+        {
+            Ok(Self(trimmed.to_string()))
+        }
+    }
+}
 
 #[derive(
     Clone,
     Debug,
     PartialEq,
     DeriveEntityModel,
-    Deserialize,
-    Serialize,
-    utoipa::ToSchema,
-    utoipa::ToResponse,
+    /* Deserialize,
+     * Serialize,
+     * utoipa::ToSchema,
+     * utoipa::ToResponse, */
 )]
 #[sea_orm(table_name = "software_tools")]
 pub struct Model
 {
     #[sea_orm(primary_key)]
     pub id:         i32,
-    pub name:       String,
-    pub short_desc: String,
-    pub long_desc:  String,
-    pub web_link:   String,
+    pub name:       SoftwareName,
+    pub short_desc: SoftwareShortDescription,
+    pub long_desc:  SoftwareLongDescription,
+    pub web_link:   SoftwareWebLink,
 }
 
 impl Model
@@ -53,34 +138,56 @@ impl Model
     }
 }
 
-impl Responder for Model
-{
-    type Body = BoxBody;
+// impl Responder for Model
+// {
+//     type Body = BoxBody;
 
-    fn respond_to(
-        self,
-        _req: &HttpRequest,
-    ) -> HttpResponse<Self::Body>
-    {
-        let body = serde_json::to_string(&self).unwrap();
+//     fn respond_to(
+//         self,
+//         _req: &HttpRequest,
+//     ) -> HttpResponse<Self::Body>
+//     {
+//         let body = serde_json::to_string(&self).unwrap();
 
-        HttpResponse::Ok()
-            .content_type(ContentType::json())
-            .body(body)
-    }
-}
+//         HttpResponse::Ok()
+//             .content_type(ContentType::json())
+//             .body(body)
+//     }
+// }
 
 impl From<Model> for shared::software::SoftwareTool
 {
     fn from(value: Model) -> Self
     {
         Self {
-            name:        value.name,
-            short_desc:  value.short_desc,
-            long_desc:   value.long_desc,
-            web_link:    value.web_link,
+            name:        value.name.0,
+            short_desc:  value.short_desc.0,
+            long_desc:   value.long_desc.0,
+            web_link:    value.web_link.0,
             image_links: vec![],
         }
+    }
+}
+
+#[bon]
+impl ActiveModel
+{
+    #[builder]
+    pub fn new(
+        id: Option<i32>,
+        name: &str,
+        short_desc: &str,
+        long_desc: &str,
+        web_link: &str,
+    ) -> crate::Result<Self>
+    {
+        Ok(Self {
+            id:         id.unwrap_or_default().into_active_value(),
+            name:       SoftwareName::new(name)?.into_active_value(),
+            short_desc: SoftwareShortDescription::new(short_desc)?.into_active_value(),
+            long_desc:  SoftwareLongDescription::new(long_desc)?.into_active_value(),
+            web_link:   SoftwareWebLink::new(web_link)?.into_active_value(),
+        })
     }
 }
 
@@ -91,10 +198,10 @@ impl From<shared::software::SoftwareTool> for ActiveModel
     fn from(value: shared::software::SoftwareTool) -> Self
     {
         Self {
-            name: value.name.into_active_value(),
-            short_desc: value.short_desc.into_active_value(),
-            long_desc: value.long_desc.into_active_value(),
-            web_link: value.web_link.into_active_value(),
+            name: SoftwareName(value.name).into_active_value(),
+            short_desc: SoftwareShortDescription(value.short_desc).into_active_value(),
+            long_desc: SoftwareLongDescription(value.long_desc).into_active_value(),
+            web_link: SoftwareWebLink(value.web_link).into_active_value(),
             ..Default::default()
         }
     }

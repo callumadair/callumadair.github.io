@@ -1,7 +1,6 @@
 use sea_orm_migration::{
     prelude::*,
     schema::*,
-    sea_orm::IntoActiveValue,
 };
 
 use crate::sea_orm::ActiveModelTrait;
@@ -12,35 +11,38 @@ impl Migration
 {
     async fn seed_data(db_conn: &SchemaManagerConnection<'_>) -> Result<(), DbErr>
     {
-        entity::software::ActiveModel {
-            id:         1.into_active_value(),
-            name:       String::from("Starship").into_active_value(),
-            short_desc: String::from("A nice modern terminal prompt").into_active_value(),
-            long_desc:  String::from("Starship is neat").into_active_value(),
-            web_link:   String::from("https://starship.rs").into_active_value(),
-        }
-        .insert(db_conn)
-        .await?;
+        entity::software::ActiveModel::builder()
+            .id(1)
+            .name("Starship")
+            .short_desc("A nice modern terminal prompt")
+            .long_desc("Starship is neat")
+            .web_link("https://starship.rs")
+            .build()
+            .map_err(|entity_err| DbErr::Custom(entity_err.to_string()))?
+            .insert(db_conn)
+            .await?;
 
-        entity::software::ActiveModel {
-            id:         2.into_active_value(),
-            name:       String::from("Hyperfine").into_active_value(),
-            short_desc: String::from("A benchmarking tool written in rust").into_active_value(),
-            long_desc:  String::from("Hyperfine is neat").into_active_value(),
-            web_link:   String::from("https://github.com/sharkdp/hyperfine").into_active_value(),
-        }
-        .insert(db_conn)
-        .await?;
+        entity::software::ActiveModel::builder()
+            .id(2)
+            .name("Hyperfine")
+            .short_desc("A benchmarking tool written in rust")
+            .long_desc("Hyperfine is neat")
+            .web_link("https://github.com/sharkdp/hyperfine")
+            .build()
+            .map_err(|entity_err| DbErr::Custom(entity_err.to_string()))?
+            .insert(db_conn)
+            .await?;
 
-        entity::software::ActiveModel {
-            id:         3.into_active_value(),
-            name:       String::from("Nushell").into_active_value(),
-            short_desc: String::from("A new way of doing shells").into_active_value(),
-            long_desc:  String::from("Nushell is neat").into_active_value(),
-            web_link:   String::from("https://www.nushell.sh").into_active_value(),
-        }
-        .insert(db_conn)
-        .await?;
+        entity::software::ActiveModel::builder()
+            .id(3)
+            .name("Nushell")
+            .short_desc("A new way of doing shells")
+            .long_desc("Nushell is neat")
+            .web_link("https://www.nushell.sh")
+            .build()
+            .map_err(|entity_err| DbErr::Custom(entity_err.to_string()))?
+            .insert(db_conn)
+            .await?;
         Ok(())
     }
 }
