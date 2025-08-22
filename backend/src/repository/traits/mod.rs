@@ -1,8 +1,14 @@
-use entity::software::Model as SoftwareModel;
+use entity::{
+    image::Model as ImageModel,
+    software::Model as SoftwareModel,
+};
 
 use crate::{
     error::Result,
-    repository::types::software::CreateSoftwareRequest,
+    repository::types::{
+        image::CreateImageRequest,
+        software::CreateSoftwareRequest,
+    },
 };
 pub trait SoftwareRepository
 {
@@ -10,4 +16,12 @@ pub trait SoftwareRepository
         &self,
         req: &CreateSoftwareRequest,
     ) -> Result<SoftwareModel>;
+}
+
+pub trait ImageRepository
+{
+    fn create_image(
+        &self,
+        req: &CreateImageRequest,
+    ) -> Result<ImageModel>;
 }

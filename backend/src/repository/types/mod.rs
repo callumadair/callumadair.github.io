@@ -1,1 +1,2 @@
-pub(super) mod software;
+pub(crate) mod image;
+pub(crate) mod software;
