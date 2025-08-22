@@ -1,3 +1,4 @@
+// TODO (CA): document all these macros
 #[macro_export]
 macro_rules! clone {
     ($($identifier:ident),*) => {
