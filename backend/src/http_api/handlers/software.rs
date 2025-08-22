@@ -12,10 +12,7 @@ use entity::{
         Entity as SoftwareTool,
     },
 };
-use sea_orm::{
-    IntoActiveValue,
-    entity::prelude::*,
-};
+use sea_orm::entity::prelude::*;
 
 use crate::AppState;
 
@@ -58,8 +55,10 @@ async fn create(
     // Prep all the images to be stored.
     for image_link in &new_entry.image_links
     {
-        let mut image_active_model: ImageActiveModel = image_link.clone().into();
-        image_active_model.software_tool_id = software_insert_response.id.into_active_value();
+        let image_active_model: ImageActiveModel = ImageActiveModel::builder()
+            .url(image_link)
+            .software_tool_id(software_insert_response.id)
+            .build()?;
         image_active_model.insert(&state.db_conn).await?;
     }
 
