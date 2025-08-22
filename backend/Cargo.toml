@@ -3,52 +3,59 @@
 #cargo-features = ["codegen-backend"]
 
 [package]
-name = "backend"
-version = "0.1.0"
-authors = ["Callum Adair"]
-rust-version = "1.85.0"
-edition = "2024"
-description = "The parent crate for all the backend HTTP web server."
-readme = "README.md"
-repository = "https://github.com/callumadair/callumadair.github.io/tree/stable/backend"
-license = "MIT"
-keywords = ["server", "http", "backend"]
-categories = ["web-programming::http-server", "database"]
-workspace = ".."
+    name         = "backend"
+    version      = "0.1.0"
+    authors      = [ "Callum Adair" ]
+    rust-version = "1.85.0"
+    edition      = "2024"
+    description  = "The parent crate for all the backend HTTP web server."
+    readme       = "README.md"
+    repository   = "https://github.com/callumadair/callumadair.github.io/tree/stable/backend"
+    license      = "MIT"
+    keywords     = [ "server", "http", "backend" ]
+    categories   = [ "web-programming::http-server", "database" ]
+    workspace    = ".."
 
 [lib]
-path = "./src/lib.rs"
-name = "portfolio_backend_lib"
+    path = "./src/lib.rs"
+    name = "portfolio_backend_lib"
 
 [[bin]]
-path = "./src/main.rs"
-name = "portfolio_backend_bin"
+    path = "./src/main.rs"
+    name = "portfolio_backend_bin"
 
 [dependencies]
-actix-settings = { version = "0.8.0" }
-actix-web = { version = "4.9.0", features = ["rustls", "rustls-0_23"] }
-color-eyre = "0.6.3"
-entity = { path = "./entity" }
-migration = { path = "./migration", features = ["sea-orm"] }
-rustls.workspace = true
-sea-orm = { version = "1.1.4", features = ["sqlx-postgres", "runtime-tokio-rustls", "macros", "with-chrono", "with-json"] }
-serde_json.workspace = true
-shared = { path = "../shared", features = ["backend"] }
-thiserror.workspace = true
-tokio = { version = "1.43.0", features = ["rt", "rt-multi-thread", "macros"] }
-tracing-actix-web = { version = "0.7.15" }
-tracing-subscriber.workspace = true
-utoipa.workspace = true
-utoipa-actix-web = { version = "0.1.2" }
-utoipa-swagger-ui = { version = "9.0.0", features = ["actix-web", "debug-embed"] }
+    actix-settings = { version = "0.8.0" }
+    actix-web = { version = "4.9.0", features = [ "rustls", "rustls-0_23" ] }
+    bon.workspace = true
+    color-eyre = "0.6.3"
+    entity = { path = "./entity" }
+    migration = { path = "./migration", features = [ "sea-orm" ] }
+    rustls.workspace = true
+    sea-orm = { version = "1.1.4", features = [
+        "sqlx-postgres",
+        "runtime-tokio-rustls",
+        "macros",
+        "with-chrono",
+        "with-json",
+    ] }
+    serde_json.workspace = true
+    shared = { path = "../shared", features = [ "backend" ] }
+    thiserror.workspace = true
+    tokio = { version = "1.43.0", features = [ "rt", "rt-multi-thread", "macros" ] }
+    tracing-actix-web = { version = "0.7.15" }
+    tracing-subscriber.workspace = true
+    utoipa.workspace = true
+    utoipa-actix-web = { version = "0.1.2" }
+    utoipa-swagger-ui = { version = "9.0.0", features = [ "actix-web", "debug-embed" ] }
 
 [lints]
-workspace = true
+    workspace = true
 
 [features]
-default = []
+    default = [  ]
 
 [profile.dev]
-# Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`, and the dioxus cli will cry.
-#codegen-backend = "cranelift"
-opt-level = 1
+    # Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`, and the dioxus cli will cry.
+    #codegen-backend = "cranelift"
+    opt-level = 1

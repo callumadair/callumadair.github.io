@@ -11,7 +11,7 @@
 
 [dependencies]
     actix-web = { version = "4.9.0", features = [ "rustls" ] }
-bon = "3.7.1"
+    bon.workspace = true
     sea-orm = { version = "1.1.4", features = [
         "sqlx-postgres",
         "runtime-tokio-rustls",
@@ -23,7 +23,7 @@ bon = "3.7.1"
     serde_json.workspace = true
     shared.workspace = true
     thiserror.workspace = true
-    utoipa = "5.3.1"
+    utoipa.workspace = true
 
 [lints]
     workspace = true

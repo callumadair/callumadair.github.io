@@ -1,32 +1,32 @@
 [package]
-name = "frontend"
-version = "0.1.0"
-edition = "2021"
-license = "MIT"
-repository = "https://github.com/callumadair/callumadair.github.io"
-description = "My lil personal web app for technology trialling."
-readme = "../README.md"
-keywords = ["web", "fullstack"]
-categories = ["web-programming", "gui"]
+    name        = "frontend"
+    version     = "0.1.0"
+    edition     = "2021"
+    license     = "MIT"
+    repository  = "https://github.com/callumadair/callumadair.github.io"
+    description = "My lil personal web app for technology trialling."
+    readme      = "../README.md"
+    keywords    = [ "web", "fullstack" ]
+    categories  = [ "web-programming", "gui" ]
 
 [dependencies]
-dioxus.workspace = true
-gloo.workspace = true
-lucide-dioxus.workspace = true
-reqwest = "0.12.12"
-serde.workspace = true
-shared.workspace = true
-strum.workspace = true
+    dioxus.workspace        = true
+    gloo.workspace          = true
+    lucide-dioxus.workspace = true
+    reqwest                 = "0.12.12"
+    serde.workspace         = true
+    shared.workspace        = true
+    strum.workspace         = true
 
 [build-dependencies]
-strum.workspace = true
-color-eyre = "0.6.5"
+    strum.workspace = true
+    color-eyre      = "0.6.5"
 
 [lints]
-workspace = true
+    workspace = true
 
 [features]
-default = ["web"]
-web = ["dioxus/web", "dioxus/router"]
-desktop = ["dioxus/desktop"]
-mobile = ["dioxus/mobile"]
+    default = [ "web" ]
+    web     = [ "dioxus/web", "dioxus/router" ]
+    desktop = [ "dioxus/desktop" ]
+    mobile  = [ "dioxus/mobile" ]

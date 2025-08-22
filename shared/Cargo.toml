@@ -1,31 +1,31 @@
 [package]
-name = "shared"
-version = "0.1.0"
-edition = "2021"
-license = "MIT"
-repository = "https://github.com/callumadair/callumadair.github.io"
-readme = "README.md"
-keywords = ["Types"]
-description = "Shared types and functions for doing things on both the frontend and backend."
-categories = ["web-programming"]
+    name        = "shared"
+    version     = "0.1.0"
+    edition     = "2021"
+    license     = "MIT"
+    repository  = "https://github.com/callumadair/callumadair.github.io"
+    readme      = "README.md"
+    keywords    = [ "Types" ]
+    description = "Shared types and functions for doing things on both the frontend and backend."
+    categories  = [ "web-programming" ]
 
 [dependencies]
-actix-web = { version = "4.9.0", optional = true}
-chrono = "0.4.39"
-derive_more = { version = "2.0.1", features = ["display"] }
-dioxus.workspace = true
-gloo = "0.11.0"
-lucide-dioxus.workspace = true
-serde.workspace = true
-serde_json.workspace = true
-strum.workspace = true
-utoipa.workspace = true
-web-sys = { version = "0.3.76", features = ["KeyboardEvent", "HtmlDialogElement"] }
+    actix-web               = { version = "4.9.0", optional = true }
+    chrono                  = "0.4.39"
+    derive_more             = { version = "2.0.1", features = [ "display" ] }
+    dioxus.workspace        = true
+    gloo                    = "0.11.0"
+    lucide-dioxus.workspace = true
+    serde.workspace         = true
+    serde_json.workspace    = true
+    strum.workspace         = true
+    utoipa.workspace        = true
+    web-sys                 = { version = "0.3.76", features = [ "KeyboardEvent", "HtmlDialogElement" ] }
 
 [lints]
-workspace = true
+    workspace = true
 
 [features]
-default = ["web"]
-backend = ["dep:actix-web"]
-web = ["dioxus/web", "dioxus/router"]
+    default = [ "web" ]
+    backend = [ "dep:actix-web" ]
+    web     = [ "dioxus/web", "dioxus/router" ]
