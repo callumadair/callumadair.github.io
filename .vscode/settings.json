@@ -1,5 +1,7 @@
 {
     "conventionalCommits.scopes": [
-        "Refactor"
+        "Refactor",
+        "Cargo",
+        "VSCode"
     ]
 }
