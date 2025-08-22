@@ -4,6 +4,8 @@
         "Cargo",
         "VSCode",
         "Data",
-        "Documentation"
+        "Documentation",
+        "Error Handling",
+        "Temporary Fix"
     ]
 }
