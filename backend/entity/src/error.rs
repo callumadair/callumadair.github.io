@@ -8,6 +8,8 @@ pub enum Error
 #[derive(Debug, thiserror::Error)]
 pub enum InstantiationError
 {
+    #[error("Image path cannot be empty")]
+    ImagePathEmpty,
     #[error("Software name cannot be empty")]
     SoftwareNameEmpty,
     #[error("Software short description cannot be empty")]

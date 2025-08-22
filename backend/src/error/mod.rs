@@ -9,12 +9,21 @@ use actix_web::{
         header::ContentType,
     },
 };
+use shared::impl_nested_error;
 use utoipa::openapi::{
     RefOr,
     Schema,
 };
 
+use crate::error::models::{
+    CreateModelError,
+    DomainModelError,
+};
+
 pub(crate) type Result<T> = core::result::Result<T, BackendError>;
+pub(super) mod macros;
+pub mod models;
+
 #[derive(thiserror::Error, Debug)]
 pub enum BackendError
 {
@@ -22,7 +31,12 @@ pub enum BackendError
     ActixWeb(#[from] actix_web::Error),
     #[error("{0}")]
     Database(#[from] sea_orm::error::DbErr),
+    #[error("Domain model error: {0}")]
+    DomainModelError(#[from] DomainModelError),
+    #[error("Entity error: {0}")]
+    Entity(#[from] entity::error::Error),
 }
+impl_nested_error!(BackendError, DomainModelError, CreateModelError);
 
 impl ResponseError for BackendError
 {
@@ -31,7 +45,9 @@ impl ResponseError for BackendError
         match self
         {
             Self::Database(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            Self::DomainModelError(model_error) => model_error.status_code(),
             Self::ActixWeb(inner) => inner.as_response_error().status_code(),
+            Self::Entity(_) => StatusCode::BAD_REQUEST,
         }
     }
 
@@ -39,6 +55,7 @@ impl ResponseError for BackendError
     {
         HttpResponse::build(self.status_code())
             .insert_header(ContentType::json())
+            // TODO (CA): replace with call to serde json.
             .body(self.to_string())
     }
 }
