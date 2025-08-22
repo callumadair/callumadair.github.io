@@ -8,6 +8,7 @@
 
     [workspace.dependencies]
         bon                = "3.7.1"
+        derive_more        = { version = "2.0.1", features = [ "display" ] }
         dioxus             = { version = "0.6.3", features = [ "router", "web" ] }
         gloo               = "0.11.0"
         lucide-dioxus      = { version = "2.15.0", features = [ "all-icons" ] }
