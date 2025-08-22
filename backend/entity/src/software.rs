@@ -1,3 +1,10 @@
+use actix_web::{
+    HttpRequest,
+    HttpResponse,
+    Responder,
+    body::BoxBody,
+    http::header::ContentType,
+};
 use bon::bon;
 use sea_orm::{
     ActiveValue,
@@ -10,15 +17,27 @@ use crate::{
         Error,
         InstantiationError,
     },
+    image::ImageURL,
     impl_into_active_value,
 };
-#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType)]
+
+#[derive(
+    Clone,
+    Debug,
+    PartialEq,
+    Eq,
+    DeriveValueType,
+    derive_more::Display,
+    serde::Deserialize,
+    serde::Serialize,
+    utoipa::ToSchema,
+)]
 pub struct SoftwareName(String);
 impl_into_active_value!(SoftwareName);
 
 impl SoftwareName
 {
-    fn new(raw: &str) -> crate::Result<Self>
+    pub fn new(raw: &str) -> crate::Result<Self>
     {
         let trimmed = raw.trim();
         if trimmed.is_empty()
@@ -34,13 +53,23 @@ impl SoftwareName
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType)]
+#[derive(
+    Clone,
+    Debug,
+    PartialEq,
+    Eq,
+    DeriveValueType,
+    derive_more::Display,
+    serde::Deserialize,
+    serde::Serialize,
+    utoipa::ToSchema,
+)]
 pub struct SoftwareShortDescription(String);
 impl_into_active_value!(SoftwareShortDescription);
 
 impl SoftwareShortDescription
 {
-    fn new(raw: &str) -> crate::Result<Self>
+    pub fn new(raw: &str) -> crate::Result<Self>
     {
         let trimmed = raw.trim();
         if trimmed.is_empty()
@@ -56,13 +85,23 @@ impl SoftwareShortDescription
     }
 }
 
-#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType)]
+#[derive(
+    Clone,
+    Debug,
+    PartialEq,
+    Eq,
+    DeriveValueType,
+    derive_more::Display,
+    serde::Deserialize,
+    serde::Serialize,
+    utoipa::ToSchema,
+)]
 pub struct SoftwareLongDescription(String);
 impl_into_active_value!(SoftwareLongDescription);
 
 impl SoftwareLongDescription
 {
-    fn new(raw: &str) -> crate::Result<Self>
+    pub fn new(raw: &str) -> crate::Result<Self>
     {
         let trimmed = raw.trim();
         if trimmed.is_empty()
@@ -77,13 +116,24 @@ impl SoftwareLongDescription
         }
     }
 }
-#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType)]
+
+#[derive(
+    Clone,
+    Debug,
+    PartialEq,
+    Eq,
+    DeriveValueType,
+    derive_more::Display,
+    serde::Deserialize,
+    serde::Serialize,
+    utoipa::ToSchema,
+)]
 pub struct SoftwareWebLink(String);
 impl_into_active_value!(SoftwareWebLink);
 
 impl SoftwareWebLink
 {
-    fn new(raw: &str) -> crate::Result<Self>
+    pub fn new(raw: &str) -> crate::Result<Self>
     {
         let trimmed = raw.trim();
         if trimmed.is_empty()
@@ -104,10 +154,10 @@ impl SoftwareWebLink
     Debug,
     PartialEq,
     DeriveEntityModel,
-    /* Deserialize,
-     * Serialize,
-     * utoipa::ToSchema,
-     * utoipa::ToResponse, */
+    serde::Deserialize,
+    serde::Serialize,
+    utoipa::ToSchema,
+    utoipa::ToResponse,
 )]
 #[sea_orm(table_name = "software_tools")]
 pub struct Model
@@ -130,31 +180,31 @@ impl Model
         let images = self.find_related(crate::image::Entity).all(db_conn).await?;
         let image_links = images
             .into_iter()
-            .map(|image| image.path)
-            .collect::<Vec<String>>();
+            .map(|image| image.url)
+            .collect::<Vec<ImageURL>>();
         let mut software_tool = shared::software::SoftwareTool::from(self);
-        software_tool.image_links = image_links;
+        // software_tool.image_links = image_links;
         Ok(software_tool)
     }
 }
 
-// impl Responder for Model
-// {
-//     type Body = BoxBody;
+impl Responder for Model
+{
+    type Body = BoxBody;
 
-//     fn respond_to(
-//         self,
-//         _req: &HttpRequest,
-//     ) -> HttpResponse<Self::Body>
-//     {
-//         let body = serde_json::to_string(&self).unwrap();
+    fn respond_to(
+        self,
+        _req: &HttpRequest,
+    ) -> HttpResponse<Self::Body>
+    {
+        let body = serde_json::to_string(&self).unwrap();
 
-//         HttpResponse::Ok()
-//             .content_type(ContentType::json())
-//             .body(body)
-//     }
-// }
-
+        HttpResponse::Ok()
+            .content_type(ContentType::json())
+            .body(body)
+    }
+}
+//
 impl From<Model> for shared::software::SoftwareTool
 {
     fn from(value: Model) -> Self
@@ -181,12 +231,17 @@ impl ActiveModel
         web_link: &str,
     ) -> crate::Result<Self>
     {
+        let id = match id
+        {
+            Some(value) => ActiveValue::Set(value),
+            None => ActiveValue::NotSet,
+        };
         Ok(Self {
-            id:         id.unwrap_or_default().into_active_value(),
-            name:       SoftwareName::new(name)?.into_active_value(),
+            id,
+            name: SoftwareName::new(name)?.into_active_value(),
             short_desc: SoftwareShortDescription::new(short_desc)?.into_active_value(),
-            long_desc:  SoftwareLongDescription::new(long_desc)?.into_active_value(),
-            web_link:   SoftwareWebLink::new(web_link)?.into_active_value(),
+            long_desc: SoftwareLongDescription::new(long_desc)?.into_active_value(),
+            web_link: SoftwareWebLink::new(web_link)?.into_active_value(),
         })
     }
 }
