@@ -3,9 +3,10 @@ use entity::{
     image::ImageURL,
     software::SoftwareName,
 };
-use shared::impl_nested_error;
-
-use crate::impl_nested_status_code;
+use shared::{
+    impl_nested_error,
+    impl_nested_status_code,
+};
 
 #[derive(thiserror::Error, Debug)]
 pub enum DomainModelError

@@ -9,6 +9,10 @@ use actix_web::{
         header::ContentType,
     },
 };
+use entity::error::{
+    EntityError,
+    InstantiationError,
+};
 use shared::impl_nested_error;
 use utoipa::openapi::{
     RefOr,
@@ -21,7 +25,6 @@ use crate::error::models::{
 };
 
 pub(crate) type Result<T> = core::result::Result<T, BackendError>;
-pub(super) mod macros;
 pub mod models;
 
 #[derive(thiserror::Error, Debug)]
@@ -34,9 +37,10 @@ pub enum BackendError
     #[error("Domain model error: {0}")]
     DomainModelError(#[from] DomainModelError),
     #[error("Entity error: {0}")]
-    Entity(#[from] entity::error::Error),
+    EntityError(#[from] EntityError),
 }
 impl_nested_error!(BackendError, DomainModelError, CreateModelError);
+impl_nested_error!(BackendError, EntityError, InstantiationError);
 
 impl ResponseError for BackendError
 {
@@ -47,7 +51,7 @@ impl ResponseError for BackendError
             Self::Database(_) => StatusCode::INTERNAL_SERVER_ERROR,
             Self::DomainModelError(model_error) => model_error.status_code(),
             Self::ActixWeb(inner) => inner.as_response_error().status_code(),
-            Self::Entity(_) => StatusCode::BAD_REQUEST,
+            Self::EntityError(entity_error) => entity_error.status_code(),
         }
     }
 
