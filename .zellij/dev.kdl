@@ -11,6 +11,13 @@ layout {
                 name "Postgres Database (Container)"
                 borderless false
             }
+            pane {
+                command "bacon"
+                args "clippy"
+                cwd "."
+                name "Clippy Workspace"
+                borderless false
+            }
         }
         pane split_direction="vertical" {
             pane {
