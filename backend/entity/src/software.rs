@@ -14,7 +14,7 @@ use sea_orm::{
 
 use crate::{
     error::{
-        Error,
+        EntityError,
         InstantiationError,
     },
     image::ImageURL,
@@ -42,7 +42,7 @@ impl SoftwareName
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(Error::InstantiationError(
+            Err(EntityError::InstantiationError(
                 InstantiationError::SoftwareNameEmpty,
             ))
         }
@@ -74,7 +74,7 @@ impl SoftwareShortDescription
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(Error::InstantiationError(
+            Err(EntityError::InstantiationError(
                 InstantiationError::SoftwareShortDescriptionEmpty,
             ))
         }
@@ -106,7 +106,7 @@ impl SoftwareLongDescription
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(Error::InstantiationError(
+            Err(EntityError::InstantiationError(
                 InstantiationError::SoftwareLongDescriptionEmpty,
             ))
         }
@@ -138,7 +138,7 @@ impl SoftwareWebLink
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(Error::InstantiationError(
+            Err(EntityError::InstantiationError(
                 InstantiationError::SoftwareWebLinkEmpty,
             ))
         }

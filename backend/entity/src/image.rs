@@ -29,8 +29,8 @@ impl ImageURL
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(crate::error::Error::InstantiationError(
-                InstantiationError::ImagePathEmpty,
+            Err(crate::error::EntityError::InstantiationError(
+                InstantiationError::ImageURLEmpty,
             ))
         }
         else

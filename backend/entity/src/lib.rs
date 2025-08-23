@@ -2,7 +2,7 @@ pub mod error;
 pub mod image;
 pub mod software;
 
-pub type Result<T> = core::result::Result<T, error::Error>;
+pub type Result<T> = core::result::Result<T, error::EntityError>;
 
 #[macro_export]
 macro_rules! impl_into_active_value {
