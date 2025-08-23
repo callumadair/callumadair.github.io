@@ -6,7 +6,7 @@ use sea_orm::{
 };
 
 use crate::{
-    error::InstantiationError,
+    error::ImageInstantiationError,
     impl_into_active_value,
 };
 
@@ -29,9 +29,7 @@ impl ImageURL
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(crate::error::EntityError::InstantiationError(
-                InstantiationError::ImageURLEmpty,
-            ))
+            Err(ImageInstantiationError::ImageURLEmpty.into())
         }
         else
         {
@@ -40,15 +38,29 @@ impl ImageURL
     }
 }
 
+impl AsRef<str> for ImageURL
+{
+    fn as_ref(&self) -> &str { self.0.as_ref() }
+}
+
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel)]
 #[sea_orm(table_name = "images")]
 pub struct Model
 {
     #[sea_orm(primary_key)]
-    pub id:               i32,
+    id:               i32,
     #[sea_orm(foreign_key)]
-    pub software_tool_id: SoftwareToolId,
-    pub url:              ImageURL,
+    software_tool_id: SoftwareToolId,
+    image_url:        ImageURL,
+}
+
+impl Model
+{
+    pub fn id(&self) -> &i32 { &self.id }
+
+    pub fn software_tool_id(&self) -> &SoftwareToolId { &self.software_tool_id }
+
+    pub fn image_url(&self) -> &ImageURL { &self.image_url }
 }
 
 #[derive(Copy, Clone, Debug, EnumIter, DeriveRelation)]
@@ -88,7 +100,7 @@ impl ActiveModel
         Ok(Self {
             id,
             software_tool_id: SoftwareToolId::new(software_tool_id).into_active_value(),
-            url: ImageURL::new(url)?.into_active_value(),
+            image_url: ImageURL::new(url)?.into_active_value(),
         })
     }
 }

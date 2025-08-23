@@ -13,11 +13,7 @@ use sea_orm::{
 };
 
 use crate::{
-    error::{
-        EntityError,
-        InstantiationError,
-    },
-    image::ImageURL,
+    error::SoftwareInstantiationError,
     impl_into_active_value,
 };
 
@@ -42,9 +38,7 @@ impl SoftwareName
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(EntityError::InstantiationError(
-                InstantiationError::SoftwareNameEmpty,
-            ))
+            Err(SoftwareInstantiationError::SoftwareNameEmpty.into())
         }
         else
         {
@@ -74,9 +68,7 @@ impl SoftwareShortDescription
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(EntityError::InstantiationError(
-                InstantiationError::SoftwareShortDescriptionEmpty,
-            ))
+            Err(SoftwareInstantiationError::SoftwareShortDescriptionEmpty.into())
         }
         else
         {
@@ -106,9 +98,7 @@ impl SoftwareLongDescription
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(EntityError::InstantiationError(
-                InstantiationError::SoftwareLongDescriptionEmpty,
-            ))
+            Err(SoftwareInstantiationError::SoftwareLongDescriptionEmpty.into())
         }
         else
         {
@@ -138,9 +128,7 @@ impl SoftwareWebLink
         let trimmed = raw.trim();
         if trimmed.is_empty()
         {
-            Err(EntityError::InstantiationError(
-                InstantiationError::SoftwareWebLinkEmpty,
-            ))
+            Err(SoftwareInstantiationError::SoftwareWebLinkEmpty.into())
         }
         else
         {
@@ -163,15 +151,25 @@ impl SoftwareWebLink
 pub struct Model
 {
     #[sea_orm(primary_key)]
-    pub id:         i32,
-    pub name:       SoftwareName,
-    pub short_desc: SoftwareShortDescription,
-    pub long_desc:  SoftwareLongDescription,
-    pub web_link:   SoftwareWebLink,
+    id:         i32,
+    name:       SoftwareName,
+    short_desc: SoftwareShortDescription,
+    long_desc:  SoftwareLongDescription,
+    web_link:   SoftwareWebLink,
 }
 
 impl Model
 {
+    pub fn id(&self) -> &i32 { &self.id }
+
+    pub fn name(&self) -> &SoftwareName { &self.name }
+
+    pub fn short_desc(&self) -> &SoftwareShortDescription { &self.short_desc }
+
+    pub fn long_desc(&self) -> &SoftwareLongDescription { &self.long_desc }
+
+    pub fn web_link(&self) -> &SoftwareWebLink { &self.web_link }
+
     pub async fn to_software_tool(
         self,
         db_conn: &DatabaseConnection,
@@ -180,10 +178,10 @@ impl Model
         let images = self.find_related(crate::image::Entity).all(db_conn).await?;
         let image_links = images
             .into_iter()
-            .map(|image| image.url)
-            .collect::<Vec<ImageURL>>();
+            .map(|image| image.image_url().as_ref().to_owned())
+            .collect::<Vec<String>>();
         let mut software_tool = shared::software::SoftwareTool::from(self);
-        // software_tool.image_links = image_links;
+        software_tool.image_links = image_links;
         Ok(software_tool)
     }
 }

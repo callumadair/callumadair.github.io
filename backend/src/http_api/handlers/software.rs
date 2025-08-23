@@ -57,7 +57,7 @@ async fn create(
     {
         let image_active_model: ImageActiveModel = ImageActiveModel::builder()
             .url(image_link)
-            .software_tool_id(software_insert_response.id)
+            .software_tool_id(*software_insert_response.id())
             .build()?;
         image_active_model.insert(&state.db_conn).await?;
     }
