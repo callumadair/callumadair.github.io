@@ -6,6 +6,7 @@
     description  = "The database entity crate."
     readme       = "../README.md"
     license      = "MIT"
+    repository   = "https://github.com/callumadair/callumadair.github.io/tree/convert-to-dioxus/backend/entity"
     keywords     = [ "database", "entity" ]
     categories   = [ "database", "data-structures" ]
 

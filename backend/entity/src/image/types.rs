@@ -1,4 +1,8 @@
-use sea_orm::entity::prelude::*;
+use sea_orm::{
+    ActiveValue,
+    IntoActiveValue,
+    entity::prelude::*,
+};
 
 use crate::{
     error::ImageInstantiationError,

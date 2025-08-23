@@ -68,7 +68,7 @@ impl Model
         let images = self.find_related(crate::image::Entity).all(db_conn).await?;
         let image_links = images
             .into_iter()
-            .map(|image| image.image_url().as_ref().to_owned())
+            .map(|image| image.image_url().to_string())
             .collect::<Vec<String>>();
         let mut software_tool = shared::software::SoftwareTool::from(self);
         software_tool.image_links = image_links;
@@ -142,13 +142,13 @@ impl TryFrom<shared::software::SoftwareTool> for ActiveModel
 
     fn try_from(value: shared::software::SoftwareTool) -> crate::Result<Self>
     {
-        Self {
-            name: SoftwareName::new(value.name)?.into_active_value(),
-            short_desc: SoftwareShortDescription::new(value.short_desc)?.into_active_value(),
-            long_desc: SoftwareLongDescription::new(value.long_desc)?.into_active_value(),
-            web_link: SoftwareWebLink::new(value.web_link)?.into_active_value(),
+        Ok(Self {
+            name: SoftwareName::new(&value.name)?.into_active_value(),
+            short_desc: SoftwareShortDescription::new(&value.short_desc)?.into_active_value(),
+            long_desc: SoftwareLongDescription::new(&value.long_desc)?.into_active_value(),
+            web_link: SoftwareWebLink::new(&value.web_link)?.into_active_value(),
             ..Default::default()
-        }
+        })
     }
 }
 
