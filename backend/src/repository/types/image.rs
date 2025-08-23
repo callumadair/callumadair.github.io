@@ -1,7 +1,5 @@
-use entity::image::{
-    ImageURL,
-    SoftwareToolId,
-};
+
+use entity::image::types::{ImageURL, SoftwareToolId};
 
 use crate::error::Result;
 

@@ -1,4 +1,4 @@
-use entity::software::{
+use entity::software::types::{
     SoftwareLongDescription,
     SoftwareName,
     SoftwareShortDescription,
