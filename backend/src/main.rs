@@ -1,4 +1,7 @@
-use std::time::Duration;
+use std::{
+    sync::Arc,
+    time::Duration,
+};
 
 use actix_settings::{
     ApplySettings,
@@ -20,10 +23,11 @@ use migration::{
 };
 use portfolio_backend_lib::{
     AppState,
-    http_api::{
-        handlers,
-        handlers::index::index,
+    http_api::handlers::{
+        self,
+        index::index,
     },
+    repository::connections::SeaOrmDataBaseConnection,
 };
 use rustls::{
     ServerConfig,
@@ -48,8 +52,7 @@ const DATABASE_PATH: &str = "postgres://postgres:password@localhost:5432";
 async fn main() -> color_eyre::Result<()>
 {
     color_eyre::install()?;
-    let mut settings =
-        Settings::parse_toml("./Server.toml").expect("Failed to parse `Settings` from Server.toml");
+    let mut settings = Settings::parse_toml("./Server.toml")?;
 
     // If the environment variable `$APPLICATION__HOSTS` is set,
     // have its value override the `settings.actix.hosts`
@@ -57,13 +60,13 @@ async fn main() -> color_eyre::Result<()>
     Settings::override_field_with_env_var(&mut settings.actix.hosts, "APPLICATION__HOSTS")?;
 
     init_logger(&settings);
-    let db_conn = init_database().await?;
+    let repository = SeaOrmDataBaseConnection::new(DATABASE_PATH).await.unwrap();
     // let rustls_config = load_rustls_config()?;
 
     HttpServer::new({
         // clone settings into each worker thread
         let settings = settings.clone();
-        let db_conn = db_conn.clone();
+        let repository = Arc::new(repository.clone());
 
         move || {
             App::new()
@@ -75,9 +78,7 @@ async fn main() -> color_eyre::Result<()>
                     ))
                         .app_data(Data::new(settings.clone()))
                         .app_data(Data::new(
-                            AppState {
-                                db_conn: db_conn.clone(),
-                            }
+                        AppState{repository: repository.clone()}
                         ))
                         .wrap(TracingLogger::default())
                 )
@@ -143,7 +144,9 @@ async fn init_database() -> color_eyre::Result<DatabaseConnection>
 
 fn load_rustls_config() -> color_eyre::Result<rustls::ServerConfig>
 {
-    rustls::crypto::aws_lc_rs::default_provider().install_default().unwrap();
+    rustls::crypto::aws_lc_rs::default_provider()
+        .install_default()
+        .unwrap();
 
     // load TLS key/cert files
     let cert_chain = CertificateDer::pem_file_iter("cert.pem")?

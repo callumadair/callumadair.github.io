@@ -13,6 +13,7 @@ use crate::image::types::{
 pub mod types;
 
 pub type ImageActiveModel = ActiveModel;
+pub type ImageEntity = Entity;
 pub type ImageModel = Model;
 
 #[derive(Clone, Debug, PartialEq, DeriveEntityModel)]

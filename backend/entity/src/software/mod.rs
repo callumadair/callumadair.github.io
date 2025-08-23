@@ -25,6 +25,7 @@ use crate::{
 pub mod types;
 
 pub type SoftwareActiveModel = ActiveModel;
+pub type SoftwareEntity = Entity;
 pub type SoftwareModel = Model;
 
 #[derive(

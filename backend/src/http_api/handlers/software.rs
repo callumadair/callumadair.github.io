@@ -5,16 +5,17 @@ use actix_web::{
     post,
     web,
 };
-use entity::{
-    image::ActiveModel as ImageActiveModel,
-    software::{
-        ActiveModel as SoftwareActiveModel,
-        Entity as SoftwareTool,
+
+use crate::{
+    AppState,
+    repository::{
+        connections::SeaOrmDataBaseConnection,
+        traits::{
+            ImageRepository,
+            SoftwareRepository,
+        },
     },
 };
-use sea_orm::entity::prelude::*;
-
-use crate::AppState;
 
 #[utoipa::path(
     responses(
@@ -23,15 +24,11 @@ use crate::AppState;
     )
 )]
 #[get("/index")]
-async fn index(state: web::Data<AppState>) -> crate::error::Result<impl Responder>
+async fn index(
+    state: web::Data<AppState<SeaOrmDataBaseConnection>>
+) -> crate::error::Result<impl Responder>
 {
-    let software_entries: Vec<entity::software::Model> =
-        SoftwareTool::find().all(&state.db_conn).await?;
-    let mut software_tools = Vec::with_capacity(software_entries.len());
-    for entry in software_entries
-    {
-        software_tools.push(entry.to_software_tool(&state.db_conn).await?);
-    }
+    let software_tools = state.repository.get_all_software_tools().await?;
 
     Ok(HttpResponse::Ok().json(software_tools))
 }
@@ -45,26 +42,13 @@ async fn index(state: web::Data<AppState>) -> crate::error::Result<impl Responde
 #[post("/create")]
 async fn create(
     web::Json(new_entry): web::Json<shared::software::SoftwareTool>,
-    state: web::Data<AppState>,
+    state: web::Data<AppState<SeaOrmDataBaseConnection>>,
 ) -> crate::error::Result<impl Responder>
 {
-    let active_model: SoftwareActiveModel = new_entry.clone().into();
-    let software_insert_response = active_model.insert(&state.db_conn).await?;
-    // Now that we have successfully created the software tool,
-    // insert all the images information.
-    // Prep all the images to be stored.
-    for image_link in &new_entry.image_links
-    {
-        let image_active_model: ImageActiveModel = ImageActiveModel::builder()
-            .url(image_link)
-            .software_tool_id(*software_insert_response.id())
-            .build()?;
-        image_active_model.insert(&state.db_conn).await?;
-    }
-
-    let success_response = software_insert_response
-        .to_software_tool(&state.db_conn)
+    let new_entry = state
+        .repository
+        .create_software(&new_entry.try_into()?)
         .await?;
 
-    Ok(success_response)
+    Ok(new_entry)
 }
