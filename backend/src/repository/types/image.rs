@@ -1,11 +1,7 @@
-use entity::image::{
-    ImageActiveModel,
-    types::{
-        ImageURL,
-        SoftwareToolId,
-    },
+use entity::image::types::{
+    ImageURL,
+    SoftwareToolId,
 };
-use sea_orm::ActiveValue;
 
 use crate::error::Result;
 

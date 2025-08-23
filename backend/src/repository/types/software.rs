@@ -56,11 +56,7 @@ impl TryFrom<SoftwareTool> for CreateSoftwareRequest
                     // TODO (CA): Kill this unwrap
                     .filter_map(|link| {
                         let image_url_res = ImageURL::new(link);
-                        if image_url_res.is_ok() {
-                            Some(image_url_res.unwrap())
-                        } else {
-                            None
-                        }
+                        image_url_res.ok()
                     })
                     .collect::<Vec<ImageURL>>(),
             )

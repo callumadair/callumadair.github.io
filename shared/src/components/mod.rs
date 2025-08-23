@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+
 mod actions;
 mod carousel;
 mod data_display;

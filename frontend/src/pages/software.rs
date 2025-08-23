@@ -6,7 +6,9 @@ use shared::{
     software::SoftwareTool,
 };
 
+// TODO (CA): consider the need for this.
 #[derive(PartialEq, Clone)]
+#[allow(dead_code)]
 pub(crate) struct SoftwareToolRow
 {
     pub(crate) name:        String,

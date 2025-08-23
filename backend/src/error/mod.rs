@@ -24,7 +24,7 @@ use crate::error::models::{
     DomainModelError,
 };
 
-pub(crate) type Result<T> = core::result::Result<T, BackendError>;
+pub type Result<T> = core::result::Result<T, BackendError>;
 pub mod models;
 
 #[derive(thiserror::Error, Debug)]
@@ -33,11 +33,17 @@ pub enum BackendError
     #[error("{0}")]
     ActixWeb(#[from] actix_web::Error),
     #[error("{0}")]
+    ActixSettings(#[from] actix_settings::Error),
+    #[error("{0}")]
+    ColorEyreReport(#[from] color_eyre::Report),
+    #[error("{0}")]
     Database(#[from] sea_orm::error::DbErr),
     #[error("Domain model error: {0}")]
     DomainModelError(#[from] DomainModelError),
     #[error("Entity error: {0}")]
     EntityError(#[from] EntityError),
+    #[error("{0}")]
+    IoError(#[from] std::io::Error),
 }
 impl_nested_error!(BackendError, DomainModelError, CreateModelError);
 impl_nested_error!(BackendError, EntityError, InstantiationError);
@@ -48,9 +54,12 @@ impl ResponseError for BackendError
     {
         match self
         {
-            Self::Database(_) => StatusCode::INTERNAL_SERVER_ERROR,
-            Self::DomainModelError(model_error) => model_error.status_code(),
             Self::ActixWeb(inner) => inner.as_response_error().status_code(),
+            Self::ActixSettings(_)
+            | Self::ColorEyreReport(_)
+            | Self::Database(_)
+            | Self::IoError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            Self::DomainModelError(model_error) => model_error.status_code(),
             Self::EntityError(entity_error) => entity_error.status_code(),
         }
     }

@@ -1,4 +1,6 @@
-use dioxus::prelude::*;
+use dioxus::{
+    prelude::*,
+};
 use strum::{
     AsRefStr,
     Display,
@@ -90,17 +92,22 @@ pub fn Card(props: CardProps) -> Element
         ..
     } = props;
 
+    let card_image = match img_src
+    {
+        Some(src) =>
+        {
+            rsx! {
+            figure { img {
+                src,
+            } }
+                    }
+        }
+        None => rsx!(),
+    };
     rsx! {
        div {
         class,
-            if img_src.is_some() {
-                figure {
-                    img {
-                        src: img_src.unwrap(),
-                    }
-                }
-            }
-
+            {card_image},
             div {
                 class: "card-body",
 

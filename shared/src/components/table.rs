@@ -11,7 +11,9 @@ use web_sys::{
 
 use crate::{
     components::{
-        input::SearchInput,
+        input::
+            SearchInput
+        ,
         table::dioxus_elements::KeyboardEvent,
     },
     traits::contains::Contains,
@@ -111,19 +113,28 @@ fn search_table<T: PartialEq + Clone + Contains + 'static>(
     display_rows: &mut Signal<Vec<T>>,
 )
 {
-    let evt = evt.try_as_web_event().expect("Should work correctly");
-    let input_value = evt
-        .target()
-        .expect("Event should have an originating target when dispatched.")
-        .unchecked_into::<HtmlInputElement>()
-        .value();
+    match evt.try_as_web_event()
+    {
+        Some(evt) =>
+        {
+            match evt.target()
+            {
+                Some(target) =>
+                {
+                    let input_value = target.unchecked_into::<HtmlInputElement>().value();
 
-    let new_rows = rows()
-        .into_iter()
-        .filter(|row| row.contains(&input_value))
-        .collect::<Vec<T>>();
+                    let new_rows = rows()
+                        .into_iter()
+                        .filter(|row| row.contains(&input_value))
+                        .collect::<Vec<T>>();
 
-    display_rows.set(new_rows);
+                    display_rows.set(new_rows);
+                }
+                None => gloo::console::error!("No keyboard event target found."),
+            }
+        }
+        None => gloo::console::error!("Unable to convert event into a web event."),
+    };
 }
 
 // fn sort_table<T>(

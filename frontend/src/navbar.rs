@@ -6,7 +6,6 @@ use lucide_dioxus::{
     SlidersHorizontal,
 };
 use shared::components::{
-    MenuContent,
     MenuToggle,
     NavbarLink,
 };
@@ -161,9 +160,11 @@ fn ThemeControlDropdownContent() -> Element
                     value: theme_variant.to_string().to_lowercase() ,
                     onclick:
                         move |_evt: MouseEvent| {
-                            gloo::storage::LocalStorage::set(THEME_STORAGE_KEY, theme_variant)
-                            .expect("Failed updating stored theme.");
-                            theme.set(theme_variant);
+                            match gloo::storage::LocalStorage::set(THEME_STORAGE_KEY, theme_variant) {
+                                Ok(_) => theme.set(theme_variant),
+                                Err(storage_err) => gloo::console::log!(storage_err.to_string()),
+
+                            }
                     },
                 }
             }

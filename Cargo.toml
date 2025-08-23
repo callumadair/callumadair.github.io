@@ -35,17 +35,22 @@
         unused                  = "warn"
 
     [workspace.lints.clippy]
-        correctness = "warn"
-        suspicious  = "warn"
-        complexity  = "warn"
-        perf        = "warn"
-        style       = "warn"
-        cargo       = "warn"
+        correctness = { level = "warn", priority = -1 }
+        suspicious  = { level = "warn", priority = -1 }
+        complexity  = { level = "warn", priority = -1 }
+        perf        = { level = "warn", priority = -1 }
+        style       = { level = "warn", priority = -1 }
+        cargo       = { level = "warn", priority = -1 }
 
+        # Some things that I want to be warned about in code.
         unwrap_used   = "warn"
         expect_used   = "warn"
         todo          = "warn"
         unimplemented = "warn"
+
+        # Cargo lints that flag a lot and either don't really matter or I can't do anything about.
+        cargo-common-metadata   = "allow"
+        multiple-crate-versions = "allow"
 
 [profile.dev]
     # Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`.

@@ -93,18 +93,26 @@ pub fn App() -> Element
     let theme_signal = use_signal(|| theme_value);
     let theme = use_context_provider(|| theme_signal);
 
-    document()
-        .document_element()
-        .expect("Failed getting root document as element.")
-        .set_attribute(THEME_ATTRIBUTE_NAME, &theme().to_string().to_lowercase())
-        .expect("Failed setting the theme value.");
+    match document().document_element()
+    {
+        Some(document_element) =>
+        {
+            match document_element
+                .set_attribute(THEME_ATTRIBUTE_NAME, &theme().to_string().to_lowercase())
+            {
+                Ok(_) => gloo::console::log!("Theme successfully changed."),
+                Err(value) => gloo::console::log!(value),
+            }
 
-    rsx! {
-        Router::<Route> {}
+            rsx! {
+                Router::<Route> {}
 
-        document::Stylesheet {
-            href: asset!("assets/out.css")
+                document::Stylesheet {
+                    href: asset!("assets/out.css")
+                }
+            }
         }
+        None => rsx!(),
     }
 }
 

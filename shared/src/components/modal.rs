@@ -90,15 +90,41 @@ pub fn ModalButton(props: ModalButtonProps) -> Element
     let onclick = {
         crate::clone!(modal_id);
         move |_evt: MouseEvent| {
-            let modal_element = document()
-                .get_element_by_id(modal_id.as_str())
-                .expect("Failed to get modal element by id")
-                .dyn_into::<web_sys::HtmlDialogElement>()
-                .expect("Failed to convert to HtmlDialogElement");
-
-            modal_element
-                .show_modal()
-                .expect("Failed to show modal element");
+            match document().get_element_by_id(modal_id.as_str())
+            {
+                Some(modal_element) =>
+                {
+                    match modal_element.dyn_into::<web_sys::HtmlDialogElement>()
+                    {
+                        Ok(modal_dialog_element) =>
+                        {
+                            match modal_dialog_element.show_modal()
+                            {
+                                Ok(_) =>
+                                {}
+                                Err(_) =>
+                                {
+                                    gloo::console::log!(
+                                        "Failed to show modal element {}",
+                                        &modal_id
+                                    );
+                                }
+                            }
+                        }
+                        Err(value) =>
+                        {
+                            gloo::console::log!(
+                                "Could not get element: {},  as a Dialog Element",
+                                value
+                            );
+                        }
+                    }
+                }
+                None =>
+                {
+                    gloo::console::log!("Unable to get element: {}", &modal_id);
+                }
+            };
         }
     };
 

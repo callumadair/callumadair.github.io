@@ -10,10 +10,7 @@ use crate::{
     AppState,
     repository::{
         connections::SeaOrmDataBaseConnection,
-        traits::{
-            ImageRepository,
-            SoftwareRepository,
-        },
+        traits::SoftwareRepository,
     },
 };
 

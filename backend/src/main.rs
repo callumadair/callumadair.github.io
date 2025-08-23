@@ -1,7 +1,6 @@
-use std::{
-    sync::Arc,
-    time::Duration,
-};
+use std::
+    sync::Arc
+;
 
 use actix_settings::{
     ApplySettings,
@@ -17,10 +16,6 @@ use actix_web::{
     },
     web::Data,
 };
-use migration::{
-    Migrator,
-    MigratorTrait,
-};
 use portfolio_backend_lib::{
     AppState,
     http_api::handlers::{
@@ -29,19 +24,6 @@ use portfolio_backend_lib::{
     },
     repository::connections::SeaOrmDataBaseConnection,
 };
-use rustls::{
-    ServerConfig,
-    pki_types::{
-        CertificateDer,
-        PrivateKeyDer,
-        pem::PemObject,
-    },
-};
-use sea_orm::{
-    ConnectOptions,
-    Database,
-    DatabaseConnection,
-};
 use tracing_actix_web::TracingLogger;
 use utoipa_actix_web::AppExt;
 use utoipa_swagger_ui::SwaggerUi;
@@ -49,7 +31,7 @@ use utoipa_swagger_ui::SwaggerUi;
 const DATABASE_PATH: &str = "postgres://postgres:password@localhost:5432";
 
 #[tokio::main]
-async fn main() -> color_eyre::Result<()>
+async fn main() -> portfolio_backend_lib::error::Result<()>
 {
     color_eyre::install()?;
     let mut settings = Settings::parse_toml("./Server.toml")?;
@@ -60,7 +42,7 @@ async fn main() -> color_eyre::Result<()>
     Settings::override_field_with_env_var(&mut settings.actix.hosts, "APPLICATION__HOSTS")?;
 
     init_logger(&settings);
-    let repository = SeaOrmDataBaseConnection::new(DATABASE_PATH).await.unwrap();
+    let repository = SeaOrmDataBaseConnection::new(DATABASE_PATH).await?;
     // let rustls_config = load_rustls_config()?;
 
     HttpServer::new({
@@ -127,36 +109,26 @@ fn init_logger(settings: &Settings)
 
     tracing_subscriber::fmt::init();
 }
-async fn init_database() -> color_eyre::Result<DatabaseConnection>
-{
-    let mut opt = ConnectOptions::new(DATABASE_PATH);
-    opt.max_connections(100)
-        .min_connections(5)
-        .connect_timeout(Duration::from_secs(10))
-        .idle_timeout(Duration::from_secs(10))
-        .max_lifetime(Duration::from_secs(30))
-        .sqlx_logging(true);
-    let db_conn: DatabaseConnection = Database::connect(opt).await?;
-    Migrator::up(&db_conn, None).await?;
 
-    Ok(db_conn)
-}
+// TODO (CA): Actually start using this.
+// #[allow(dead_code)]
+// fn load_rustls_config() ->
+// portfolio_backend_lib::error::Result<rustls::ServerConfig>
+// {
+//     rustls::crypto::aws_lc_rs::default_provider()
+//         .install_default()?;
 
-fn load_rustls_config() -> color_eyre::Result<rustls::ServerConfig>
-{
-    rustls::crypto::aws_lc_rs::default_provider()
-        .install_default()
-        .unwrap();
+//     // load TLS key/cert files
+//     let cert_chain =
+// CertificateDer::pem_file_iter("cert.pem")?
+//         .flatten()
+//         .collect();
 
-    // load TLS key/cert files
-    let cert_chain = CertificateDer::pem_file_iter("cert.pem")?
-        .flatten()
-        .collect();
+//     let key_der =
+// PrivateKeyDer::from_pem_file("key.pem")?;
 
-    let key_der = PrivateKeyDer::from_pem_file("key.pem")?;
-
-    let server_config = ServerConfig::builder()
-        .with_no_client_auth()
-        .with_single_cert(cert_chain, key_der)?;
-    Ok(server_config)
-}
+//     let server_config = ServerConfig::builder()
+//         .with_no_client_auth()
+//         .with_single_cert(cert_chain, key_der)?;
+//     Ok(server_config)
+// }

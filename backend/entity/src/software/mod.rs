@@ -2,8 +2,7 @@ use actix_web::{
     HttpRequest,
     HttpResponse,
     Responder,
-    body::BoxBody,
-    http::header::ContentType,
+    body::EitherBody,
 };
 use bon::bon;
 use sea_orm::{
@@ -79,21 +78,18 @@ impl Model
 
 impl Responder for Model
 {
-    type Body = BoxBody;
+    type Body = EitherBody<String>;
 
     fn respond_to(
         self,
         _req: &HttpRequest,
     ) -> HttpResponse<Self::Body>
     {
-        let body = serde_json::to_string(&self).unwrap();
-
-        HttpResponse::Ok()
-            .content_type(ContentType::json())
-            .body(body)
+        let json = actix_web::web::Json(self);
+        json.respond_to(_req)
     }
 }
-//
+
 impl From<Model> for shared::software::SoftwareTool
 {
     fn from(value: Model) -> Self

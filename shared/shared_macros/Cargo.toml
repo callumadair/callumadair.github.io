@@ -1,14 +1,17 @@
 [package]
-name = "shared-macros"
-version = "0.1.0"
-edition = "2024"
-rust-version = "1.85.0"
-description = "Procedural Macros for use across crates."
-readme = "README.md"
+    name         = "shared-macros"
+    version      = "0.1.0"
+    edition      = "2024"
+    rust-version = "1.85.0"
+    description  = "Procedural Macros for use across crates."
+    readme       = "README.md"
+    repository   = "https://github.com/callumadair/callumadair.github.io/tree/convert-to-dioxus/shared/shared_macros"
+    license      = "MIT"
+    categories = ["Macros"]
 
 [dependencies]
-quote = "1.0.38"
-syn = "2.0.98"
+    quote = "1.0.38"
+    syn   = "2.0.98"
 
 [lib]
-proc-macro = true
+    proc-macro = true

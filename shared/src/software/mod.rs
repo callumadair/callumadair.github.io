@@ -1,7 +1,6 @@
 #[cfg(feature = "backend")]
 use actix_web::{
-    body::BoxBody,
-    http::header::ContentType,
+    body::EitherBody,
     HttpRequest,
     HttpResponse,
     Responder,
@@ -103,16 +102,14 @@ impl IntoDynNode for SoftwareTool
 #[cfg(feature = "backend")]
 impl Responder for SoftwareTool
 {
-    type Body = BoxBody;
+    type Body = EitherBody<String>;
 
     fn respond_to(
         self,
         _req: &HttpRequest,
     ) -> HttpResponse<Self::Body>
     {
-        let body = serde_json::to_string(&self).unwrap();
-        HttpResponse::Ok()
-            .content_type(ContentType::json())
-            .body(body)
+        let json = actix_web::web::Json(&self);
+        json.respond_to(_req)
     }
 }

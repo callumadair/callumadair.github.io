@@ -11,6 +11,8 @@ use crate::{
         software::CreateSoftwareRequest,
     },
 };
+
+#[allow(async_fn_in_trait)]
 pub trait ImageRepository: Clone + Send + Sync + 'static
 {
     async fn create_image(
@@ -19,6 +21,7 @@ pub trait ImageRepository: Clone + Send + Sync + 'static
     ) -> Result<ImageModel>;
 }
 
+#[allow(async_fn_in_trait)]
 pub trait SoftwareRepository: Clone + Send + Sync + 'static
 {
     async fn create_software(
