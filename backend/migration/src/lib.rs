@@ -1,3 +1,4 @@
+pub mod error;
 pub use sea_orm_migration::prelude::*;
 
 mod m20250216_151738_software_tools;

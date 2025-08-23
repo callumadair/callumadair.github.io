@@ -1,46 +1,58 @@
+use entity::software::types::{
+    SoftwareLongDescription,
+    SoftwareName,
+    SoftwareShortDescription,
+    SoftwareWebLink,
+};
 use sea_orm_migration::{
     prelude::*,
     schema::*,
 };
 
-use crate::sea_orm::ActiveModelTrait;
+use crate::{
+    error::MigrationError,
+    sea_orm::ActiveModelTrait,
+};
 
 #[derive(DeriveMigrationName)]
 pub struct Migration;
 impl Migration
 {
-    async fn seed_data(db_conn: &SchemaManagerConnection<'_>) -> Result<(), DbErr>
+    async fn seed_data(db_conn: &SchemaManagerConnection<'_>) -> Result<(), MigrationError>
     {
         entity::software::ActiveModel::builder()
             .id(1)
-            .name("Starship")
-            .short_desc("A nice modern terminal prompt")
-            .long_desc("Starship is neat")
-            .web_link("https://starship.rs")
+            .name(SoftwareName::new("Starship")?)
+            .short_desc(SoftwareShortDescription::new(
+                "A nice modern terminal prompt",
+            )?)
+            .long_desc(SoftwareLongDescription::new("Starship is neat")?)
+            .web_link(SoftwareWebLink::new("https://starship.rs")?)
             .build()
-            .map_err(|entity_err| DbErr::Custom(entity_err.to_string()))?
             .insert(db_conn)
             .await?;
 
         entity::software::ActiveModel::builder()
             .id(2)
-            .name("Hyperfine")
-            .short_desc("A benchmarking tool written in rust")
-            .long_desc("Hyperfine is neat")
-            .web_link("https://github.com/sharkdp/hyperfine")
+            .name(SoftwareName::new("Hyperfine")?)
+            .short_desc(SoftwareShortDescription::new(
+                "A benchmarking tool written in rust",
+            )?)
+            .long_desc(SoftwareLongDescription::new("Hyperfine is neat")?)
+            .web_link(SoftwareWebLink::new(
+                "https://github.com/sharkdp/hyperfine",
+            )?)
             .build()
-            .map_err(|entity_err| DbErr::Custom(entity_err.to_string()))?
             .insert(db_conn)
             .await?;
 
         entity::software::ActiveModel::builder()
             .id(3)
-            .name("Nushell")
-            .short_desc("A new way of doing shells")
-            .long_desc("Nushell is neat")
-            .web_link("https://www.nushell.sh")
+            .name(SoftwareName::new("Nushell")?)
+            .short_desc(SoftwareShortDescription::new("A new way of doing shells")?)
+            .long_desc(SoftwareLongDescription::new("Nushell is neat")?)
+            .web_link(SoftwareWebLink::new("https://www.nushell.sh")?)
             .build()
-            .map_err(|entity_err| DbErr::Custom(entity_err.to_string()))?
             .insert(db_conn)
             .await?;
         Ok(())
@@ -69,7 +81,10 @@ impl MigrationTrait for Migration
             )
             .await?;
         let db = manager.get_connection();
-        Self::seed_data(db).await?;
+        Self::seed_data(db)
+            .await
+            .map_err(|migration_error| DbErr::Custom(migration_error.to_string()))?;
+
         Ok(())
     }
 

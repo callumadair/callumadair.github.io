@@ -1,27 +1,25 @@
 [package]
-name = "migration"
-version = "0.1.0"
-edition = "2021"
-publish = false
+    name    = "migration"
+    version = "0.1.0"
+    edition = "2021"
+    publish = false
 
 [lib]
-name = "migration"
-path = "src/lib.rs"
+    name = "migration"
+    path = "src/lib.rs"
 
 [dependencies]
-async-std = { version = "1", features = ["attributes", "tokio1"] }
-entity = { path = "../entity" }
+    async-std           = { version = "1", features = [ "attributes", "tokio1" ] }
+    entity              = { path = "../entity" }
+    thiserror.workspace = true
 
-[dependencies.sea-orm-migration]
-version = "1.1.0"
-features = [
-    "runtime-tokio-rustls",
-    "sqlx-postgres"
-]
-optional = true
+    [dependencies.sea-orm-migration]
+        version  = "1.1.0"
+        features = [ "runtime-tokio-rustls", "sqlx-postgres" ]
+        optional = true
 
 [lints]
-workspace = true
+    workspace = true
 
 [features]
-sea-orm = ["dep:sea-orm-migration"]
+    sea-orm = [ "dep:sea-orm-migration" ]

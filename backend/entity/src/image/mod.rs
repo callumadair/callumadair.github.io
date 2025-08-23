@@ -59,9 +59,9 @@ impl ActiveModel
     #[builder]
     pub fn new(
         id: Option<i32>,
-        software_tool_id: i32,
-        url: &str,
-    ) -> crate::Result<Self>
+        software_tool_id: SoftwareToolId,
+        image_url: ImageURL,
+    ) -> Self
     {
         let id = match id
         {
@@ -69,10 +69,10 @@ impl ActiveModel
             None => ActiveValue::NotSet,
         };
 
-        Ok(Self {
+        Self {
             id,
-            software_tool_id: SoftwareToolId::new(software_tool_id).into_active_value(),
-            image_url: ImageURL::new(url)?.into_active_value(),
-        })
+            software_tool_id: software_tool_id.into_active_value(),
+            image_url: image_url.into_active_value(),
+        }
     }
 }

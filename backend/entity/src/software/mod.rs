@@ -113,24 +113,24 @@ impl ActiveModel
     #[builder]
     pub fn new(
         id: Option<i32>,
-        name: &str,
-        short_desc: &str,
-        long_desc: &str,
-        web_link: &str,
-    ) -> crate::Result<Self>
+        name: SoftwareName,
+        short_desc: SoftwareShortDescription,
+        long_desc: SoftwareLongDescription,
+        web_link: SoftwareWebLink,
+    ) -> Self
     {
         let id = match id
         {
             Some(value) => ActiveValue::Set(value),
             None => ActiveValue::NotSet,
         };
-        Ok(Self {
+        Self {
             id,
-            name: SoftwareName::new(name)?.into_active_value(),
-            short_desc: SoftwareShortDescription::new(short_desc)?.into_active_value(),
-            long_desc: SoftwareLongDescription::new(long_desc)?.into_active_value(),
-            web_link: SoftwareWebLink::new(web_link)?.into_active_value(),
-        })
+            name: name.into_active_value(),
+            short_desc: short_desc.into_active_value(),
+            long_desc: long_desc.into_active_value(),
+            web_link: web_link.into_active_value(),
+        }
     }
 }
 
