@@ -31,8 +31,6 @@ pub mod models;
 pub enum BackendError
 {
     #[error("{0}")]
-    ActixWeb(#[from] actix_web::Error),
-    #[error("{0}")]
     ActixSettings(#[from] actix_settings::Error),
     #[error("{0}")]
     ColorEyreReport(#[from] color_eyre::Report),
@@ -54,7 +52,6 @@ impl ResponseError for BackendError
     {
         match self
         {
-            Self::ActixWeb(inner) => inner.as_response_error().status_code(),
             Self::ActixSettings(_)
             | Self::ColorEyreReport(_)
             | Self::Database(_)
