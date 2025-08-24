@@ -1,6 +1,4 @@
-use dioxus::{
-    prelude::*,
-};
+use dioxus::prelude::*;
 use strum::{
     AsRefStr,
     Display,

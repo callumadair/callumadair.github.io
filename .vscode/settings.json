@@ -10,6 +10,7 @@
         "Development Tooling",
         "Linting",
         "Comments",
-        "Git"
+        "Git",
+        "Formatting"
     ]
 }

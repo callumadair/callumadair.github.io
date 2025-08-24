@@ -1,5 +1,8 @@
 use actix_web::http::StatusCode;
-use entity::{image::types::ImageURL, software::types::SoftwareName};
+use entity::{
+    image::types::ImageURL,
+    software::types::SoftwareName,
+};
 use shared::{
     impl_nested_error,
     impl_nested_status_code,

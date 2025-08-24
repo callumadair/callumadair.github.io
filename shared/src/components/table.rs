@@ -11,9 +11,7 @@ use web_sys::{
 
 use crate::{
     components::{
-        input::
-            SearchInput
-        ,
+        input::SearchInput,
         table::dioxus_elements::KeyboardEvent,
     },
     traits::contains::Contains,
