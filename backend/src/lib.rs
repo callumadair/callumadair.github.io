@@ -43,3 +43,33 @@ where
 
     pub fn service(&self) -> &Arc<S> { &self.service }
 }
+
+#[cfg(test)]
+mod tests
+{
+    use super::*;
+    use crate::{
+        error::Result,
+        metrics::types::CounterName,
+    };
+
+    // TODO (CA): replace with real test at some point.
+    // A dummy test to enable CI jobs to run happily.
+    #[tokio::test]
+    async fn test_new() -> Result<()>
+    {
+        let repository =
+            SeaOrmDataBaseConnection::new("postgres://postgres:password@localhost:5432").await?;
+        let software_opts = prometheus::Opts::new(
+            "software_creation_failure",
+            "Number of attempts to create a software entry that have failed.",
+        );
+        let prometheus_client = Prometheus::builder()
+            .counter_opt(CounterName::SoftwareCreationFailure, software_opts)
+            .build()?;
+        let service = Service::new(repository, prometheus_client);
+        let _app_state = AppState::new(service);
+
+        Ok(())
+    }
+}
