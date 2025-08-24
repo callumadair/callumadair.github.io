@@ -29,7 +29,7 @@ use super::types::{
 };
 use crate::{
     error::Result,
-    repository::traits::{
+    repositories::traits::{
         ImageRepository,
         SoftwareRepository,
     },
