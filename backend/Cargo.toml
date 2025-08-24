@@ -42,10 +42,12 @@
     ] }
     serde_json.workspace = true
     shared = { path = "../shared", features = [ "backend" ] }
+    strum.workspace = true
     thiserror.workspace = true
     tokio = { version = "1.43.0", features = [ "rt", "rt-multi-thread", "macros" ] }
     tracing-actix-web = { version = "0.7.15" }
     tracing-subscriber.workspace = true
+    tracing.workspace = true
     utoipa.workspace = true
     utoipa-actix-web = { version = "0.1.2" }
     utoipa-swagger-ui = { version = "9.0.0", features = [ "actix-web", "debug-embed" ] }

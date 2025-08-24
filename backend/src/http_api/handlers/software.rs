@@ -20,6 +20,7 @@ use crate::{
 #[get("/index")]
 async fn index(state: web::Data<DefaultAppState>) -> crate::error::Result<impl Responder>
 {
+    tracing::warn!("Request to return all software tools received.");
     let software_tools = state.service.get_all_software_tools().await?;
 
     Ok(HttpResponse::Ok().json(software_tools))

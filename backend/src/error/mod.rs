@@ -40,6 +40,8 @@ pub enum BackendError
     DomainModelError(#[from] DomainModelError),
     #[error("Entity error: {0}")]
     EntityError(#[from] EntityError),
+    #[error("Hash map value missing for given key: {0}.")]
+    HashMapValueMissing(String),
     #[error("{0}")]
     IoError(#[from] std::io::Error),
     #[error("{0}")]
@@ -57,6 +59,7 @@ impl ResponseError for BackendError
             Self::ActixSettings(_)
             | Self::ColorEyreReport(_)
             | Self::Database(_)
+            | Self::HashMapValueMissing(_)
             | Self::IoError(_)
             | Self::PrometheusError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             Self::DomainModelError(model_error) => model_error.status_code(),

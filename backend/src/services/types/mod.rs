@@ -65,11 +65,11 @@ where
         let result = self.repository.create_image(req).await;
         if result.is_err()
         {
-            self.metrics_client.record_image_creation_failure().await;
+            self.metrics_client.record_image_creation_failure().await?;
         }
         else
         {
-            self.metrics_client.record_image_creation_success().await;
+            self.metrics_client.record_image_creation_success().await?;
         }
         result
     }

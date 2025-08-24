@@ -9,7 +9,10 @@ use prometheus::{
 };
 
 use crate::{
-    error::Result,
+    error::{
+        BackendError,
+        Result,
+    },
     metrics::traits::{
         ImageMetrics,
         SoftwareMetrics,
@@ -17,7 +20,7 @@ use crate::{
 };
 
 #[non_exhaustive]
-#[derive(Clone, Debug, PartialEq, Eq, Hash)]
+#[derive(Clone, Debug, PartialEq, Eq, Hash, strum::Display)]
 pub enum CounterName
 {
     SoftwareCreationFailure,
@@ -48,7 +51,11 @@ impl Prometheus
         {
             let counter = Counter::with_opts(counter_opt)?;
             registry.register(Box::new(counter.clone()))?;
-            counters.insert(name, counter);
+            match counters.insert(name.clone(), counter)
+            {
+                Some(_) => tracing::warn!("Counter already exists for this counter name: {name}"),
+                None => tracing::info!("New counter inserted for name: {name}"),
+            }
         }
         Ok(Self { counters, registry })
     }
@@ -58,10 +65,15 @@ impl Prometheus
     pub fn increment_counter(
         &self,
         counter_name: CounterName,
-    )
+    ) -> Result<()>
     {
-        let counter = self.counters.get(&counter_name).unwrap().clone();
+        let counter = self
+            .counters
+            .get(&counter_name)
+            .ok_or(BackendError::HashMapValueMissing(counter_name.to_string()))?
+            .clone();
         counter.inc();
+        Ok(())
     }
 }
 
@@ -80,14 +92,14 @@ impl<S: prometheus_builder::State> PrometheusBuilder<S>
 
 impl ImageMetrics for Prometheus
 {
-    async fn record_image_creation_failure(&self) -> ()
+    async fn record_image_creation_failure(&self) -> Result<()>
     {
-        self.increment_counter(CounterName::ImageCreationFailure);
+        self.increment_counter(CounterName::ImageCreationFailure)
     }
 
-    async fn record_image_creation_success(&self) -> ()
+    async fn record_image_creation_success(&self) -> Result<()>
     {
-        self.increment_counter(CounterName::ImageCreationSuccess);
+        self.increment_counter(CounterName::ImageCreationSuccess)
     }
 }
 

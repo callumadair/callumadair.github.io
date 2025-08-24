@@ -107,7 +107,7 @@ fn init_logger(settings: &Settings)
             "RUST_LOG",
             match settings.actix.mode
             {
-                Mode::Development => "actix_web=debug",
+                Mode::Development => "actix_web=trace",
                 Mode::Production => "actix_web=info",
             },
         );
@@ -115,7 +115,17 @@ fn init_logger(settings: &Settings)
         std::env::set_var("RUST_BACKTRACE", "1");
     }
 
-    tracing_subscriber::fmt::init();
+    tracing_subscriber::fmt()
+        .with_timer(tracing_subscriber::fmt::time::uptime())
+        .with_ansi(true)
+        .with_target(false)
+        .with_level(true)
+        .with_thread_ids(false)
+        .with_thread_names(false)
+        .with_file(true)
+        .with_line_number(true)
+        .compact()
+        .init();
 }
 
 // TODO (CA): Actually start using this.
