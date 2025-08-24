@@ -105,11 +105,11 @@ impl ImageMetrics for Prometheus
 
 impl SoftwareMetrics for Prometheus
 {
-    async fn record_software_creation_failure(&self) -> () {}
+    async fn record_software_creation_failure(&self) {}
 
-    async fn record_software_creation_success(&self) -> () {}
+    async fn record_software_creation_success(&self) {}
 
-    async fn record_get_all_software_failure(&self) -> () {}
+    async fn record_get_all_software_failure(&self) {}
 
-    async fn record_get_all_software_success(&self) -> () {}
+    async fn record_get_all_software_success(&self) {}
 }
