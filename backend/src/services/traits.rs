@@ -14,7 +14,7 @@ use crate::{
     },
 };
 
-pub trait ImageRepository: Clone + Send + Sync + 'static
+pub trait ImageService: Clone + Send + Sync + 'static
 {
     fn create_image(
         &self,
@@ -22,7 +22,7 @@ pub trait ImageRepository: Clone + Send + Sync + 'static
     ) -> impl Future<Output = Result<ImageModel>> + Send;
 }
 
-pub trait SoftwareRepository: Clone + Send + Sync + 'static
+pub trait SoftwareService: Clone + Send + Sync + 'static
 {
     fn create_software(
         &self,

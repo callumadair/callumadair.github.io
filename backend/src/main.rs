@@ -1,7 +1,3 @@
-use std::
-    sync::Arc
-;
-
 use actix_settings::{
     ApplySettings,
     Mode,
@@ -22,7 +18,12 @@ use portfolio_backend_lib::{
         self,
         index::index,
     },
-    repository::connections::SeaOrmDataBaseConnection,
+    metrics::types::{
+        CounterName,
+        Prometheus,
+    },
+    repositories::connections::SeaOrmDataBaseConnection,
+    services::types::Service,
 };
 use tracing_actix_web::TracingLogger;
 use utoipa_actix_web::AppExt;
@@ -43,12 +44,21 @@ async fn main() -> portfolio_backend_lib::error::Result<()>
 
     init_logger(&settings);
     let repository = SeaOrmDataBaseConnection::new(DATABASE_PATH).await?;
+    let software_opts = prometheus::Opts::new(
+        "software_creation_failure",
+        "Number of attempts to create a software entry that have failed.",
+    );
+    let prometheus_client = Prometheus::builder()
+        .counter_opt(CounterName::SoftwareCreationFailure, software_opts)
+        .build()?;
+    let service = Service::new(repository, prometheus_client);
+    let app_state = AppState::new(service);
     // let rustls_config = load_rustls_config()?;
 
     HttpServer::new({
         // clone settings into each worker thread
         let settings = settings.clone();
-        let repository = Arc::new(repository.clone());
+        let app_state = app_state.clone();
 
         move || {
             App::new()
@@ -59,9 +69,7 @@ async fn main() -> portfolio_backend_lib::error::Result<()>
                         Compress::default(),
                     ))
                         .app_data(Data::new(settings.clone()))
-                        .app_data(Data::new(
-                        AppState{repository: repository.clone()}
-                        ))
+                        .app_data(Data::new(app_state.clone()))
                         .wrap(TracingLogger::default())
                 )
                 .service(index)

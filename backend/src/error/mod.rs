@@ -42,6 +42,8 @@ pub enum BackendError
     EntityError(#[from] EntityError),
     #[error("{0}")]
     IoError(#[from] std::io::Error),
+    #[error("{0}")]
+    PrometheusError(#[from] prometheus::Error),
 }
 impl_nested_error!(BackendError, DomainModelError, CreateModelError);
 impl_nested_error!(BackendError, EntityError, InstantiationError);
@@ -55,7 +57,8 @@ impl ResponseError for BackendError
             Self::ActixSettings(_)
             | Self::ColorEyreReport(_)
             | Self::Database(_)
-            | Self::IoError(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            | Self::IoError(_)
+            | Self::PrometheusError(_) => StatusCode::INTERNAL_SERVER_ERROR,
             Self::DomainModelError(model_error) => model_error.status_code(),
             Self::EntityError(entity_error) => entity_error.status_code(),
         }

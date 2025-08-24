@@ -26,7 +26,7 @@ impl MigrationTrait for Migration
                     .if_not_exists()
                     .col(pk_auto(Images::Id))
                     .col(integer(SoftwareToolId))
-                    .col(string(Images::Path))
+                    .col(string(Images::ImageUrl))
                     .foreign_key(
                         ForeignKeyCreateStatement::new()
                             .name("fk-software-tool-id")
@@ -57,5 +57,5 @@ enum Images
     Table,
     Id,
     SoftwareToolId,
-    Path,
+    ImageUrl,
 }

@@ -7,11 +7,8 @@ use actix_web::{
 };
 
 use crate::{
-    AppState,
-    repository::{
-        connections::SeaOrmDataBaseConnection,
-        traits::SoftwareRepository,
-    },
+    DefaultAppState,
+    services::traits::SoftwareService,
 };
 
 #[utoipa::path(
@@ -21,11 +18,9 @@ use crate::{
     )
 )]
 #[get("/index")]
-async fn index(
-    state: web::Data<AppState<SeaOrmDataBaseConnection>>
-) -> crate::error::Result<impl Responder>
+async fn index(state: web::Data<DefaultAppState>) -> crate::error::Result<impl Responder>
 {
-    let software_tools = state.repository.get_all_software_tools().await?;
+    let software_tools = state.service.get_all_software_tools().await?;
 
     Ok(HttpResponse::Ok().json(software_tools))
 }
@@ -39,11 +34,11 @@ async fn index(
 #[post("/create")]
 async fn create(
     web::Json(new_entry): web::Json<shared::software::SoftwareTool>,
-    state: web::Data<AppState<SeaOrmDataBaseConnection>>,
+    state: web::Data<DefaultAppState>,
 ) -> crate::error::Result<impl Responder>
 {
     let new_entry = state
-        .repository
+        .service
         .create_software(&new_entry.try_into()?)
         .await?;
 
