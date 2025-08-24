@@ -53,7 +53,7 @@ impl TryFrom<SoftwareTool> for CreateSoftwareRequest
                 value
                     .image_links
                     .iter()
-                    // TODO (CA): Kill this unwrap
+                    // TODO (CA): capture the output of this result somehow.
                     .filter_map(|link| {
                         let image_url_res = ImageURL::new(link);
                         image_url_res.ok()
