@@ -23,8 +23,14 @@ RUN apk add \
     webkit2gtk-4.1-dev
 
 
+# Add additional rustup components as needed
 RUN rustup component add clippy
 RUN rustup +nightly component add rustfmt
+
+# Add binary tools for CI/CD
+RUN cargo install cargo-binstall
+RUN cargo binstall cargo-llvm-cov
+RUN cargo binstall cargo-nextest
 
 # This enables us to skip the build script, and not use tailwind etc.
 ENV SKIP_BUILD_SCRIPT="1"
