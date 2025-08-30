@@ -6,10 +6,7 @@ use crate::{
     metrics::types::Prometheus,
     repositories::connections::SeaOrmDataBaseConnection,
     services::{
-        traits::{
-            ImageService,
-            SoftwareService,
-        },
+        traits::SoftwareService,
         types::Service,
     },
 };
@@ -26,14 +23,14 @@ pub type DefaultAppState = AppState<Service<SeaOrmDataBaseConnection, Prometheus
 
 /// Exists for GET requests to query current app state.
 #[derive(Debug, Clone)]
-pub struct AppState<S: ImageService + SoftwareService>
+pub struct AppState<S: SoftwareService>
 {
     service: Arc<S>,
 }
 
 impl<S> AppState<S>
 where
-    S: ImageService + SoftwareService,
+    S: SoftwareService,
 {
     pub fn new(service: S) -> Self
     {

@@ -5,30 +5,21 @@ use entity::{
 
 use crate::{
     error::Result,
-    metrics::traits::{
-        ImageMetrics,
-        SoftwareMetrics,
-    },
+    metrics::traits::SoftwareMetrics,
     repositories::{
-        traits::{
-            ImageRepository,
-            SoftwareRepository,
-        },
+        traits::SoftwareRepository,
         types::{
             image::CreateImageRequest,
             software::CreateSoftwareRequest,
         },
     },
-    services::traits::{
-        ImageService,
-        SoftwareService,
-    },
+    services::traits::SoftwareService,
 };
 
 #[derive(Debug, Clone)]
 pub struct Service<R, M>
 where
-    R: ImageRepository + SoftwareRepository,
+    R: SoftwareRepository,
     M: SoftwareMetrics,
 {
     repository:     R,
@@ -37,8 +28,8 @@ where
 
 impl<R, M> Service<R, M>
 where
-    R: ImageRepository + SoftwareRepository,
-    M: ImageMetrics + SoftwareMetrics,
+    R: SoftwareRepository,
+    M: SoftwareMetrics,
 {
     pub fn new(
         repository: R,
@@ -52,10 +43,10 @@ where
     }
 }
 
-impl<R, M> ImageService for Service<R, M>
+impl<R, M> SoftwareService for Service<R, M>
 where
-    R: ImageRepository + SoftwareRepository,
-    M: ImageMetrics + SoftwareMetrics,
+    R: SoftwareRepository,
+    M: SoftwareMetrics,
 {
     async fn create_image(
         &self,
@@ -73,13 +64,7 @@ where
         }
         result
     }
-}
 
-impl<R, M> SoftwareService for Service<R, M>
-where
-    R: ImageRepository + SoftwareRepository,
-    M: SoftwareMetrics,
-{
     async fn create_software(
         &self,
         req: &CreateSoftwareRequest,

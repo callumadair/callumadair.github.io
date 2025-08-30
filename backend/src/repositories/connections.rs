@@ -29,10 +29,7 @@ use super::types::{
 };
 use crate::{
     error::Result,
-    repositories::traits::{
-        ImageRepository,
-        SoftwareRepository,
-    },
+    repositories::traits::SoftwareRepository,
 };
 
 /// Exists for GET requests to query current app state.
@@ -64,7 +61,7 @@ impl SeaOrmDataBaseConnection
     }
 }
 
-impl ImageRepository for SeaOrmDataBaseConnection
+impl SoftwareRepository for SeaOrmDataBaseConnection
 {
     async fn create_image(
         &self,
@@ -79,10 +76,7 @@ impl ImageRepository for SeaOrmDataBaseConnection
 
         Ok(entry)
     }
-}
 
-impl SoftwareRepository for SeaOrmDataBaseConnection
-{
     async fn create_software(
         &self,
         req: &CreateSoftwareRequest,

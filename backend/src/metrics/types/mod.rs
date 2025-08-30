@@ -13,10 +13,7 @@ use crate::{
         BackendError,
         Result,
     },
-    metrics::traits::{
-        ImageMetrics,
-        SoftwareMetrics,
-    },
+    metrics::traits::SoftwareMetrics,
 };
 
 #[non_exhaustive]
@@ -90,7 +87,7 @@ impl<S: prometheus_builder::State> PrometheusBuilder<S>
     }
 }
 
-impl ImageMetrics for Prometheus
+impl SoftwareMetrics for Prometheus
 {
     async fn record_image_creation_failure(&self) -> Result<()>
     {
@@ -101,10 +98,7 @@ impl ImageMetrics for Prometheus
     {
         self.increment_counter(CounterName::ImageCreationSuccess)
     }
-}
 
-impl SoftwareMetrics for Prometheus
-{
     async fn record_software_creation_failure(&self) {}
 
     async fn record_software_creation_success(&self) {}
