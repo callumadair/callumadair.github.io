@@ -18,6 +18,7 @@ jobs:
         uses: actions/checkout@v4
       - name: Run clippy across the workspace to check for any issues with all feature flags.
         run: cargo clippy --workspace --all-features --all-targets --no-deps
+
   Fmt:
     runs-on: ubuntu-latest
     container: callumadair/rust-runner-image:latest
@@ -26,24 +27,43 @@ jobs:
         uses: actions/checkout@v4
       - name: Check the formatting of all rust files.
         run: cargo +nightly fmt --check
-  Test:
+
+  Test-Backend:
     runs-on: ubuntu-latest
     container: callumadair/rust-runner-image:latest
     steps:
       - name: Checkout the repository to the runner
         uses: actions/checkout@v4
       - name: Generate code coverage
-        run: cargo llvm-cov --all-features --workspace --cobertura --output-path cov.xml
-  Build:
-    needs: [Lint, Fmt]
+        working-directory: ./backend
+        run: cargo llvm-cov --all-features --cobertura --output-path cov.xml
+
+  Test-Frontend:
     runs-on: ubuntu-latest
     container: callumadair/rust-runner-image:latest
+    steps:
+      - name: Checkout the repository to the runner
+        uses: actions/checkout@v4
+      - name: Generate code coverage
+        working-directory: ./frontend
+        run: cargo llvm-cov --all-features --cobertura --output-path cov.xml
+
+  Build-Backend:
+    runs-on: ubuntu-latest
+    container: callumadair/portfolio-backend:latest
     steps:
       - name: Checkout the repository to the runner
         uses: actions/checkout@v4
       - name: Create a release build of the HTTP backend server
         working-directory: ./backend
         run: cargo build --release
+
+  Build-Frontend:
+    runs-on: ubuntu-latest
+    container: callumadair/portfolio-frontend:latest
+    steps:
+      - name: Checkout the repository to the runner
+        uses: actions/checkout@v4
       - name: Create a release build of the Dioxus frontend.
         working-directory: ./frontend
         run: dx build --release
