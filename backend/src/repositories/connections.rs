@@ -3,6 +3,7 @@ use core::time::Duration;
 use entity::{
     image::{
         ActiveModel as ImageActiveModel,
+        ImageEntity,
         ImageModel,
     },
     software::{
@@ -24,8 +25,14 @@ use sea_orm::{
 };
 
 use super::types::{
-    image::CreateImageRequest,
-    software::CreateSoftwareRequest,
+    image::{
+        CreateImageRequest,
+        DeleteImageRequest,
+    },
+    software::{
+        CreateSoftwareRequest,
+        DeleteSoftwareRequest,
+    },
 };
 use crate::{
     error::Result,
@@ -69,7 +76,7 @@ impl SoftwareRepository for SeaOrmDataBaseConnection
     ) -> Result<ImageModel>
     {
         let new_entry = ImageActiveModel::builder()
-            .software_tool_id(req.software_tool_id().clone())
+            .software_tool_id(req.software_id().clone())
             .image_url(req.image_url().clone())
             .build();
         let entry: ImageModel = new_entry.insert(&self.connection).await?;
@@ -96,13 +103,74 @@ impl SoftwareRepository for SeaOrmDataBaseConnection
         for image_link in req.image_urls()
         {
             let create_image_req = CreateImageRequest::builder()
-                .software_tool_id(*entry.id())
+                .software_id(*entry.id())
                 .image_url(&image_link.to_string())?
                 .build();
             self.create_image(&create_image_req).await?;
         }
 
         Ok(entry)
+    }
+
+    async fn delete_image(
+        &self,
+        req: &DeleteImageRequest,
+    ) -> Result<()>
+    {
+        let res = ImageEntity::delete_by_id(req.image_id().as_int())
+            .exec(&self.connection)
+            .await;
+
+        match res
+        {
+            Ok(inner) =>
+            {
+                tracing::info!(
+                    "Successfully deleted {} rows in the images table.",
+                    inner.rows_affected
+                );
+                Ok(())
+            }
+
+            Err(db_err) =>
+            {
+                tracing::error!(
+                    "Error encountered when trying to delete image database record {}",
+                    db_err
+                );
+                Err(db_err.into())
+            }
+        }
+    }
+
+    async fn delete_software(
+        &self,
+        req: &DeleteSoftwareRequest,
+    ) -> Result<()>
+    {
+        let res = SoftwareEntity::delete_by_id(req.id().as_int())
+            .exec(&self.connection)
+            .await;
+
+        match res
+        {
+            Ok(inner) =>
+            {
+                tracing::info!(
+                    "Successfully deleted {} rows in the software tools table.",
+                    inner.rows_affected
+                );
+                Ok(())
+            }
+            Err(db_err) =>
+            {
+                tracing::error!(
+                    "Error encountered when trying to delete software tools record: {}.",
+                    db_err
+                );
+                Err(db_err.into())
+            }
+        }
     }
 
     async fn get_all_software(&self) -> Result<Vec<SoftwareModel>>

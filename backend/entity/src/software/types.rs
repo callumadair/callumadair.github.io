@@ -9,6 +9,16 @@ use crate::{
     impl_into_active_value,
 };
 
+#[derive(Clone, Debug, PartialEq, Eq, DeriveValueType, derive_more::Display)]
+pub struct SoftwareID(i32);
+impl SoftwareID
+{
+    pub fn new(value: i32) -> Self { Self(value) }
+
+    pub fn as_int(&self) -> i32 { self.0 }
+}
+impl_into_active_value!(SoftwareID);
+
 #[derive(
     Clone,
     Debug,

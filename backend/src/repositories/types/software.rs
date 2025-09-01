@@ -1,6 +1,7 @@
 use entity::{
     image::types::ImageURL,
     software::types::{
+        SoftwareID,
         SoftwareLongDescription,
         SoftwareName,
         SoftwareShortDescription,
@@ -62,4 +63,16 @@ impl TryFrom<SoftwareTool> for CreateSoftwareRequest
             )
             .build())
     }
+}
+
+#[derive(bon::Builder)]
+pub struct DeleteSoftwareRequest
+{
+    #[builder(with = |name: i32| {SoftwareID::new(name)})]
+    software_id: SoftwareID,
+}
+
+impl DeleteSoftwareRequest
+{
+    pub fn id(&self) -> &SoftwareID { &self.software_id }
 }

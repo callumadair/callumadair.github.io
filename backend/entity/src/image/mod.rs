@@ -5,9 +5,9 @@ use sea_orm::{
     entity::prelude::*,
 };
 
-use crate::image::types::{
-    ImageURL,
-    SoftwareToolId,
+use crate::{
+    image::types::ImageURL,
+    software::types::SoftwareID,
 };
 
 pub mod types;
@@ -23,7 +23,7 @@ pub struct Model
     #[sea_orm(primary_key)]
     id:               i32,
     #[sea_orm(foreign_key)]
-    software_tool_id: SoftwareToolId,
+    software_tool_id: SoftwareID,
     image_url:        ImageURL,
 }
 
@@ -31,7 +31,7 @@ impl Model
 {
     pub fn id(&self) -> &i32 { &self.id }
 
-    pub fn software_tool_id(&self) -> &SoftwareToolId { &self.software_tool_id }
+    pub fn software_tool_id(&self) -> &SoftwareID { &self.software_tool_id }
 
     pub fn image_url(&self) -> &ImageURL { &self.image_url }
 }
@@ -60,7 +60,7 @@ impl ActiveModel
     #[builder]
     pub fn new(
         id: Option<i32>,
-        software_tool_id: SoftwareToolId,
+        software_tool_id: SoftwareID,
         image_url: ImageURL,
     ) -> Self
     {

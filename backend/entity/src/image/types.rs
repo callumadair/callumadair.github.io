@@ -10,12 +10,14 @@ use crate::{
 };
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveValueType, derive_more::Display)]
-pub struct SoftwareToolId(i32);
-impl SoftwareToolId
+pub struct ImageID(i32);
+impl ImageID
 {
     pub fn new(value: i32) -> Self { Self(value) }
+
+    pub fn as_int(&self) -> i32 { self.0 }
 }
-impl_into_active_value!(SoftwareToolId);
+impl_into_active_value!(ImageID);
 
 #[derive(Clone, Debug, PartialEq, Eq, DeriveValueType, derive_more::Display)]
 pub struct ImageURL(String);
