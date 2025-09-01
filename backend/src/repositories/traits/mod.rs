@@ -9,7 +9,10 @@ use shared::software::SoftwareTool;
 use crate::{
     error::Result,
     repositories::types::{
-        image::{CreateImageRequest, DeleteImageRequest},
+        image::{
+            CreateImageRequest,
+            DeleteImageRequest,
+        },
         software::{
             CreateSoftwareRequest,
             DeleteSoftwareRequest,
