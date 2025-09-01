@@ -109,4 +109,42 @@ where
         }
         result
     }
+
+    async fn delete_image(
+        &self,
+        req: &crate::repositories::types::image::DeleteImageRequest,
+    ) -> Result<()>
+    {
+        let result = self.repository.delete_image(req).await;
+        if result.is_err()
+        {
+            // TODO implement trait methods for metrics
+            // here. self.metrics_client.
+        }
+        else
+        {
+            // TODO implement trait methods for metrics
+            // here. self.
+        }
+        result
+    }
+
+    async fn delete_software(
+        &self,
+        req: &crate::repositories::types::software::DeleteSoftwareRequest,
+    ) -> Result<()>
+    {
+        let result = self.repository.delete_software(req).await;
+        if result.is_err()
+        {
+            // TODO implement trait methods for metrics
+            // here. self.metrics_client.
+        }
+        else
+        {
+            // TODO implement trait methods for metrics
+            // here. self.
+        }
+        result
+    }
 }
