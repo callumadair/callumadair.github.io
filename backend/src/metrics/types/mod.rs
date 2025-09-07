@@ -20,10 +20,18 @@ use crate::{
 #[derive(Clone, Debug, PartialEq, Eq, Hash, strum::Display)]
 pub enum CounterName
 {
-    SoftwareCreationFailure,
-    SoftwareCreationSuccess,
     ImageCreationFailure,
     ImageCreationSuccess,
+    ImageDeletionFailure,
+    ImageDeletionSuccess,
+    ImageReadFailure,
+    ImageReadSuccess,
+    SoftwareCreationFailure,
+    SoftwareCreationSuccess,
+    SoftwareDeletionFailure,
+    SoftwareDeletionSuccess,
+    SoftwareReadFailure,
+    SoftwareReadSuccess,
 }
 
 // TODO actually provide implementations of all of this.
@@ -99,9 +107,29 @@ impl SoftwareMetrics for Prometheus
         self.increment_counter(CounterName::ImageCreationSuccess)
     }
 
+    async fn record_image_deletion_failure(&self) -> Result<()>
+    {
+        self.increment_counter(CounterName::ImageDeletionFailure)
+    }
+
+    async fn record_image_deletion_success(&self) -> Result<()>
+    {
+        self.increment_counter(CounterName::ImageDeletionSuccess)
+    }
+
     async fn record_software_creation_failure(&self) {}
 
     async fn record_software_creation_success(&self) {}
+
+    async fn record_software_deletion_failure(&self) -> Result<()>
+    {
+        self.increment_counter(CounterName::SoftwareDeletionFailure)
+    }
+
+    async fn record_software_deletion_success(&self) -> Result<()>
+    {
+        self.increment_counter(CounterName::SoftwareDeletionSuccess)
+    }
 
     async fn record_get_all_software_failure(&self) {}
 
