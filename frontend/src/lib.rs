@@ -1,3 +1,6 @@
+mod api;
+use std::collections::HashMap;
+
 use dioxus::prelude::*;
 use gloo::{
     storage::{
@@ -6,6 +9,7 @@ use gloo::{
     },
     utils::document,
 };
+use reqwest::Client;
 use serde::{
     Deserialize,
     Serialize,
@@ -21,6 +25,20 @@ use strum::{
 };
 
 use crate::{
+    api::{
+        clients::{
+            reqwest::ReqwestClient,
+            traits::{
+                ApiClient,
+                ApiUrl,
+                ApiUrlMap,
+            },
+        },
+        services::{
+            traits::ApiService,
+            types::Service,
+        },
+    },
     error::pages::{
         Forbidden,
         IAmTeapot,
@@ -85,6 +103,33 @@ enum Route
     #[route("/404")]
     NotFound {},
 }
+
+#[derive(Clone)]
+struct AppState<S>
+where
+    S: ApiService,
+{
+    service: S,
+}
+
+impl<S> AppState<S>
+where
+    S: ApiService,
+{
+    pub fn new(service: S) -> Self { Self { service } }
+}
+
+const STATE: GlobalSignal<AppState<Service<ReqwestClient>>> = Global::new(|| {
+    let api_url_map = HashMap::from([(
+        ApiUrl::SoftwareIndex,
+        "http://localhost.:8080/software/index".into(),
+    )]);
+
+    AppState::new(Service::new(ReqwestClient::new(
+        Client::new(),
+        ApiUrlMap::new(api_url_map),
+    )))
+});
 
 #[component]
 pub fn App() -> Element

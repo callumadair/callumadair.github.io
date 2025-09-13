@@ -21,6 +21,8 @@ pub enum ApiUrl
 
 impl ApiUrlMap
 {
+    pub fn new(inner: HashMap<ApiUrl, String>) -> Self { Self { inner } }
+
     pub fn get_url(
         &self,
         url: &ApiUrl,
