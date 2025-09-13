@@ -1,7 +1,7 @@
 [package]
     name        = "frontend"
     version     = "0.1.0"
-    edition     = "2021"
+    edition     = "2024"
     license     = "MIT"
     repository  = "https://github.com/callumadair/callumadair.github.io"
     description = "My lil personal web app for technology trialling."
