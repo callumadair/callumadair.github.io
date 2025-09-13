@@ -5,6 +5,8 @@ pub type Result<T> = core::result::Result<T, FrontendError>;
 #[derive(Clone, Default, Debug, thiserror::Error)]
 pub enum FrontendError
 {
+    #[error("Hash map value missing for given key: {0}.")]
+    HashMapValueMissing(String),
     #[error("{0}")]
     ReqwestError(#[from] Arc<reqwest::Error>),
     #[error("Unknown error encountered.")]
