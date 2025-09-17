@@ -1,3 +1,5 @@
+use std::sync::Arc;
+
 use shared::software::SoftwareTool;
 
 use crate::{
@@ -12,7 +14,7 @@ use crate::{
 #[derive(Clone, Debug)]
 pub struct ReqwestClient
 {
-    client:    reqwest::Client,
+    client:    Arc<reqwest::Client>,
     url_paths: ApiUrlMap,
 }
 
@@ -23,7 +25,10 @@ impl ReqwestClient
         url_paths: ApiUrlMap,
     ) -> Self
     {
-        Self { client, url_paths }
+        Self {
+            client: Arc::new(client),
+            url_paths,
+        }
     }
 }
 

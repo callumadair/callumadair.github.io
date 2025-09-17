@@ -117,23 +117,24 @@ where
     S: ApiService,
 {
     pub fn new(service: S) -> Self { Self { service } }
+
+    pub fn service(&self) -> &S { &self.service }
 }
-
-const STATE: GlobalSignal<AppState<Service<ReqwestClient>>> = Global::new(|| {
-    let api_url_map = HashMap::from([(
-        ApiUrl::SoftwareIndex,
-        "http://localhost.:8080/software/index".into(),
-    )]);
-
-    AppState::new(Service::new(ReqwestClient::new(
-        Client::new(),
-        ApiUrlMap::new(api_url_map),
-    )))
-});
 
 #[component]
 pub fn App() -> Element
 {
+    use_context_provider(|| {
+        let api_url_map = HashMap::from([(
+            ApiUrl::SoftwareIndex,
+            "http://localhost.:8080/software/index".into(),
+        )]);
+
+        AppState::new(Service::new(ReqwestClient::new(
+            Client::new(),
+            ApiUrlMap::new(api_url_map),
+        )))
+    });
     let theme_value = LocalStorage::get::<Theme>(THEME_STORAGE_KEY).unwrap_or(Theme::default());
     let theme_signal = use_signal(|| theme_value);
     let theme = use_context_provider(|| theme_signal);

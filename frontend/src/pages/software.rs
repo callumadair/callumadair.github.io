@@ -6,6 +6,17 @@ use shared::{
     software::SoftwareTool,
 };
 
+use crate::{
+    AppState,
+    api::{
+        clients::reqwest::ReqwestClient,
+        services::{
+            traits::ApiService,
+            types::Service,
+        },
+    },
+};
+
 // TODO (CA): consider the need for this.
 #[derive(PartialEq, Clone)]
 #[allow(dead_code)]
@@ -47,7 +58,14 @@ pub fn SoftwareBase() -> Element
 #[component]
 fn CLIBase() -> Element
 {
+    let mut app_state: Signal<AppState<Service<ReqwestClient>>> = use_context();
     let cols = Rc::from(["Name", "Description", "Link"].map(String::from));
+    // let rows =
+    //     use_resource(move || async move {
+    // app_state.read().service().get_software_index().await })
+    //         .read()
+    //         .clone()
+    //         .unwrap()?;
     let rows = get_rows();
     let searchable = true;
 

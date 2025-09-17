@@ -36,7 +36,7 @@ impl ApiUrlMap
     }
 }
 
-pub trait ApiClient: Clone
+pub trait ApiClient: Clone + Send + Sync + 'static
 {
     fn get_software_index(&self) -> impl Future<Output = Result<Vec<SoftwareTool>>> + Send;
 }
