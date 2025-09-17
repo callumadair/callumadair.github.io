@@ -1,0 +1,14 @@
+{
+    "recommendations": [
+        "ms-playwright.playwright",
+        "vitest.explorer",
+        "vue.volar",
+        "cordx56.rustowl-vscode",
+        "vadimcn.vscode-lldb",
+        "rust-lang.rust-analyzer",
+        "zhangyue.rust-mod-generator",
+        "ms-azuretools.vscode-docker",
+        "p1c2u.docker-compose",
+        "nuxtr.nuxtr-vscode"
+    ]
+}
