@@ -9,6 +9,7 @@
         "zhangyue.rust-mod-generator",
         "ms-azuretools.vscode-docker",
         "p1c2u.docker-compose",
-        "nuxtr.nuxtr-vscode"
+        "nuxtr.nuxtr-vscode",
+        "biomejs.biome"
     ]
 }
