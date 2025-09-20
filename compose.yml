@@ -2,23 +2,20 @@ services:
   dev-frontend:
     build:
       context: .
-      dockerfile: ./frontend/Dockerfile
+      dockerfile: ./nuxt-frontend/Dockerfile
 
-    command: dx serve --package frontend --port 3000 --addr 0.0.0.0
+    command: bun run dev -o
     ports:
       - "3000:3000"
     develop:
       watch:
         - action: sync+restart
-          path: ./frontend
-          target: /frontend-workspace/frontend
+          path: ./nuxt-frontend
+          target: /frontend-workspace/nuxt-frontend
           ignore:
-            - ./frontend/node_modules/
-            - ./frontend/target/
-            - ./frontend/dist/
-        - action: sync+restart
-          path: ./shared
-          target: /frontend-workspace/shared
+            - ./nuxt-frontend/node_modules/
+            - ./nuxt-frontend/target/
+            - ./nuxt-frontend/dist/
 
   dev-backend:
     build:

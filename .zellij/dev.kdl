@@ -28,9 +28,9 @@ layout {
                 borderless false
             }
             pane {
-                command "dx"
-                args "serve" "--package" "frontend" "--port" "3000" "--addr" "0.0.0.0"
-                cwd "./frontend"
+                command "bun"
+                args "run" "dev" "-o"
+                cwd "./nuxt-frontend"
                 name "Portfolio Frontend (Local)"
                 borderless false
             }

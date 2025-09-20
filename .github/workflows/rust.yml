@@ -10,7 +10,7 @@ env:
   CARGO_TERM_COLOR: always
 
 jobs:
-  Lint:
+  Lint-Backend:
     runs-on: ubuntu-latest
     container: callumadair/rust-runner-image:latest
     steps:
@@ -19,7 +19,7 @@ jobs:
       - name: Run clippy across the workspace to check for any issues with all feature flags.
         run: cargo clippy --workspace --all-features --all-targets --no-deps
 
-  Fmt:
+  Fmt-Backend:
     runs-on: ubuntu-latest
     container: callumadair/rust-runner-image:latest
     steps:
@@ -38,16 +38,6 @@ jobs:
         working-directory: ./backend
         run: cargo llvm-cov --all-features --cobertura --output-path cov.xml
 
-  Test-Frontend:
-    runs-on: ubuntu-latest
-    container: callumadair/rust-runner-image:latest
-    steps:
-      - name: Checkout the repository to the runner
-        uses: actions/checkout@v4
-      - name: Generate code coverage
-        working-directory: ./frontend
-        run: cargo llvm-cov --all-features --cobertura --output-path cov.xml
-
   Build-Backend:
     runs-on: ubuntu-latest
     container: callumadair/portfolio-backend:latest
@@ -57,14 +47,3 @@ jobs:
       - name: Create a release build of the HTTP backend server
         working-directory: ./backend
         run: cargo build --release
-
-  Build-Frontend:
-    runs-on: ubuntu-latest
-    container: callumadair/portfolio-frontend:latest
-    steps:
-      - name: Checkout the repository to the runner
-        uses: actions/checkout@v4
-      - name: Create a release build of the Dioxus frontend.
-        working-directory: ./frontend
-        run: dx build --release
-
