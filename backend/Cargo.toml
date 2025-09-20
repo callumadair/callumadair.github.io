@@ -1,6 +1,67 @@
 # This line needs to come before anything else in Cargo.toml
-# Unfortunately the dioxus cli cries about this, need to find fix to get it to ignore this whole package.
-#cargo-features = ["codegen-backend"]
+# cargo-features = [ "codegen-backend" ]
+
+[workspace]
+    members  = [ "shared", "migration", "entity" ]
+    resolver = "2"
+
+    [workspace.dependencies]
+        bon                = "3.7.1"
+        derive_more        = { version = "2.0.1", features = [ "display" ] }
+        rustls             = "0.23.30"
+        serde              = { version = "1.0.217", features = [ "derive" ] }
+        serde_json         = "1.0.140"
+        shared             = { path = "./shared" }
+        strum              = { version = "0.27.1", features = [ "derive" ] }
+        thiserror          = { version = "2.0.11" }
+        tracing            = "0.1.41"
+        tracing-subscriber = "0.3.19"
+        utoipa             = { version = "5.3.1", features = [ "actix_extras" ] }
+
+
+    [workspace.lints.rust]
+        warnings                = "warn"
+        deprecated-safe         = "warn"
+        future-incompatible     = "warn"
+        keyword-idents          = "warn"
+        let-underscore          = "warn"
+        nonstandard-style       = "warn"
+        refining-impl-trait     = "warn"
+        rust-2024-compatibility = "warn"
+        unused                  = "warn"
+
+    [workspace.lints.clippy]
+        correctness = { level = "warn", priority = -1 }
+        suspicious  = { level = "warn", priority = -1 }
+        complexity  = { level = "warn", priority = -1 }
+        perf        = { level = "warn", priority = -1 }
+        style       = { level = "warn", priority = -1 }
+        cargo       = { level = "warn", priority = -1 }
+
+        # Some things that I want to be warned about in code.
+        unwrap_used   = "warn"
+        expect_used   = "warn"
+        todo          = "warn"
+        unimplemented = "warn"
+
+        # Cargo lints that flag a lot and either don't really matter or I can't do anything about.
+        cargo-common-metadata   = "allow"
+        multiple-crate-versions = "allow"
+
+[profile.dev]
+    # Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`.
+    # codegen-backend = "cranelift"
+    opt-level = 1
+
+    [profile.dev.package."*"]
+        opt-level = 3
+
+
+[profile.server-dev]
+    inherits = "dev"
+
+[profile.android-dev]
+    inherits = "dev"
 
 [package]
     name         = "backend"
@@ -14,7 +75,7 @@
     license      = "MIT"
     keywords     = [ "server", "http", "backend" ]
     categories   = [ "web-programming::http-server", "database" ]
-    workspace    = ".."
+    # workspace    = ".."
 
 [lib]
     path = "./src/lib.rs"
@@ -41,7 +102,7 @@
         "with-json",
     ] }
     serde_json.workspace = true
-    shared = { path = "../shared", features = [ "backend" ] }
+    shared.workspace = true
     strum.workspace = true
     thiserror.workspace = true
     tokio = { version = "1.43.0", features = [ "rt", "rt-multi-thread", "macros" ] }
@@ -57,8 +118,3 @@
 
 [features]
     default = [  ]
-
-[profile.dev]
-    # Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`, and the dioxus cli will cry.
-    #codegen-backend = "cranelift"
-    opt-level = 1

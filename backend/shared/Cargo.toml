@@ -1,0 +1,22 @@
+[package]
+    name        = "shared"
+    version     = "0.1.0"
+    edition     = "2024"
+    license     = "MIT"
+    repository  = "https://github.com/callumadair/callumadair.github.io"
+    readme      = "README.md"
+    keywords    = [ "Types" ]
+    description = "Shared types and functions for doing things on both the frontend and backend."
+    categories  = [ "web-programming" ]
+
+[dependencies]
+    actix-web            = { version = "4.9.0" }
+    chrono               = "0.4.39"
+    derive_more          = { version = "2.0.1", features = [ "display" ] }
+    serde.workspace      = true
+    serde_json.workspace = true
+    strum.workspace      = true
+    utoipa.workspace     = true
+
+[lints]
+    workspace = true
