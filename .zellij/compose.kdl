@@ -19,7 +19,7 @@ layout {
         pane {
             command "docker"
             args "compose" "up" "--build" "--watch" "dev-frontend"
-            cwd "./frontend"
+            cwd "./nuxt-frontend"
             name "Portfolio Frontend (Container)"
             borderless false
         }

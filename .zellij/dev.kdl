@@ -14,7 +14,7 @@ layout {
             pane {
                 command "bacon"
                 args "clippy"
-                cwd "."
+                cwd "./backend"
                 name "Clippy Workspace"
                 borderless false
             }
