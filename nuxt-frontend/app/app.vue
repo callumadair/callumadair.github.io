@@ -1,12 +1,14 @@
 <script setup lang="ts">
-import Navbar from './navbar.vue';
 
 </script>
 
 <template>
-  <div>
+  <UApp>
     <Navbar />
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div>
+    <NuxtPage />
+    <footer class="absolute bottom-0 text-center flex w-full">
+      Copyright Callum Adair 2025
+      <Icon name="lucide:copyright" />
+    </footer>
+  </UApp>
 </template>
