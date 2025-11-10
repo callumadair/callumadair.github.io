@@ -1,2 +1,76 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
+
+@theme static {
+    --color-black-base-50: #F1F1F1;
+    --color-black-base-100: #C8C8C8;
+    --color-black-base-200: #A1A1A1;
+    --color-black-base-300: #7C7C7C;
+    --color-black-base-400: #595959;
+    --color-black-base-500: #383838;
+    /* Main */
+    --color-black-base-600: #1A1A1A;
+    --color-black-highlight-50: #F1F1F1;
+    --color-black-highlight-100: #CFCFCF;
+    --color-black-highlight-200: #A8A8A8;
+    --color-black-highlight-300: #838383;
+    --color-black-highlight-400: #5F5F5F;
+    --color-black-highlight-500: #3E3E3E;
+    /* Main */
+    --color-black-highlight-600: #1F1F1F;
+    /* Main */
+    --color-turquoise-accent-base: #32EFEF;
+    --color-turquoise-accent-100: #27C4C4;
+    --color-turquoise-accent-200: #1C9A9A;
+    --color-turquoise-accent-300: #127373;
+    --color-turquoise-accent-400: #094D4D;
+    --color-turquoise-accent-500: #032B2B;
+    --color-turquoise-accent-600: #011414;
+    /* Main */
+    --color-grey-accent-base: #E6E6E6;
+    --color-grey-accent-100: #BEBEBE;
+    --color-grey-accent-200: #989898;
+    --color-grey-accent-300: #737373;
+    --color-grey-accent-400: #505050;
+    --color-grey-accent-500: #303030;
+    --color-grey-accent-600: #121212;
+    /* Main */
+    --color-white-accent-base: #FFFFFF;
+    --color-white-accent-100: #D6D6D6;
+    --color-white-accent-200: #AFAFAF;
+    --color-white-accent-300: #898989;
+    --color-white-accent-400: #656565;
+    --color-white-accent-500: #434343;
+    --color-white-accent-600: #242424;
+    --color-dark-red-accent-50: #F8E7E8;
+    --color-dark-red-accent-100: #EBB5B9;
+    --color-dark-red-accent-200: #E27F87;
+    /* Main */
+    --color-dark-red-accent-300: #CE4857;
+    --color-dark-red-accent-400: #94313C;
+    --color-dark-red-accent-500: #5E1C24;
+    --color-dark-red-accent-600: #2D090D;
+    --color-medium-red-accent-50: #F4DEE0;
+    --color-medium-red-accent-100: #E6ADB2;
+    /* Main */
+    --color-medium-red-accent-200: #DB7883;
+    --color-medium-red-accent-300: #BD4A59;
+    --color-medium-red-accent-400: #86323D;
+    --color-medium-red-accent-500: #521B23;
+    --color-medium-red-accent-600: #23080B;
+    --color-light-red-accent-50: #F4DADD;
+    --color-light-red-accent-100: #E8A8AF;
+    /* Main */
+    --color-light-red-accent-200: #DF7080;
+    --color-light-red-accent-300: #BD4458;
+    --color-light-red-accent-400: #852D3C;
+    --color-light-red-accent-500: #501821;
+    --color-light-red-accent-600: #24070B;
+    --color-red-grey-accent-50: #F1F0F0;
+    --color-red-grey-accent-100: #CCC7C8;
+    --color-red-grey-accent-200: #A99FA1;
+    --color-red-grey-accent-300: #87797C;
+    --color-red-grey-accent-400: #615659;
+    --color-red-grey-accent-500: #3D3638;
+    --color-red-grey-accent-600: #1D191A;
+}
