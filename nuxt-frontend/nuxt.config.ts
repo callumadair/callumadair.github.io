@@ -19,5 +19,10 @@ export default defineNuxtConfig({
 			host: "0.0.0.0",
 			port: 3090
 		}
+	},
+	ui: {
+		theme: {
+			colors: ["primary", "secondary", "tertiary", "quarternary", "quinternary", "success", "error", "info", "warning", "neutral", "neutralHighlight"]
+		}
 	}
 });

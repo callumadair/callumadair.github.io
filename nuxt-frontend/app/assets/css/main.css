@@ -1,15 +1,21 @@
 @import "tailwindcss";
 @import "@nuxt/ui";
 
+:root {
+    --ui-primary: var(--color-turquoise-accent-50);
+    --ui-bg: var(--color-neutral-black-600);
+    --ui-bg-muted: var(--color-black-highlight-600);
+}
+
 @theme static {
-    --color-black-base-50: #F1F1F1;
-    --color-black-base-100: #C8C8C8;
-    --color-black-base-200: #A1A1A1;
-    --color-black-base-300: #7C7C7C;
-    --color-black-base-400: #595959;
-    --color-black-base-500: #383838;
+    --color-neutral-black-50: #F1F1F1;
+    --color-neutral-black-100: #C8C8C8;
+    --color-neutral-black-200: #A1A1A1;
+    --color-neutral-black-300: #7C7C7C;
+    --color-neutral-black-400: #595959;
+    --color-neutral-black-500: #383838;
     /* Main */
-    --color-black-base-600: #1A1A1A;
+    --color-neutral-black-600: #1A1A1A;
     --color-black-highlight-50: #F1F1F1;
     --color-black-highlight-100: #CFCFCF;
     --color-black-highlight-200: #A8A8A8;
