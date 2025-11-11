@@ -3,7 +3,7 @@
 
 :root {
     --ui-primary: var(--color-turquoise-accent-50);
-    --ui-bg: var(--color-neutral-black-600);
+    --ui-bg: black;
     --ui-bg-muted: var(--color-black-highlight-600);
 }
 
