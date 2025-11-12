@@ -3,6 +3,9 @@
 
 :root {
     --ui-primary: var(--color-turquoise-accent-50);
+    --ui-secondary: var(--color-dark-red-accent-300);
+    --ui-tertiary: var(--color-medium-red-accent-300);
+    --ui-quarternary: var(--color-light-red-accent-200);
     --ui-bg: black;
     --ui-bg-muted: var(--color-black-highlight-600);
 }
