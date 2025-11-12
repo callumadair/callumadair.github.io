@@ -75,3 +75,8 @@ alias U := update-workspace
 # Update just the workspace level dependencies.
 update-workspace:
     cargo update --workspace
+
+alias P := push
+    
+push:
+    git remote | xargs -L1 git push --all
