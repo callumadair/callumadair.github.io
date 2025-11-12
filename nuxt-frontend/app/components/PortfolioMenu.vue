@@ -53,6 +53,17 @@ const items = ref<NavigationMenuItem[][]>([
         {
             label: "Theme",
             icon: "lucide:palette",
+            popover: {
+                mode: "hover"
+            },
+            children: [
+                {
+                    label: "Dark",
+                }
+                , {
+                    label: "Light",
+                }
+            ]
         }
     ]
 ]);
@@ -67,7 +78,7 @@ const textSize = "text-sm";
             :class="!collapsed ? 'w-56' : ''">
             <div class="flex flex-row w-full">
                 <button @click="toggleCollapse"
-                    class="p-2 flex grow justify-start items-center bg-ui hover:bg-muted hover:cursor-pointer space-x-2.5">
+                    class="p-3 rounded-xs flex grow justify-start items-center bg-ui hover:text-secondary hover:bg-muted hover:cursor-pointer space-x-2.5">
                     <Icon :name="collapseButtonIcon" :size="iconSize" />
                     <span v-if="!collapsed" :class="textSize">
                         Collapse
@@ -76,8 +87,8 @@ const textSize = "text-sm";
             </div>
             <div class="flex flex-col grow justify-between w-full">
                 <div v-for="section in items">
-                    <NuxtLink v-for="item in section" :class="item.class"
-                        class="p-2 hover:bg-muted flex grow items-center space-x-2.5" @click="item.onSelect"
+                    <NuxtLink v-for="item in section" :class="item.class" active-class="text-info"
+                        class="p-3 rounded-xs hover:bg-muted flex grow items-center space-x-2.5" @click="item.onSelect"
                         :to="item.to" :target="item.target">
                         <Icon v-if="item.icon && (typeof item.icon) === 'string'" :name="item.icon" :size="iconSize" />
                         <span v-if="!collapsed && item.label && (typeof item.label) === 'string'" class="text-nowrap"
