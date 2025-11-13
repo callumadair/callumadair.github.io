@@ -1,0 +1,11 @@
+stages:
+  - check
+  - test
+  - build
+
+.rust:
+  image: "callumadair/portfolio-backend:latest"
+  variables:
+    BACKEND_DIR: "./backend"
+  before_script:
+    - cd $BACKEND_DIR
