@@ -9,3 +9,32 @@ stages:
     BACKEND_DIR: "./backend"
   before_script:
     - cd $BACKEND_DIR
+
+clippy:
+  stage: check
+  script:
+    - cargo clippy
+
+rustfmt:
+  stage: check
+  script:
+    - cargo +nightly fmt --check
+
+llvm-nextest:
+  stage: test
+  # this uses region for coverage summary
+  coverage: '/TOTAL\s+(\d+\s+)+(\d+\.\d+\%)/'
+  script:
+    - cargo llvm-cov nextest
+    - cargo llvm-cov report --cobertura --output-path cobertura.xml
+  artifacts:
+    reports:
+      junit: junit.xml
+      coverage_report:
+        coverage_format: cobertura
+        path: cobertura.xml
+
+cargo-build:
+  stage: build
+  script:
+    - cargo build
