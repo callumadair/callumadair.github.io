@@ -11,16 +11,19 @@ stages:
     - cd $BACKEND_DIR
 
 clippy:
+  extends: .rust
   stage: check
   script:
     - cargo clippy
 
 rustfmt:
+  extends: .rust
   stage: check
   script:
     - cargo +nightly fmt --check
 
 llvm-nextest:
+  extends: .rust
   stage: test
   # this uses region for coverage summary
   coverage: '/TOTAL\s+(\d+\s+)+(\d+\.\d+\%)/'
@@ -35,6 +38,7 @@ llvm-nextest:
         path: cobertura.xml
 
 cargo-build:
+  extends: .rust
   stage: build
   script:
     - cargo build

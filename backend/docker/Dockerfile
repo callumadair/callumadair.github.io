@@ -5,6 +5,7 @@ EXPOSE 8080
 ENV RUSTFLAGS="-C target-feature=-crt-static"
 # Add alpine dependencies.
 RUN apk add alsa-lib-dev 
+RUN apk add bash
 RUN apk add clang 
 RUN apk add curl 
 RUN apk add mold 
@@ -19,3 +20,9 @@ RUN cargo install --locked bacon --all-features
 # Install nightly toolchain and add cranelift.
 RUN rustup install nightly
 RUN rustup component add rustc-codegen-cranelift-preview --toolchain nightly
+
+# Add tools for ci
+RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+RUN cargo binstall cargo-llvm-cov
+RUN cargo binstall cargo-nextest
+RUN cargo binstall gitlab_clippy
