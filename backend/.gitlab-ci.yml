@@ -5,10 +5,9 @@ stages:
 
 .rust:
   cache:
-    - key:
-        files:
-          - backend/Cargo.lock
+    - key: $CI_COMMIT_REF_SLUG
       paths:
+        - backend/.cargo/
         - backend/target
   image: "callumadair/portfolio-backend:latest"
   variables:
