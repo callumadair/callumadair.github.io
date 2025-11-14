@@ -1,5 +1,5 @@
 # This line needs to come before anything else in Cargo.toml
-# cargo-features = [ "codegen-backend" ]
+cargo-features = [ "codegen-backend" ]
 
 [workspace]
     members  = [ "shared", "migration", "entity" ]
@@ -50,8 +50,8 @@
 
 [profile.dev]
     # Unfortunately this is not possible to do here as cranelift does not yet support `wasm-unknown-unknown`.
-    # codegen-backend = "cranelift"
-    opt-level = 1
+    codegen-backend = "cranelift"
+    opt-level       = 1
 
     [profile.dev.package."*"]
         opt-level = 3
