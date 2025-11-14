@@ -11,3 +11,6 @@
 
 [profile.dev]
     codegen-backend = "cranelift"
+
+[build]
+    rustflags = [ "-Z", "threads=16" ]
