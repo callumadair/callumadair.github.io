@@ -1,7 +1,7 @@
 stages:
+  - build
   - check
   - test
-  - build
 
 .rust:
   cache:
@@ -17,6 +17,12 @@ stages:
     CACHE_COMPRESSION_LEVEL: "fastest"
   before_script:
     - cd $BACKEND_DIR
+
+cargo-build:
+  extends: .rust
+  stage: build
+  script:
+    - cargo build
 
 clippy:
   extends: .rust
@@ -44,9 +50,3 @@ llvm-nextest:
       coverage_report:
         coverage_format: cobertura
         path: cobertura.xml
-
-cargo-build:
-  extends: .rust
-  stage: build
-  script:
-    - cargo build
