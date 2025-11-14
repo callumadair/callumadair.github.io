@@ -76,9 +76,9 @@ alias U := update-workspace
 update-workspace:
     cargo update --workspace
 
-alias P := push
+alias P := git-push
     
-push:
+git-push:
     git remote | xargs -L1 git push --all
 
 alias bbd := build-backend-docker
