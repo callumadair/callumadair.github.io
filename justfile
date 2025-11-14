@@ -80,3 +80,20 @@ alias P := push
     
 push:
     git remote | xargs -L1 git push --all
+
+alias bbd := build-backend-docker
+build-backend-docker:
+    docker build -t callumadair/portfolio-backend:latest --file ./backend/docker/Dockerfile .
+
+
+alias pdb := push-docker-backend
+push-docker-backend:
+    docker push callumadair/portfolio-backend:latest
+
+alias bfd := build-frontend-docker
+build-frontend-docker:
+    docker build -t callumadair/nuxt-portfolio-frontend:latest --file ./nuxt-frontend/Dockerfile .
+
+alias pfd := push-frontend-docker
+push-frontend-docker:
+    docker build -t callumadair/nuxt-portfolio-frontend:latest

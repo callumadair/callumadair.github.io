@@ -13,6 +13,7 @@ RUN apk add musl-dev
 RUN apk add openssl-dev 
 RUN apk add perl
 
+
 # Add sea-orm cli
 RUN cargo install --locked sea-orm-cli@1.1.0
 RUN cargo install --locked bacon --all-features
@@ -20,6 +21,10 @@ RUN cargo install --locked bacon --all-features
 # Install nightly toolchain and add cranelift.
 RUN rustup install nightly
 RUN rustup component add rustc-codegen-cranelift-preview --toolchain nightly
+
+# Add rustfmt, clippy, and rust components.
+RUN rustup component add rustfmt --toolchain nightly
+RUN rustup component add cargo clippy rust-std rustc
 
 # Add tools for ci
 RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
