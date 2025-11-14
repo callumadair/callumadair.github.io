@@ -24,7 +24,7 @@ RUN rustup component add rustc-codegen-cranelift-preview --toolchain nightly
 
 # Add rustfmt, clippy, and rust components.
 RUN rustup component add rustfmt --toolchain nightly
-RUN rustup component add cargo clippy rust-std rustc
+RUN rustup component add --toolchain stable-x86_64-unknown-linux-musl cargo clippy rust-std rustc
 
 # Add tools for ci
 RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
