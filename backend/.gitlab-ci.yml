@@ -4,9 +4,17 @@ stages:
   - build
 
 .rust:
+  cache:
+    - key:
+        files:
+          - backend/Cargo.lock
+      paths:
+        - backend/target
   image: "callumadair/portfolio-backend:latest"
   variables:
     BACKEND_DIR: "./backend"
+    FF_USE_FASTZIP: "true"
+    CACHE_COMPRESSION_LEVEL: "fastest"
   before_script:
     - cd $BACKEND_DIR
 
