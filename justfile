@@ -85,9 +85,8 @@ alias bbd := build-backend-docker
 build-backend-docker:
     docker build -t callumadair/portfolio-backend:latest --file ./backend/docker/Dockerfile .
 
-
-alias pdb := push-docker-backend
-push-docker-backend:
+alias pbd := push-backend-docker
+push-backend-docker:
     docker push callumadair/portfolio-backend:latest
 
 alias bfd := build-frontend-docker
