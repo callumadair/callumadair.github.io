@@ -20,7 +20,6 @@ RUN cargo install --locked bacon --all-features
 
 # Install nightly toolchain and add cranelift.
 RUN rustup install nightly-x86_64-unknown-linux-musl
-RUN rustup component add rustc-codegen-cranelift-preview --toolchain nightly
 
 # Add rustfmt, clippy, and rust components.
 RUN rustup component add --toolchain nightly-x86_64-unknown-linux-musl cargo clippy rust-std rustc rustfmt
