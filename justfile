@@ -96,3 +96,11 @@ build-frontend-docker:
 alias pfd := push-frontend-docker
 push-frontend-docker:
     docker build -t callumadair/nuxt-portfolio-frontend:latest
+
+alias ci := ci-jobs
+ci-jobs:
+    #!/usr/bin/env bash
+    cd backend
+    cargo run fmt --check
+    cargo clippy --workspace
+    cargo llvm nextest
