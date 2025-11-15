@@ -31,3 +31,4 @@ RUN curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/ca
 RUN cargo binstall cargo-llvm-cov
 RUN cargo binstall cargo-nextest
 RUN cargo binstall gitlab_clippy
+RUN cargo binstall cargo-hakari

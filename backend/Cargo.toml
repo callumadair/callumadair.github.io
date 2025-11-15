@@ -2,12 +2,12 @@
 cargo-features = [ "codegen-backend" ]
 
 [workspace]
-    members  = [ "shared", "migration", "entity" ]
-    resolver = "2"
+    members  = [ "shared", "migration", "entity" , "workspace-hack" ]
+    resolver = "3"
 
     [workspace.dependencies]
-        bon                = "3.7.1"
-        derive_more        = { version = "2.0.1", features = [ "display" ] }
+        bon         = "3.7.1"
+        derive_more = { version = "2.0.1", features = [ "display" ] }
         # TODO: either add back in aws-lc-rc or use ring feature or alternate crypto provider.
         rustls             = { version = "0.23.30", default-features = false }
         serde              = { version = "1.0.217", features = [ "derive" ] }
@@ -113,6 +113,7 @@ cargo-features = [ "codegen-backend" ]
     utoipa.workspace = true
     utoipa-actix-web = { version = "0.1.2" }
     utoipa-swagger-ui = { version = "9.0.0", features = [ "actix-web", "debug-embed" ] }
+workspace-hack = { version = "0.1", path = "workspace-hack" }
 
 [lints]
     workspace = true

@@ -563,6 +563,7 @@ dependencies = [
  "utoipa",
  "utoipa-actix-web",
  "utoipa-swagger-ui",
+ "workspace-hack",
 ]
 
 [[package]]
@@ -1169,6 +1170,7 @@ dependencies = [
  "shared",
  "thiserror 2.0.17",
  "utoipa",
+ "workspace-hack",
 ]
 
 [[package]]
@@ -1925,6 +1927,7 @@ dependencies = [
  "entity",
  "sea-orm-migration",
  "thiserror 2.0.17",
+ "workspace-hack",
 ]
 
 [[package]]
@@ -3035,6 +3038,7 @@ dependencies = [
  "serde_json",
  "strum 0.27.2",
  "utoipa",
+ "workspace-hack",
 ]
 
 [[package]]
@@ -4420,6 +4424,53 @@ name = "wit-bindgen"
 version = "0.46.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f17a85883d4e6d00e8a97c586de764dabcc06133f7f1d55dce5cdc070ad7fe59"
+
+[[package]]
+name = "workspace-hack"
+version = "0.1.0"
+dependencies = [
+ "actix-http",
+ "actix-router",
+ "actix-tls",
+ "actix-web",
+ "bigdecimal",
+ "bytes",
+ "chrono",
+ "concurrent-queue",
+ "crossbeam-utils",
+ "deranged",
+ "derive_more 2.0.1",
+ "derive_more-impl",
+ "digest",
+ "flate2",
+ "futures-task",
+ "futures-util",
+ "heck 0.4.1",
+ "indexmap",
+ "log",
+ "memchr",
+ "num-traits",
+ "regex-automata",
+ "rust-embed-utils",
+ "rust_decimal",
+ "sea-query",
+ "sea-query-binder",
+ "serde",
+ "serde_core",
+ "serde_json",
+ "sha2",
+ "simd-adler32",
+ "smallvec",
+ "syn 2.0.110",
+ "thiserror 2.0.17",
+ "time",
+ "time-macros",
+ "tokio",
+ "tracing",
+ "tracing-core",
+ "tracing-subscriber",
+ "uuid",
+]
 
 [[package]]
 name = "writeable"
