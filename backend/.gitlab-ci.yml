@@ -10,10 +10,16 @@ stages:
         - backend/.cargo/
         - backend/target
   image: "callumadair/portfolio-backend:latest"
+  services:
+    - postgres
   variables:
     BACKEND_DIR: "./backend"
     FF_USE_FASTZIP: "true"
     CACHE_COMPRESSION_LEVEL: "fastest"
+    POSTGRES_DB: postgres
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: password
+    POSTGRES_HOST_AUTH_METHOD: trust
   before_script:
     - cd $BACKEND_DIR
 
