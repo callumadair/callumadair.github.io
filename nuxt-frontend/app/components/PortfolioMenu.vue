@@ -19,7 +19,7 @@ const items = ref<NavigationMenuItem[][]>([
     {
       label: "Home",
       icon: "lucide:house",
-      to: "/"
+      to: "/home/"
     },
     {
       label: "Personal Projects",
