@@ -51,7 +51,7 @@ llvm-nextest:
     - cargo llvm-cov report --cobertura --output-path cobertura.xml
   artifacts:
     reports:
-      junit: junit.xml
+      junit: $BACKEND_DIR/junit.xml
       coverage_report:
         coverage_format: cobertura
-        path: cobertura.xml
+        path: $BACKEND_DIR/cobertura.xml
