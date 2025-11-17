@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-row">
+    <UMain class="flex flex-row">
         <PortfolioMenu />
 
         <NuxtPage class="flex grow p-2" />
@@ -12,5 +12,5 @@
                 </sup>
             </span>
         </UFooter>
-    </div>
+    </UMain>
 </template>
