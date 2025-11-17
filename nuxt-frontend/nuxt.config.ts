@@ -22,7 +22,7 @@ export default defineNuxtConfig({
 	},
 	ui: {
 		theme: {
-			colors: ["primary", "secondary", "tertiary", "quarternary", "quinternary", "success", "error", "info", "warning", "neutral", "neutralHighlight"]
+			colors: ["primary", "secondary", "tertiary", "quarternary", "quinternary", "light-monochrome", "medium-monochrome", "dark-monochrome", "success", "error", "info", "warning", "neutral", "neutralHighlight"]
 		}
 	}
 });
