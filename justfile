@@ -80,7 +80,7 @@ alias U := update-all
 
 update-all:
     cd nuxt-frontend && bun update
-    z backend && cargo update --workspace
+    cd backend && cargo update --workspace
 
 alias P := git-push
     
