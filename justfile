@@ -64,17 +64,23 @@ alias L := lint-fix
 lint-fix:
     cargo clippy --workspace --all-features --fix
 
-alias u := update
+alias uc := update
 
 # Update all cargo dependencies in the local crate.
 update:
     cargo update
 
-alias U := update-workspace
+alias uw := update-workspace
 
 # Update just the workspace level dependencies.
 update-workspace:
     cargo update --workspace
+
+alias U := update-all
+
+update-all:
+    cd nuxt-frontend && bun update
+    z backend && cargo update --workspace
 
 alias P := git-push
     
